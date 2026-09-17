@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdfbf7;
+  --foreground: #171717;
+}
+
+@theme {
+  /* Brand palette — sampled from the KDF logo. See docs/color-palette.md */
+  --color-brand-50: #f7f9fa;
+  --color-brand-100: #edf0f3;
+  --color-brand-200: #d5dce2;
+  --color-brand-300: #abbac4;
+  --color-brand-400: #6a8395;
+  --color-brand-500: #4c606e;
+  --color-brand-600: #3e4f5b;
+  --color-brand-700: #34424c;
+  --color-brand-800: #28333c;
+  --color-brand-900: #1d262d;
+  --color-brand-950: #11181d;
+
+  --color-signal-50: #fef6f1;
+  --color-signal-100: #fceade;
+  --color-signal-200: #f9d3b8;
+  --color-signal-300: #f5b384;
+  --color-signal-400: #f3893f;
+  --color-signal-500: #f56501;
+  --color-signal-600: #d15905;
+  --color-signal-700: #ab4a07;
+  --color-signal-800: #863c09;
+  --color-signal-900: #66300a;
+  --color-signal-950: #401f08;
+
+  --color-cream-50: #fdfbf7;
+  --color-cream-100: #f8f2e8;
+  --color-cream-300: #e8ddc8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
