@@ -30,5 +30,13 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    // A separately-built Lovable reference project (its own tsconfig,
+    // its own "@/*" alias pointing elsewhere) kept for design reference
+    // only — see the note in .gitignore. Never imported from src/, so
+    // excluding it from the typecheck doesn't touch the real app; without
+    // this, its unrelated path-alias errors drown out this project's own.
+    "design"
+  ]
 }

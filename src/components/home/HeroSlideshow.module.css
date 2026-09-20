@@ -1,0 +1,17 @@
+/* A slow, continuous breathing zoom — independent of the crossfade, and
+   running always, on every slide, whether it's the visible one or not (it
+   costs nothing while opacity: 0). This is where the slideshow's sense of
+   motion comes from; the transition between images is a plain crossfade
+   with no movement of its own — see HeroSlideshow.tsx for why. */
+.kenBurns {
+  animation: kdf-hero-ken-burns 16000ms ease-in-out infinite alternate;
+}
+
+@keyframes kdf-hero-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}

@@ -1,0 +1,37 @@
+/* Scroll cue — a playhead running down a short rule, echoing the loading
+   screen's travelling head. */
+.cueTrack {
+  position: relative;
+  width: 1px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.cueHead {
+  position: absolute;
+  inset-inline-start: -1px;
+  top: 0;
+  width: 3px;
+  height: 14px;
+  background: #f56501;
+  border-radius: 2px;
+  animation: cueRun 2200ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes cueRun {
+  0% {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+  22% {
+    opacity: 1;
+  }
+  78% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(46px);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,132 @@
+.footer {
+  padding: 24px 24px 0;
+  background: var(--color-cream-50);
+}
+.shell {
+  max-width: 1536px;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 28px 28px 0 0;
+  background: var(--color-brand-950);
+}
+.invitation {
+  position: relative;
+  isolation: isolate;
+  min-height: 460px;
+  display: flex;
+  align-items: flex-end;
+  padding: 64px clamp(28px, 5vw, 80px) 48px;
+  overflow: hidden;
+}
+.photograph {
+  z-index: -2;
+  object-fit: cover;
+  object-position: center top;
+}
+.scrim {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(0deg, #11181d 0%, rgb(17 24 29 / 86%) 12%, rgb(17 24 29 / 42%) 40%, transparent 76%);
+}
+.invitationContent { width: 100%; }
+.title {
+  max-width: 900px;
+  color: var(--color-cream-50);
+  font-size: clamp(40px, 5.2vw, 72px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 26px;
+  padding: 6px 6px 6px 22px;
+  border-radius: 40px;
+  background: var(--color-cream-50);
+  color: var(--color-brand-950);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 250ms, transform 250ms;
+}
+.actionArrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-signal-500);
+}
+.action svg { width: 21px; height: 21px; transition: transform 250ms; }
+.action:hover { background: white; transform: translateY(-3px); }
+.action:hover svg { transform: translate(2px, -2px); }
+.footer a:focus-visible { outline: 2px solid var(--color-signal-400); outline-offset: 6px; }
+.base { padding: 8px clamp(28px, 5vw, 80px) 22px; }
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr 1.15fr;
+  align-items: start;
+  gap: 32px;
+  padding: 30px 0 32px;
+  border-top: 1px solid rgb(253 251 247 / 18%);
+}
+.logoCard { display: inline-flex; padding: 10px 14px; background: var(--color-cream-50); border-radius: 8px; }
+.logo { width: 148px; height: auto; }
+.label { margin: 0 0 12px; color: var(--color-brand-300); font-size: 12px; }
+.contactLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--color-cream-50);
+  font-size: 15px;
+  transition: color 200ms;
+}
+.contactLink bdi { overflow-wrap: anywhere; }
+.contactLink > span { color: var(--color-signal-400); transition: transform 200ms; }
+.contactLink:hover { color: var(--color-signal-400); }
+.contactLink:hover > span { transform: translate(2px, -2px); }
+.contactItem address { color: var(--color-cream-100); font-size: 12px; font-style: normal; line-height: 1.8; }
+.contactItem address > span { display: block; }
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 18px;
+  border-top: 1px solid rgb(253 251 247 / 12%);
+  color: var(--color-brand-300);
+  font-size: 10px;
+  line-height: 1.8;
+}
+.bottom a { color: var(--color-cream-100); text-decoration: underline; text-decoration-color: var(--color-brand-600); text-underline-offset: 4px; }
+.bottom a:hover { color: var(--color-signal-400); }
+:global(html[dir="rtl"]) .title { letter-spacing: 0; line-height: 1.4; }
+:global(html[dir="rtl"]) .action { padding: 6px 22px 6px 6px; }
+:global(html[dir="rtl"]) .action svg { scale: -1 1; }
+@media (min-width: 1600px) { .footer { padding-inline: 48px; } }
+@media (max-width: 1000px) {
+  .contactGrid { grid-template-columns: 1fr 1fr; gap: 28px 48px; }
+}
+@media (max-width: 640px) {
+  .footer { padding: 12px 12px 0; }
+  .shell { border-radius: 20px 20px 0 0; }
+  .invitation { min-height: 430px; padding: 40px 24px 32px; }
+  .photograph { object-position: 76% center; }
+  .scrim { background: linear-gradient(0deg, #11181d 0%, rgb(17 24 29 / 80%) 22%, rgb(17 24 29 / 22%) 55%, transparent 90%); }
+  .title { font-size: clamp(32px, 8.7vw, 50px); }
+  .action { margin-top: 20px; gap: 20px; font-size: 12px; }
+  .actionArrow { width: 36px; height: 36px; }
+  .base { padding: 0 24px 20px; }
+  .contactGrid { grid-template-columns: 1fr; gap: 22px; padding: 26px 0; }
+  .logo { width: 132px; }
+  .logoCard { padding: 8px 12px; }
+  .contactItem { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: baseline; gap: 14px; }
+  .label { margin: 0; font-size: 11px; }
+  .contactLink { font-size: 14px; gap: 8px; }
+  .bottom { flex-direction: column; gap: 6px; font-size: 9px; }
+}
+

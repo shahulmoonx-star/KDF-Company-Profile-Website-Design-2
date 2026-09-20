@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { signalIntroDone } from "./motion/intro";
 import styles from "./LoadingScreen.module.css";
 
 export const HOLD_MS = 4500;
@@ -37,6 +38,9 @@ const useIsomorphicLayoutEffect =
  * Nothing about the navbar is hardcoded here. The real header and logo are
  * measured on mount, so restyling the navbar can never desynchronise the
  * landing — which is what broke this animation before.
+ *
+ * Plays on every load, including a language switch — the client wants the
+ * sequence visible every time, not gated behind a "seen it once" check.
  */
 export default function LoadingScreen() {
   const [phase, setPhase] = useState<"playing" | "fading" | "done">("playing");
@@ -107,7 +111,13 @@ export default function LoadingScreen() {
   useEffect(() => {
     // The sequence runs for every viewer. It is deliberately not gated on
     // prefers-reduced-motion — see the note at the foot of the stylesheet.
-    const fadeTimer = setTimeout(() => setPhase("fading"), HOLD_MS);
+    const fadeTimer = setTimeout(() => {
+      setPhase("fading");
+      // Released as the fade begins, not after it: the page's own entrance
+      // animations rise in while this overlay dissolves. Timings are not
+      // shared — see motion/intro.ts.
+      signalIntroDone();
+    }, HOLD_MS);
     const doneTimer = setTimeout(() => setPhase("done"), HOLD_MS + FADE_MS);
     return () => {
       clearTimeout(fadeTimer);

@@ -1,0 +1,60 @@
+/*
+ * A seamless logo marquee, CSS only — no JS, no measurement, no clones
+ * created at runtime.
+ *
+ * Two identical tracks sit side by side inside the viewport and both slide
+ * left by exactly their own width. When the first has travelled fully out
+ * of frame the second is occupying precisely the position the first
+ * started from, so the loop restarting is invisible. `min-width: 100%`
+ * plus `space-around` is what makes that hold even when there are too few
+ * logos to fill the frame on their own: the track is never narrower than
+ * the viewport, so there is never a gap chasing the last logo.
+ */
+.viewport {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  /* Logos dissolve at both edges instead of being cut off by a hard line. */
+  mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+}
+
+.track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: kdf-marquee 32s linear infinite;
+  will-change: transform;
+}
+
+@keyframes kdf-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Arabic reads right to left, so the logos should travel the other way. */
+html[dir="rtl"] .track {
+  animation-direction: reverse;
+}
+
+/* Hovering holds the row still, which is what makes a logo reachable long
+   enough to read — and to come up to full colour. */
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+/*
+ * No prefers-reduced-motion branch, deliberately — this project's standing
+ * rule. The client reviews on a machine with Windows animation effects
+ * switched off, and gating motion on that query means they see a static
+ * site. See LoadingScreen.module.css for the full note.
+ */

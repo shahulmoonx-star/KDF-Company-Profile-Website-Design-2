@@ -53,8 +53,9 @@ Entities the API needs to expose, derived from the content audit in [`website-co
 A starting sketch for alignment with the backend team — endpoint names/shapes will firm up as each section is actually built:
 
 ```
-GET  /api/site-settings
-GET  /api/home
+GET  /api/site-settings?locale={en|ar}
+GET  /api/navigation?locale={en|ar}
+GET  /api/home?locale={en|ar}
 GET  /api/about
 GET  /api/leadership/chairman
 GET  /api/leadership/ceo
@@ -70,6 +71,8 @@ POST /api/contact
 POST /api/careers/apply        (future)
 ```
 
+**Every content endpoint takes a `locale` query param** (`en` or `ar`) and returns already-localized strings — the frontend never ships a translation dictionary to the client; it asks the API for one language at a time, matching the URL the visitor is on. See [`i18n.md`](./i18n.md) for the routing (`/en/...`, `/ar/...`) this pairs with.
+
 ## Frontend Data Layer Pattern
 
 Starting with the next content phase, page/section components will **not** hardcode copy directly. Instead:
@@ -80,7 +83,12 @@ Starting with the next content phase, page/section components will **not** hardc
 4. Use Next.js's server-side fetching (Server Components, or `fetch` with a `revalidate` option) so content stays server-rendered.
 5. Revalidation: start with simple time-based ISR (e.g. `revalidate: 300`); move to on-demand revalidation (a Next.js revalidate API route the CMS calls on publish) once the CMS's save flow is defined.
 
-This repo has no content pages built against this pattern yet (only the placeholder homepage, Navbar, and loading screen exist so far) — it applies starting with the next page/content phase.
+`getSiteSettings(locale)`, `getMainNavigation(locale)` and `getHomePage(locale)` are the accessors built against this pattern so far (see `src/lib/content/`) — each takes the `Locale` the route is rendering and returns content already localized to it.
+
+Two notes for whoever wires the real endpoints:
+
+- **The homepage is one document, not one request per band.** It is edited as a single page in the CMS, and one round trip keeps the server render fast. `HomePage` in `types.ts` is the contract — every heading, eyebrow and lead on the page is a field on it, so an editor can retitle any band without a frontend change.
+- **Numbers are numbers.** Statistics and capacities come back as numeric values with a separate `unit` string rather than pre-formatted display strings, because the UI counts them up on scroll. Sending `"70,000 m²"` as one string would break that.
 
 ## Environment Configuration
 

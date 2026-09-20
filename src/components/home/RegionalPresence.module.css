@@ -1,0 +1,81 @@
+/* Supporting styles for RegionalPresence.tsx.
+   No prefers-reduced-motion guard anywhere in this file — see the standing
+   note in globals.css on why this project always shows its motion. */
+
+.panelGrid {
+  background-image:
+    linear-gradient(to right, rgba(253, 251, 247, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(253, 251, 247, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* The connector arcs draw themselves in once, on load — plain stroke-dash
+   animation, no JS and nothing to gate. */
+@keyframes rp-draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.drawLine {
+  animation: rp-draw-line 1.8s ease-out forwards;
+}
+
+/* Once an arc is drawn in, the selected one keeps a slow marching-ants
+   flow so the click has an obvious, ongoing effect rather than a single
+   flash. Runs after drawLine's own animation finishes. */
+@keyframes rp-arc-flow {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.arcFlow {
+  animation:
+    rp-draw-line 1.8s ease-out forwards,
+    rp-arc-flow 2.4s linear 1.8s infinite;
+}
+
+/* The HQ marker's halo. transform + opacity only (with transform-box so it
+   scales from the circle's own center, not the SVG viewport's origin) —
+   the same compositor-only approach as the rest of the site's motion,
+   applied to an SVG shape instead of a DOM element. */
+@keyframes rp-hq-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.45;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+.hqPulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rp-hq-pulse 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* The capability cards' ring gauges. stroke-dasharray is constant (the
+   ring's own circumference); stroke-dashoffset animates from that same
+   full value down to each card's own target, both passed in per-element
+   as CSS custom properties since the target differs per gauge. */
+.gaugeRing {
+  stroke-dasharray: var(--gauge-circumference);
+  stroke-dashoffset: var(--gauge-circumference);
+  animation: rp-gauge-in 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes rp-gauge-in {
+  from {
+    stroke-dashoffset: var(--gauge-circumference);
+  }
+  to {
+    stroke-dashoffset: var(--gauge-offset);
+  }
+}

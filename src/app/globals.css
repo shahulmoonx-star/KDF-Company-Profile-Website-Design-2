@@ -47,4 +47,125 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Scrolling stays fully functional (wheel, trackpad, touch, keyboard,
+   drag-to-scroll on a scrollbar-less track) — only the scrollbar's own
+   visual track/thumb is hidden, site-wide. Sideways scrolling is cut off
+   entirely (overflow-x above and here): with no scrollbar to reveal it,
+   any element that runs even slightly wider than the viewport would
+   otherwise be invisible to spot but still push the page sideways — this
+   is what surfaced as a mobile layout bug that overflow-x: hidden fixes
+   defensively even if a future component reintroduces it. */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
+  overflow-x: hidden;
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, current Edge */
+}
+
+/* Geist has no Arabic coverage, so Arabic pages would otherwise fall back to
+   whatever the OS supplies. IBM Plex Sans Arabic is loaded in the locale
+   layout and matches Geist's tone closely enough to keep the two versions of
+   the site looking like one design. */
+html[lang="ar"] body {
+  font-family: var(--font-arabic), var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll-reveal system (src/components/motion/Reveal.tsx)
+
+   Elements are visible by default; the client applies data-reveal="hidden"
+   before first paint and flips it to "shown" when the element scrolls into
+   view. Only transform and opacity animate, so reveals stay on the
+   compositor however many are on screen at once.
+
+   There is deliberately no prefers-reduced-motion block anywhere in this
+   file. The client's own machine reports reduced motion, and gating on it
+   means they see a static site. Do not add one without asking.
+--------------------------------------------------------------------------- */
+[data-reveal] {
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal="hidden"] {
+  opacity: 0;
+}
+
+[data-reveal="hidden"][data-reveal-variant="up"] {
+  transform: translateY(22px);
+}
+
+[data-reveal="hidden"][data-reveal-variant="rise"] {
+  transform: translateY(52px);
+}
+
+[data-reveal="hidden"][data-reveal-variant="rule"] {
+  transform: scaleX(0);
+}
+
+[data-reveal="hidden"][data-reveal-variant="column"] {
+  transform: scaleY(0);
+}
+
+[data-reveal-variant="column"] {
+  transform-origin: center top;
+  transition-duration: 1100ms;
+}
+
+[data-reveal-variant="rule"] {
+  transform-origin: left center;
+}
+
+html[dir="rtl"] [data-reveal-variant="rule"] {
+  transform-origin: right center;
+}
+
+[data-reveal="shown"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Measure ticks laid over a gauge track (src/components/home/Capability.tsx). */
+.kdf-ticks {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(253, 251, 247, 0.22) 0px,
+    rgba(253, 251, 247, 0.22) 1px,
+    transparent 1px,
+    transparent 40px
+  );
+}
+
+/* Mega-menu panel entrance (src/components/nav/MegaMenu.tsx). Transform +
+   opacity only, no reduced-motion gate — see the loading screen's standing
+   note on why this project always shows its motion. */
+@keyframes kdf-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kdf-column-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

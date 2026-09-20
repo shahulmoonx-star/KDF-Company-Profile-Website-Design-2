@@ -37,6 +37,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# firebase
+.firebase
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
@@ -47,3 +53,11 @@ AGENTS.md
 
 #AI
 .claude
+
+# Published design-canvas bundles: large generated artifacts of the design
+# tool (the editor plus base64-embedded images inlined into one file), not
+# the design source itself — and the editor's own boilerplate mentions the
+# tool by name throughout, which this project keeps out of the repo. The
+# *.dc.html artboards, canvas.json and images beside each bundle ARE the
+# real design source and stay tracked; the exception below un-ignores them.
+design
