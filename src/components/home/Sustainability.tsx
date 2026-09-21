@@ -133,10 +133,10 @@ export default function Sustainability({ content }: { content: HomePage["sustain
             backgroundSize: "44px 44px",
           }}
         />
-        {/* giant ghost counter — dark rather than the reference's faint
-            orange, and at higher opacity: against KDF's cream backdrop a
-            light, translucent number read as barely visible. */}
-        <span className="absolute right-4 lg:right-10 top-6 lg:top-10 font-sans font-black text-[90px] lg:text-[160px] leading-none text-brand-950/[0.14] select-none pointer-events-none">
+        {/* giant ghost counter — brand orange, at an opacity that keeps it
+            clearly legible against KDF's cream backdrop without competing
+            with the card content in front of it. */}
+        <span className="absolute right-4 lg:right-10 top-6 lg:top-10 font-sans font-black text-[90px] lg:text-[160px] leading-none text-signal-500/[0.28] select-none pointer-events-none">
           {String(active + 1).padStart(2, "0")}
         </span>
 
