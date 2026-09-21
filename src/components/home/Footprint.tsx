@@ -31,7 +31,7 @@ export default function Footprint({ content }: { content: HomePage["footprint"] 
             anchored to the start edge — the same in both directions, so
             no rtl override is needed. */}
         <Image
-          src="/images/world-dot.webp"
+          src="/images/world-map-dotted.webp"
           alt=""
           fill
           sizes="(max-width: 1024px) 100vw, 980px"

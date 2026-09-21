@@ -8,11 +8,11 @@ import HeroSlideshow from "./HeroSlideshow";
 const SLIDE_INTERVAL_MS = 6000;
 
 const HERO_IMAGES = [
-  "/hero-image-1.webp",
-  "/hero-image-2.webp",
-  "/hero-image-3.webp",
-  "/hero-image-4.webp",
-  "/hero-image-5.webp",
+  "/images/hero-oilfield-sunset-1.webp",
+  "/images/hero-liquid-chemical-blending.webp",
+  "/images/hero-laboratory-testing.webp",
+  "/images/hero-mineral-processing.webp",
+  "/images/hero-field-engineering.webp",
 ] as const;
 
 function ChevronIcon({ direction }: { direction: "prev" | "next" }) {
