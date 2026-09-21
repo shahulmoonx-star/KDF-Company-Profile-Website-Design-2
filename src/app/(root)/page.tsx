@@ -8,8 +8,12 @@ const LOCALE_COOKIE = "kdf_locale";
 /**
  * Static export has no middleware, so unlike the old src/proxy.ts (which
  * inspected the Accept-Language header on the server) this picks a locale
- * client-side: the visitor's remembered cookie first, then the browser's
- * language list, falling back to the default. Firebase Hosting serves this
+ * client-side: the visitor's remembered cookie (set once they've explicitly
+ * switched language via the site's own switcher) if there is one, otherwise
+ * always English. The browser's language list is deliberately NOT consulted
+ * here — a first-time visitor always lands on English regardless of their
+ * browser/OS language, and only ever sees Arabic by following an explicit
+ * /ar/ link or switching languages themselves. Firebase Hosting serves this
  * page's prerendered HTML directly at "/", so the <noscript> refresh below
  * still lands JS-disabled visitors on the default locale.
  */
@@ -17,12 +21,6 @@ function pickLocale(): string {
   if (typeof document !== "undefined") {
     const match = document.cookie.match(new RegExp(`(?:^|; )${LOCALE_COOKIE}=([^;]+)`));
     if (match && isLocale(match[1])) return match[1];
-  }
-  if (typeof navigator !== "undefined") {
-    for (const tag of navigator.languages ?? [navigator.language]) {
-      const base = tag.split("-")[0]?.toLowerCase();
-      if (base && isLocale(base)) return base;
-    }
   }
   return defaultLocale;
 }
