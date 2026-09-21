@@ -342,23 +342,17 @@ const mainNavigationSource: NavItemSource[] = [
           },
         ],
       },
-    ],
-  },
-  {
-    id: "work-with-us",
-    label: { en: "Work With Us", ar: "اعمل معنا" },
-    children: [
       {
-        id: "work-tendering-supplier-registration",
-        label: {
-          en: "Tendering / Supplier Registration",
-          ar: "المناقصات وتسجيل الموردين",
-        },
-      },
-      {
-        id: "work-careers",
-        label: { en: "Careers", ar: "الوظائف" },
+        id: "work-with-us",
+        label: { en: "Work With Us", ar: "اعمل معنا" },
         children: [
+          {
+            id: "work-tendering-supplier-registration",
+            label: {
+              en: "Tendering / Supplier Registration",
+              ar: "المناقصات وتسجيل الموردين",
+            },
+          },
           {
             id: "work-careers-working-at-kdf",
             label: { en: "Working at KDF", ar: "العمل في KDF" },
