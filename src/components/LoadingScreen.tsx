@@ -5,7 +5,22 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { signalIntroDone } from "./motion/intro";
 import styles from "./LoadingScreen.module.css";
 
-export const HOLD_MS = 4500;
+/**
+ * How long the handoff's own CSS keyframes run (LoadingScreen.module.css:
+ * `measure`, `playhead`, `placeMark`, `plateIn`, `furniture` — every one of
+ * them is `ANIMATION_MS` long). Set once here and pushed into the CSS as
+ * the `--anim-ms` custom property below, rather than kept as a second
+ * `3700ms` literal in the stylesheet: two independently-hand-tuned numbers
+ * is exactly how HOLD_MS previously drifted to 4500ms, 800ms past the
+ * point the mark actually finishes travelling — the overlay held fully
+ * opaque, logo already docked, doing nothing, for that whole 800ms before
+ * it even started to fade. Single source of truth closes that gap for
+ * good instead of re-tuning two numbers to line up by hand.
+ */
+export const ANIMATION_MS = 3700;
+/** A brief, deliberate beat once the mark settles, before the fade begins. */
+const SETTLE_MS = 150;
+export const HOLD_MS = ANIMATION_MS + SETTLE_MS;
 export const FADE_MS = 700;
 
 /** Width the mark is drawn at while it is being placed. */
@@ -20,6 +35,31 @@ const GAUGE_WIDTH = 340;
 const LABEL_WIDTH = 560;
 /** Thickness of the navbar's orange bottom border, which the rule becomes. */
 const BORDER_PX = 3;
+
+/**
+ * sessionStorage, not localStorage: scoped to one tab and cleared when it
+ * closes, so a brand-new tab always gets the sequence again while a
+ * language switch or an in-tab reload doesn't replay it.
+ */
+const SEEN_KEY = "kdf:loading-seen";
+
+function alreadySeenThisTab(): boolean {
+  try {
+    return sessionStorage.getItem(SEEN_KEY) === "1";
+  } catch {
+    // Storage blocked (private-browsing lockdown, etc.) — play it safe and
+    // just show the sequence rather than risk a permanently-skipped intro.
+    return false;
+  }
+}
+
+function markSeenThisTab(): void {
+  try {
+    sessionStorage.setItem(SEEN_KEY, "1");
+  } catch {
+    // Nothing to do — worst case it plays again next time in this tab.
+  }
+}
 
 // useLayoutEffect warns during SSR; this component renders on the server too.
 const useIsomorphicLayoutEffect =
@@ -39,17 +79,53 @@ const useIsomorphicLayoutEffect =
  * measured on mount, so restyling the navbar can never desynchronise the
  * landing — which is what broke this animation before.
  *
- * Plays on every load, including a language switch — the client wants the
- * sequence visible every time, not gated behind a "seen it once" check.
+ * Plays once per browser tab. A fresh tab always gets the full sequence;
+ * navigating or switching language inside the same tab does not replay it.
+ * See `alreadySeenThisTab`/`markSeenThisTab` above for the sessionStorage
+ * mechanics. The server-rendered markup always plays the sequence — the
+ * skip only ever happens client-side, in the layout effect below, before
+ * the browser paints, so a repeat visit in the same tab never flashes the
+ * overlay at all.
  */
 export default function LoadingScreen() {
   const [phase, setPhase] = useState<"playing" | "fading" | "done">("playing");
   const [measured, setMeasured] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
+  // Read by the timer effect below so it never schedules a fade/done
+  // transition for a sequence that was skipped outright.
+  const skippedRef = useRef(false);
+  // React's Strict Mode (on by default under `next dev`) intentionally
+  // double-invokes effects on mount to surface missing-cleanup bugs. This
+  // effect has no cleanup, so both calls run back to back: the first marks
+  // the tab as seen, and — without this guard — the second call would then
+  // find that mark and skip straight to "done", so the sequence silently
+  // never played on ANY dev-mode load, in any tab. The guard makes the
+  // whole effect a no-op on the replay, so the real logic runs exactly
+  // once per mount, matching production (where Strict Mode's double-invoke
+  // doesn't happen at all).
+  const hasRunRef = useRef(false);
 
   useIsomorphicLayoutEffect(() => {
+    if (hasRunRef.current) return;
+    hasRunRef.current = true;
+
+    if (alreadySeenThisTab()) {
+      skippedRef.current = true;
+      // Before paint: React resolves this state change before the browser
+      // ever draws the "playing" frame, so nothing flashes on screen.
+      signalIntroDone();
+      setPhase("done");
+      return;
+    }
+    markSeenThisTab();
+
     const overlay = overlayRef.current;
     if (!overlay) return;
+
+    // The keyframes' own duration, driven from here rather than a second
+    // hardcoded "3700ms" in the stylesheet — see the ANIMATION_MS comment.
+    overlay.style.setProperty("--anim-ms", `${ANIMATION_MS}ms`);
+    overlay.style.setProperty("--fade-ms", `${FADE_MS}ms`);
 
     const header = document.querySelector<HTMLElement>("[data-nav-header]");
     const navLogo = document.querySelector<HTMLElement>("[data-nav-logo]");
@@ -109,6 +185,9 @@ export default function LoadingScreen() {
   }, []);
 
   useEffect(() => {
+    // Nothing to schedule for a tab that already skipped straight to "done".
+    if (skippedRef.current) return;
+
     // The sequence runs for every viewer. It is deliberately not gated on
     // prefers-reduced-motion — see the note at the foot of the stylesheet.
     const fadeTimer = setTimeout(() => {

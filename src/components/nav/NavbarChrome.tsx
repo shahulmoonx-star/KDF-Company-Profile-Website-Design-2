@@ -38,6 +38,15 @@ const MIN_DELTA_PX = 6;
  * A future inner page with a light top section and no hero will need
  * either its own dark band up top or a per-page override here — revisit
  * when the first inner page is built.
+ *
+ * One section-specific exception: while `#sustainability` ("How KDF
+ * operates") is the pinned section filling the viewport, the header stays
+ * hidden outright, even on an upward scroll — that section is itself a
+ * pinned scroll-stack (see Sustainability.tsx), and the header reappearing
+ * mid-transition there competed with its own card-peel animation for the
+ * same vertical space. This overrides the normal direction-based show/hide
+ * only for the scroll range where that section is pinned; above and below
+ * it the header behaves exactly as documented above.
  */
 export default function NavbarChrome({ children }: { children: ReactNode }) {
   const [transparent, setTransparent] = useState(true);
@@ -48,6 +57,20 @@ export default function NavbarChrome({ children }: { children: ReactNode }) {
     function handleScroll() {
       const currentY = window.scrollY;
       setTransparent(currentY < TRANSPARENT_THRESHOLD_PX);
+
+      // While the pinned "How KDF operates" section is the one filling the
+      // viewport (its own sticky inner track never leaves top:0 for as
+      // long as it's mid-scroll), force the header hidden and skip the
+      // normal direction check entirely for this frame.
+      const pinnedSection = document.getElementById("sustainability");
+      if (pinnedSection) {
+        const rect = pinnedSection.getBoundingClientRect();
+        if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+          setHidden(true);
+          lastScrollY.current = currentY;
+          return;
+        }
+      }
 
       const delta = currentY - lastScrollY.current;
       if (currentY < HIDE_GUARD_PX) {

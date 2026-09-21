@@ -9,11 +9,9 @@ import type { Locale } from "./config";
  * instead, as a typed accessor.
  */
 export interface UiStrings {
-  pauseGallery: string;
-  playGallery: string;
   closePreview: string;
-  previewImage: string;
   enlargeImage: string;
+  mapLabel: string;
   openMenu: string;
   closeMenu: string;
   skipToContent: string;
@@ -36,11 +34,9 @@ export interface UiStrings {
 
 const uiStrings: Record<Locale, UiStrings> = {
   en: {
-    pauseGallery: "Pause gallery",
-    playGallery: "Play gallery",
     closePreview: "Close preview",
-    previewImage: "Preview image",
     enlargeImage: "Enlarge image",
+    mapLabel: "Map showing KDF's location",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     skipToContent: "Skip to content",
@@ -52,11 +48,9 @@ const uiStrings: Record<Locale, UiStrings> = {
     languageShortNames: { en: "EN", ar: "AR" },
   },
   ar: {
-    pauseGallery: "إيقاف المعرض مؤقتًا",
-    playGallery: "تشغيل المعرض",
     closePreview: "إغلاق المعاينة",
-    previewImage: "صورة مؤقتة",
     enlargeImage: "تكبير الصورة",
+    mapLabel: "خريطة توضح موقع KDF",
     openMenu: "فتح القائمة",
     closeMenu: "إغلاق القائمة",
     skipToContent: "تخطي إلى المحتوى",

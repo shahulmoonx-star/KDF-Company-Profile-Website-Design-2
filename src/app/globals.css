@@ -47,7 +47,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Scrolling stays fully functional (wheel, trackpad, touch, keyboard,
@@ -56,12 +56,20 @@ body {
    entirely (overflow-x above and here): with no scrollbar to reveal it,
    any element that runs even slightly wider than the viewport would
    otherwise be invisible to spot but still push the page sideways — this
-   is what surfaced as a mobile layout bug that overflow-x: hidden fixes
-   defensively even if a future component reintroduces it. */
+   is what surfaced as a mobile layout bug that overflow-x fixes
+   defensively even if a future component reintroduces it.
+
+   `clip`, not `hidden`: any ancestor with a non-`visible` overflow value
+   (on either axis — the two are paired by the spec, so even `overflow-x`
+   alone forces `overflow-y` to the same non-visible behavior) breaks
+   `position: sticky` for every descendant, no matter how deep. `hidden`
+   here on body/html silently broke Sustainability.tsx's pinned
+   scroll-stack sitewide. `clip` prevents the same overflow without
+   establishing that scroll container, so sticky descendants keep working. */
 html {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* legacy Edge */
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html::-webkit-scrollbar {

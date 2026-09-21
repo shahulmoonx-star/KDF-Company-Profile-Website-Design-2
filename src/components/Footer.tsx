@@ -17,29 +17,65 @@ export default async function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className={styles.footer} aria-labelledby="contact-heading">
       <div className={styles.shell}>
-        <ContactCta content={content} contact={site.contact} />
+        {/* One photograph behind the entire footer — the invitation and the
+            contact rows both sit on it — rather than a picture for the top
+            band and flat colour underneath. */}
+        <Image
+          src={content.image}
+          alt={content.imageAlt}
+          fill
+          sizes="(max-width: 1600px) 100vw, 1536px"
+          className={styles.photograph}
+          priority={false}
+        />
+        <div className={styles.scrim} aria-hidden="true" />
+        <ContactCta content={content} />
         <div className={styles.base}>
           <Reveal className={styles.contactGrid}>
+            {/* Identity column. The mark is dark navy, so on this dark band it
+                is shown in its reversed (light) form — see `.logo`'s filter —
+                rather than propped on a white plate. */}
             <div className={styles.brand}>
               <Link href={`/${locale}`} className={styles.logoCard}>
                 <Image src={site.logo} alt={site.companyName} width={320} height={118} className={styles.logo} />
               </Link>
             </div>
-            <div className={styles.contactItem}>
-              <p className={styles.label}>{content.emailLabel}</p>
-              <a className={styles.contactLink} href={`mailto:${site.contact.email}`}>
-                <bdi>{site.contact.email}</bdi><span aria-hidden="true">↗</span>
-              </a>
+
+            <div className={styles.details}>
+              <div className={styles.contactItem}>
+                <p className={styles.label}>{content.emailLabel}</p>
+                <a className={styles.contactLink} href={`mailto:${site.contact.email}`}>
+                  <bdi>{site.contact.email}</bdi><span aria-hidden="true">↗</span>
+                </a>
+              </div>
+              <div className={styles.contactItem}>
+                <p className={styles.label}>{content.phoneLabel}</p>
+                <a className={styles.contactLink} href={`tel:${site.contact.phone.replace(/\s+/g, "")}`}>
+                  <bdi dir="ltr">{site.contact.phone}</bdi><span aria-hidden="true">↗</span>
+                </a>
+              </div>
+              <div className={styles.contactItem}>
+                <p className={styles.label}>{content.locationLabel}</p>
+                <address>{site.contact.addressLines.map((line) => <span key={line}>{line}</span>)}</address>
+              </div>
             </div>
-            <div className={styles.contactItem}>
-              <p className={styles.label}>{content.phoneLabel}</p>
-              <a className={styles.contactLink} href={`tel:${site.contact.phone.replace(/\s+/g, "")}`}>
-                <bdi dir="ltr">{site.contact.phone}</bdi><span aria-hidden="true">↗</span>
+
+            <div className={styles.locationCard}>
+              <iframe
+                className={styles.mapPreview}
+                src="https://www.google.com/maps?q=29.0327,48.1244&z=15&output=embed"
+                title={strings.mapLabel}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <a
+                className={styles.mapLink}
+                href="https://www.google.com/maps/search/?api=1&query=Kuwait%20Drilling%20Fluids%20%26%20Oil%20Service%20Company"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {strings.mapLabel}<span aria-hidden="true"> ↗</span>
               </a>
-            </div>
-            <div className={styles.contactItem}>
-              <p className={styles.label}>{content.locationLabel}</p>
-              <address>{site.contact.addressLines.map((line) => <span key={line}>{line}</span>)}</address>
             </div>
           </Reveal>
           <div className={styles.bottom}>

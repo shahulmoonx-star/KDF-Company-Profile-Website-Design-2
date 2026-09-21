@@ -1,132 +1,475 @@
 .footer {
-  padding: 24px 24px 0;
+  padding: 22px 22px 0;
   background: var(--color-cream-50);
 }
+
 .shell {
+  position: relative;
+  isolation: isolate;
   max-width: 1536px;
   margin-inline: auto;
   overflow: hidden;
-  border-radius: 28px 28px 0 0;
-  background: var(--color-brand-950);
+  border-radius: 26px 26px 0 0;
+  background: #0b1116;
+  box-shadow: 0 -18px 80px -56px rgb(6 12 16 / 70%);
 }
+
 .invitation {
   position: relative;
-  isolation: isolate;
-  min-height: 460px;
+  min-height: 356px;
   display: flex;
   align-items: flex-end;
-  padding: 64px clamp(28px, 5vw, 80px) 48px;
-  overflow: hidden;
+  padding: 56px clamp(28px, 5vw, 78px) 44px;
 }
+
+/* One photograph for the whole footer, so it must be readable under both
+   the headline at the top and the contact rows at the bottom. */
 .photograph {
-  z-index: -2;
+  z-index: -3;
   object-fit: cover;
-  object-position: center top;
+  object-position: center;
 }
+
+/* A light touch only — just enough to hold white text legible over the
+   brightest sky, not the heavy wash this had before. No wash at all across
+   the bottom or the right two-thirds, so the photograph itself stays the
+   thing you see. */
 .scrim {
   position: absolute;
-  z-index: -1;
+  z-index: -2;
   inset: 0;
-  background: linear-gradient(0deg, #11181d 0%, rgb(17 24 29 / 86%) 12%, rgb(17 24 29 / 42%) 40%, transparent 76%);
+  background: linear-gradient(90deg, rgb(8 13 17 / 40%) 0%, rgb(8 13 17 / 18%) 30%, transparent 55%);
 }
-.invitationContent { width: 100%; }
+
+.invitationContent {
+  width: min(100%, 720px);
+}
+
 .title {
-  max-width: 900px;
+  scroll-margin-top: 120px;
+  max-width: 620px;
   color: var(--color-cream-50);
-  font-size: clamp(40px, 5.2vw, 72px);
+  font-size: clamp(32px, 3.4vw, 50px);
   font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.045em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
-.action {
+
+.subscribeForm {
   display: inline-flex;
   align-items: center;
-  gap: 26px;
-  margin-top: 26px;
-  padding: 6px 6px 6px 22px;
-  border-radius: 40px;
-  background: var(--color-cream-50);
-  color: var(--color-brand-950);
-  font-size: 13px;
-  font-weight: 600;
-  transition: background 250ms, transform 250ms;
+  gap: 10px;
+  width: 100%;
+  max-width: 372px;
+  margin-top: 22px;
+  padding: 5px 5px 5px 20px;
+  border-radius: 999px;
+  border: 1px solid rgb(253 251 247 / 22%);
+  background: linear-gradient(135deg, rgb(253 251 247 / 20%), rgb(253 251 247 / 10%));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%), 0 18px 46px -28px rgb(0 0 0 / 86%);
 }
+
+.subscribeInput {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-cream-50);
+  font-size: 14px;
+}
+
+.subscribeInput::placeholder {
+  color: rgb(253 251 247 / 62%);
+}
+
+.subscribeInput:focus {
+  outline: none;
+}
+
+.subscribeSubmit {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  transition: transform 250ms ease;
+}
+
+.subscribeSubmit:hover {
+  transform: translateY(-3px);
+}
+
+.subscribeSubmit:hover .actionArrow {
+  transform: translate(2px, -2px);
+}
+
+.subscribeSuccess {
+  margin-top: 26px;
+  color: var(--color-cream-50);
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .actionArrow {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: var(--color-signal-500);
+  color: #081116;
+  transition: transform 250ms ease;
 }
-.action svg { width: 21px; height: 21px; transition: transform 250ms; }
-.action:hover { background: white; transform: translateY(-3px); }
-.action:hover svg { transform: translate(2px, -2px); }
-.footer a:focus-visible { outline: 2px solid var(--color-signal-400); outline-offset: 6px; }
-.base { padding: 8px clamp(28px, 5vw, 80px) 22px; }
+
+.actionArrow svg {
+  width: 21px;
+  height: 21px;
+}
+
+.footer a:focus-visible,
+.footer button:focus-visible,
+.footer input:focus-visible {
+  outline: 2px solid var(--color-signal-400);
+  outline-offset: 6px;
+}
+
+/* No seam between this and the invitation band above it — same photograph
+   runs underneath both, uninterrupted. Only a faint bottom-anchored wash,
+   just enough to keep the contact type readable over the busiest part of
+   the picture, with no border and no blur to mark a division. */
+.base {
+  position: relative;
+  padding: 26px clamp(28px, 5vw, 78px) 22px;
+  background: linear-gradient(0deg, rgb(8 13 17 / 58%) 0%, rgb(8 13 17 / 30%) 60%, transparent 100%);
+}
+
+/* Three parts, not five columns: identity, a compact stack of contact
+   rows, and a map given real width. The old layout spread five near-equal
+   columns across the band, which left the map as a narrow sliver and forced
+   the email and phone to wrap mid-value. */
 .contactGrid {
+  position: relative;
   display: grid;
-  grid-template-columns: 1.1fr 1fr 1fr 1.15fr;
-  align-items: start;
-  gap: 32px;
-  padding: 30px 0 32px;
-  border-top: 1px solid rgb(253 251 247 / 18%);
+  grid-template-columns: minmax(230px, 0.85fr) minmax(300px, 1.1fr) minmax(360px, 1.5fr);
+  align-items: stretch;
+  gap: clamp(22px, 3vw, 46px);
+  padding: 14px 0 26px;
 }
-.logoCard { display: inline-flex; padding: 10px 14px; background: var(--color-cream-50); border-radius: 8px; }
-.logo { width: 148px; height: auto; }
-.label { margin: 0 0 12px; color: var(--color-brand-300); font-size: 12px; }
-.contactLink {
+
+.brand,
+.details,
+.locationCard {
+  min-width: 0;
+}
+
+.brand {
+  position: relative;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* A glass card, not a round glow: rectangular, rounded corners, tinted
+   white enough to read clearly as glass without going back to a bright,
+   shiny plate. The previous round radial-gradient halo behind the mark
+   read as an odd glowing "shine" as the photo moved through it; a flat,
+   contained glass panel is the fix. Same recipe as .subscribeForm below,
+   so the two glass surfaces in this footer match each other. */
+.logoCard {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: min(100%, 220px);
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgb(253 251 247 / 22%);
+  background: linear-gradient(135deg, rgb(253 251 247 / 20%), rgb(253 251 247 / 10%));
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%), 0 12px 30px -20px rgb(0 0 0 / 60%);
+  transition: transform 260ms ease, background 260ms ease, border-color 260ms ease;
+}
+
+.logoCard:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, rgb(253 251 247 / 26%), rgb(253 251 247 / 14%));
+  border-color: rgb(255 111 0 / 38%);
+}
+
+/* Kept in its real colours (dark navy mark, orange accent) rather than
+   reversed to white. */
+.logo {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+/* Contact rows stack vertically and stay compact — the values are short
+   strings that only wrapped because the old columns were too narrow. */
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.contactItem {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 14px;
+  padding: 11px 0;
+  border-top: 1px solid rgb(253 251 247 / 10%);
+}
+
+.contactItem:first-child {
+  border-top: 0;
+}
+
+.label {
+  margin: 0;
+  color: rgb(253 251 247 / 44%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contactLink {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   width: fit-content;
   max-width: 100%;
   color: var(--color-cream-50);
-  font-size: 15px;
-  transition: color 200ms;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 200ms ease;
 }
-.contactLink bdi { overflow-wrap: anywhere; }
-.contactLink > span { color: var(--color-signal-400); transition: transform 200ms; }
-.contactLink:hover { color: var(--color-signal-400); }
-.contactLink:hover > span { transform: translate(2px, -2px); }
-.contactItem address { color: var(--color-cream-100); font-size: 12px; font-style: normal; line-height: 1.8; }
-.contactItem address > span { display: block; }
+
+.contactLink bdi {
+  overflow-wrap: anywhere;
+}
+
+.contactLink > span {
+  color: var(--color-signal-400);
+  font-size: 12px;
+  transition: transform 200ms ease;
+}
+
+.contactLink:hover {
+  color: var(--color-signal-400);
+}
+
+.contactLink:hover > span {
+  transform: translate(2px, -2px);
+}
+
+.contactItem address {
+  color: rgb(253 251 247 / 88%);
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.55;
+}
+
+.contactItem address > span {
+  display: block;
+}
+
+.locationCard {
+  position: relative;
+  overflow: hidden;
+  min-height: 210px;
+  border-radius: 18px;
+  border: 1px solid rgb(253 251 247 / 18%);
+  background: rgb(11 17 22 / 55%);
+  box-shadow: 0 22px 48px -30px rgb(0 0 0 / 90%);
+}
+
+/* Brand hairline across the top of the map, echoing the accent rule that
+   closes the invitation band above it. */
+.locationCard::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-signal-500), rgb(255 111 0 / 0%));
+  pointer-events: none;
+}
+
+.mapPreview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  border: 0;
+  filter: saturate(0.78) contrast(1.05);
+}
+
+.mapLink {
+  position: absolute;
+  inset-inline-end: 12px;
+  bottom: 12px;
+  padding: 8px 12px;
+  border: 1px solid rgb(253 251 247 / 22%);
+  border-radius: 999px;
+  background: rgb(11 17 22 / 88%);
+  color: var(--color-cream-50);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(10px);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.mapLink:hover {
+  border-color: var(--color-signal-400);
+  color: var(--color-signal-300);
+}
+
 .bottom {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding-top: 18px;
+  padding-top: 20px;
+  margin-top: 2px;
   border-top: 1px solid rgb(253 251 247 / 12%);
-  color: var(--color-brand-300);
-  font-size: 10px;
+  color: rgb(253 251 247 / 56%);
+  font-size: 12px;
   line-height: 1.8;
 }
-.bottom a { color: var(--color-cream-100); text-decoration: underline; text-decoration-color: var(--color-brand-600); text-underline-offset: 4px; }
-.bottom a:hover { color: var(--color-signal-400); }
-:global(html[dir="rtl"]) .title { letter-spacing: 0; line-height: 1.4; }
-:global(html[dir="rtl"]) .action { padding: 6px 22px 6px 6px; }
-:global(html[dir="rtl"]) .action svg { scale: -1 1; }
-@media (min-width: 1600px) { .footer { padding-inline: 48px; } }
-@media (max-width: 1000px) {
-  .contactGrid { grid-template-columns: 1fr 1fr; gap: 28px 48px; }
-}
-@media (max-width: 640px) {
-  .footer { padding: 12px 12px 0; }
-  .shell { border-radius: 20px 20px 0 0; }
-  .invitation { min-height: 430px; padding: 40px 24px 32px; }
-  .photograph { object-position: 76% center; }
-  .scrim { background: linear-gradient(0deg, #11181d 0%, rgb(17 24 29 / 80%) 22%, rgb(17 24 29 / 22%) 55%, transparent 90%); }
-  .title { font-size: clamp(32px, 8.7vw, 50px); }
-  .action { margin-top: 20px; gap: 20px; font-size: 12px; }
-  .actionArrow { width: 36px; height: 36px; }
-  .base { padding: 0 24px 20px; }
-  .contactGrid { grid-template-columns: 1fr; gap: 22px; padding: 26px 0; }
-  .logo { width: 132px; }
-  .logoCard { padding: 8px 12px; }
-  .contactItem { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: baseline; gap: 14px; }
-  .label { margin: 0; font-size: 11px; }
-  .contactLink { font-size: 14px; gap: 8px; }
-  .bottom { flex-direction: column; gap: 6px; font-size: 9px; }
+
+.bottom a {
+  color: var(--color-cream-50);
+  text-decoration: underline;
+  text-decoration-color: rgb(255 111 0 / 54%);
+  text-underline-offset: 4px;
 }
 
+.bottom a:hover {
+  color: var(--color-signal-400);
+}
+
+:global(html[dir="rtl"]) .title {
+  line-height: 1.34;
+}
+
+:global(html[dir="rtl"]) .subscribeForm {
+  padding: 6px 22px 6px 6px;
+}
+
+:global(html[dir="rtl"]) .actionArrow svg {
+  scale: -1 1;
+}
+
+:global(html[dir="rtl"]) .locationCard::before {
+  background: linear-gradient(270deg, var(--color-signal-500), rgb(255 111 0 / 0%));
+}
+
+@media (min-width: 1600px) {
+  .footer {
+    padding-inline: 48px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .contactGrid {
+    grid-template-columns: minmax(210px, 0.9fr) minmax(260px, 1.1fr);
+  }
+
+  .locationCard {
+    grid-column: span 2;
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 760px) {
+  .footer {
+    padding: 12px 12px 0;
+  }
+
+  .shell {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .invitation {
+    min-height: 430px;
+    padding: 42px 24px 34px;
+  }
+
+  .photograph {
+    object-position: 72% center;
+  }
+
+  .scrim {
+    background:
+      linear-gradient(90deg, rgb(11 17 22 / 88%) 0%, rgb(11 17 22 / 66%) 42%, rgb(11 17 22 / 20%) 100%),
+      linear-gradient(0deg, #0b1116 0%, rgb(11 17 22 / 74%) 28%, transparent 70%);
+  }
+
+  .invitation::after {
+    inset-inline: 24px;
+  }
+
+  .title {
+    font-size: clamp(34px, 12vw, 52px);
+  }
+
+  .subscribeForm {
+    margin-top: 22px;
+    max-width: 100%;
+  }
+
+  .actionArrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .base {
+    padding: 20px 18px 20px;
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 8px 0 20px;
+  }
+
+  .brand {
+    padding: 4px 0 2px;
+  }
+
+  .logoCard {
+    width: min(100%, 190px);
+  }
+
+  .contactItem {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .locationCard {
+    grid-column: auto;
+    min-height: 190px;
+    border-radius: 14px;
+  }
+
+  .mapPreview {
+    min-height: 190px;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+  }
+}

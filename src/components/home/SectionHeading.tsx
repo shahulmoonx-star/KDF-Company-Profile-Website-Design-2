@@ -23,7 +23,7 @@ export default function SectionHeading({
     <div className="max-w-3xl">
       <Reveal
         as="p"
-        className={`font-mono text-[11px] uppercase tracking-[0.3em] ${
+        className={`font-mono text-[11px] font-bold uppercase tracking-[0.3em] ${
           dark ? "text-signal-400" : "text-signal-600"
         }`}
       >

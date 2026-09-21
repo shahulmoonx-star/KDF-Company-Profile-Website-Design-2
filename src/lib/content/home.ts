@@ -23,18 +23,37 @@ import type { HomePage } from "./types";
 const homePageByLocale: Record<Locale, HomePage> = {
   en: {
     hero: {
-      eyebrow: "Serving Kuwait & the GCC",
-      eyebrowHighlight: "since 1966",
-      title: "Precision fluids for the Gulf's toughest wells.",
-      strapline: "Precision engineered. Field proven.",
-      primaryCta: "Explore our solutions",
-      secondaryCta: "Talk to our engineers",
+      slides: [
+        {
+          title: "Drilling fluids engineered for demanding wells.",
+          caption: "Drilling & Completion",
+          alt: "Drilling rig operating in the Kuwait desert at sunset",
+        },
+        {
+          title: "Manufacturing built for regional scale.",
+          caption: "Liquid Chemical Blending",
+          alt: "Industrial liquid chemical blending and storage facility",
+        },
+        {
+          title: "Chemistry tested before it reaches the field.",
+          caption: "Laboratory & R&D",
+          alt: "Laboratory specialist testing drilling fluid samples",
+        },
+        {
+          title: "Mineral processing with reliable capacity.",
+          caption: "Minerals Manufacturing",
+          alt: "Industrial mineral grinding and powder processing facility",
+        },
+        {
+          title: "Field expertise that keeps operations moving.",
+          caption: "Field Engineering",
+          alt: "Field engineers walking through an oilfield service facility",
+        },
+      ],
     },
     footprint: {
       eyebrow: "Business footprint",
       title: "Six decades of operating scale.",
-      clientsLead:
-        "Trusted by Kuwait's national energy operators and the region's largest industrial groups.",
       clients: [
         { id: "koc", name: "Kuwait Oil Company", logo: "/images/client-logo-1.png" },
         {
@@ -59,14 +78,14 @@ const homePageByLocale: Record<Locale, HomePage> = {
     },
     solutions: {
       eyebrow: "Solutions & products",
-      title: "Three engineering disciplines, one integrated supplier.",
+      title: "One supplier, every fluid discipline.",
       lead: "From the first metre drilled to the flow assurance that keeps a field producing, KDF formulates, manufactures and services the chemistry in between.",
       items: [
         {
           id: "drilling",
           title: "Drilling & Completion Fluids",
           strap: "Engineered customised solutions addressing drilling and completion challenges.",
-          image: "/images/home-drilling-1.jpg",
+          image: "/section-2-1.png",
           capabilities: [
             "Shale stabilisers & inhibitors",
             "Filtration control agents",
@@ -82,7 +101,7 @@ const homePageByLocale: Record<Locale, HomePage> = {
           id: "production",
           title: "Production Chemistry",
           strap: "Tailored chemistries for maximising production, asset protection and flow assurance — from reservoir to refinery.",
-          image: "/images/home-chemistry-1.jpg",
+          image: "/section-2-2.png",
           capabilities: [
             "Treat — demulsifiers, water clarifiers, flow improvers",
             "Protect — scale, corrosion, hydrate & asphaltene inhibitors",
@@ -95,7 +114,7 @@ const homePageByLocale: Record<Locale, HomePage> = {
           id: "cementing",
           title: "Cementing Solutions",
           strap: "Products, services and laboratory support for well integrity across the life of the asset.",
-          image: "/images/home-cementing-1.jpg",
+          image: "/section-2-3.png",
           capabilities: [
             "Cementing products & services",
             "Laboratory and technical support",
@@ -103,37 +122,26 @@ const homePageByLocale: Record<Locale, HomePage> = {
             "Field-proven case histories",
           ],
         },
-      ],
-    },
-    // The three stage descriptions are the reference build's own tagline
-    // for each (design/kdf-kuwait-fluid-spark-main); the tags under each
-    // are the same chemical categories already listed under "Production
-    // Chemistry" in solutions.items above, just split out one per tag
-    // instead of run together in one clause.
-    production: {
-      eyebrow: "Production Technologies",
-      lead: "Production chemistry programs that help improve operational efficiency, asset integrity and flow assurance.",
-      pillars: [
         {
-          id: "treat",
-          title: "Treat",
-          description: "Solutions designed to support production treatment and operational optimisation.",
-          tags: ["Demulsifiers", "Water clarifiers", "Flow improvers"],
-          image: "/images/home-treat-1.jpg",
+          id: "manufacturing",
+          title: "Manufacturing & Supply",
+          strap: "Local chemical manufacturing, blending facilities, logistics and distribution capabilities for oilfield operations.",
+          image: "/section-2-4.png",
+          capabilities: [],
         },
         {
-          id: "protect",
-          title: "Protect",
-          description: "Chemistry programs focused on asset protection, corrosion control and reliability.",
-          tags: ["Scale & corrosion inhibitors", "Hydrate & asphaltene inhibitors"],
-          image: "/images/home-protect-1.jpg",
+          id: "technical-services",
+          title: "Technical Services",
+          strap: "Laboratory services, technical consultation, field support and engineering-driven problem solving.",
+          image: "/section-2-5.png",
+          capabilities: [],
         },
         {
-          id: "assure",
-          title: "Assure",
-          description: "Flow assurance solutions to support continuous and efficient production.",
-          tags: ["H₂S & oxygen scavengers", "Scale dissolvers", "Microbiocides", "Defoamers"],
-          image: "/images/home-assure-1.jpg",
+          id: "water-treatment",
+          title: "Water Treatment",
+          strap: "Specialized water treatment support for industrial and energy-sector operations.",
+          image: "/section-2-6.png",
+          capabilities: [],
         },
       ],
     },
@@ -164,7 +172,7 @@ const homePageByLocale: Record<Locale, HomePage> = {
       eyebrow: "Infrastructure & capabilities",
       title: "A 70,000 m² manufacturing base inside Shuaiba Port.",
       lead: "Three state-of-the-art roller grinding mills and semi-automated blending lines — unrivalled by any comparable service provider in Kuwait, and the reason KDF supplies the region rather than importing into it.",
-      image: "/images/home-chemistry-1.jpg",
+      image: "/section-5-background.png",
       items: [
         {
           id: "site",
@@ -201,47 +209,72 @@ const homePageByLocale: Record<Locale, HomePage> = {
       title: "Excellence, recognised.",
       lead: "KDF's record is measured by the people who audit it — national awards, international safety bodies and certified management systems.",
       awards: [
-        { id: "assp-gold-2024", image: "/images/home-people.jpg", imageAlt: "Field engineering team — placeholder image", imagePlaceholder: true, shortTitle: "ASSP Gold", year: "2024", title: "ASSP GCC Gold — Management Excellence" },
-        { id: "assp-silver-2024", image: "/images/home-protect-1.jpg", imageAlt: "Technical operations — placeholder image", imagePlaceholder: true, shortTitle: "ASSP Silver", year: "2024", title: "ASSP GCC Silver — HSE Excellence" },
+        { id: "assp-gold-2024", image: "/ASSP GCC Gold — Management Excellence (2024).png", imageAlt: "ASSP GCC Gold Award 2024 certificate, awarded to Kuwait Drilling Fluids & Oil Services for Management Excellence", imagePlaceholder: false, shortTitle: "ASSP Gold", year: "2024", title: "ASSP GCC Gold — Management Excellence" },
+        { id: "assp-silver-2024", image: "/ASSP GCC Silver — HSE Excellence (2024).png", imageAlt: "ASSP GCC Silver Award 2024 certificate, awarded to Kuwait Drilling Fluids & Oil Services for HSE Excellence", imagePlaceholder: false, shortTitle: "ASSP Silver", year: "2024", title: "ASSP GCC Silver — HSE Excellence" },
         {
-          id: "amir-2023", image: "/images/hero/hero-banner-2.jpg", imageAlt: "Manufacturing facility — placeholder image", imagePlaceholder: true, shortTitle: "Amir’s Award",
+          id: "amir-2023", image: "/Amir of Kuwait's Award for Outstanding Factories (2023).png", imageAlt: "His Highness the Amir of Kuwait's Award for Outstanding Factories 2023 certificate, awarded to Kuwait Drilling Fluids & Oil Services", imagePlaceholder: false, shortTitle: "Amir’s Award",
           year: "2023",
           title: "His Highness the Amir of Kuwait's Award for Outstanding Factories",
         },
         {
-          id: "stevie-2020", image: "/images/home-chemistry-1.jpg", imageAlt: "Fluid chemistry research — placeholder image", imagePlaceholder: true, shortTitle: "Stevie Gold",
+          id: "stevie-2020", image: "/Stevie Gold — Innovation in Technology Development (2020).png", imageAlt: "Stevie Awards Gold Winner 2020 certificate, awarded to Kuwait Drilling Fluids & Oil Services for Innovation in Technology Development", imagePlaceholder: false, shortTitle: "Stevie Gold",
           year: "2020",
           title: "Stevie Gold — Innovation in Technology Development (HPWBF)",
         },
-        { id: "ehs-2018", image: "/images/home-people.jpg", imageAlt: "Engineering team at work — placeholder image", imagePlaceholder: true, shortTitle: "EHS Excellence", year: "2018", title: "EHS Outstanding Performance Award" },
-        { id: "koc-2017", image: "/images/home-treat-1.jpg", imageAlt: "Production facility — placeholder image", imagePlaceholder: true, shortTitle: "KOC CEO Award", year: "2017", title: "KOC CEO Award — Gas Conditioning Project" },
-        { id: "chesm-2017", image: "/images/home-drilling-1.jpg", imageAlt: "Drilling operations — placeholder image", imagePlaceholder: true, shortTitle: "CHESM A-Rating", year: "2017", title: "CHESM Award for EHS A-Rating" },
+        { id: "ehs-2018", image: "/EHS Outstanding Performance Award (2018).png", imageAlt: "EHS Outstanding Performance Award 2018 certificate, awarded to Kuwait Drilling Fluids & Oil Services", imagePlaceholder: false, shortTitle: "EHS Excellence", year: "2018", title: "EHS Outstanding Performance Award" },
+        { id: "koc-2017", image: "/KOC CEO Award — Gas Conditioning Project (2017).png", imageAlt: "KOC CEO Award 2017 certificate, awarded to Kuwait Drilling Fluids & Oil Services for the Gas Conditioning Project", imagePlaceholder: false, shortTitle: "KOC CEO Award", year: "2017", title: "KOC CEO Award — Gas Conditioning Project" },
+        { id: "chesm-2017", image: "/CHESM Award for EHS A-Rating (2017).png", imageAlt: "CHESM A-Rating Certificate of Excellence 2017, awarded to Kuwait Drilling Fluids & Oil Services", imagePlaceholder: false, shortTitle: "CHESM A-Rating", year: "2017", title: "CHESM Award for EHS A-Rating" },
       ],
       certifications: [
-        { id: "iso-9001", image: "/images/home-chemistry-1.jpg", imageAlt: "Laboratory quality testing — placeholder image", imagePlaceholder: true, standard: "ISO 9001:2015", label: "Quality management" },
-        { id: "iso-14001", image: "/images/home-sustainability.jpg", imageAlt: "Industrial facility in a desert landscape — placeholder image", imagePlaceholder: true, standard: "ISO 14001:2015", label: "Environmental management" },
-        { id: "iso-45001", image: "/images/home-people.jpg", imageAlt: "Engineers wearing safety equipment — placeholder image", imagePlaceholder: true, standard: "ISO 45001:2018", label: "Occupational health & safety" },
+        { id: "iso-9001", image: "/ISO 9001 2015 — Quality Management.png", imageAlt: "ISO 9001:2015 Certificate of Registration for Quality Management, issued to Kuwait Drilling Fluids & Oil Services", imagePlaceholder: false, standard: "ISO 9001:2015", label: "Quality management" },
+        { id: "iso-14001", image: "/ISO 14001 2015 — Environmental Management.png", imageAlt: "ISO 14001:2015 Certificate of Registration for Environmental Management, issued to Kuwait Drilling Fluids & Oil Services", imagePlaceholder: false, standard: "ISO 14001:2015", label: "Environmental management" },
+        { id: "iso-45001", image: "/ISO 45001 2018 — Occupational Health & Safety.png", imageAlt: "ISO 45001:2018 Certificate of Registration for Occupational Health & Safety, issued to Kuwait Drilling Fluids & Oil Services", imagePlaceholder: false, standard: "ISO 45001:2018", label: "Occupational health & safety" },
       ],
     },
+    // "Engineering Disciplines" is the merged Production Technologies +
+    // Sustainability stack: KDF's production-chemistry stages first, then
+    // its sustainability pillars, as one continuous pinned scroll-stack —
+    // see the HomePage.sustainability.pillars doc comment in types.ts for
+    // why. The Treat/Protect/Assure tags are the same chemical categories
+    // listed under "Production Chemistry" in solutions.items above, split
+    // one per tag instead of run together in one clause.
     sustainability: {
-      eyebrow: "Sustainability",
-      title: "For a better tomorrow.",
+      eyebrow: "How KDF operates",
+      title: "Engineering Disciplines",
       quote:
-        "Our ambition is clear: to reduce emissions across Scope 1, 2 and 3, advance net-zero goals, and foster a balanced, synergised relationship with our planet.",
+        "Six core disciplines carry every project from production chemistry through to the people and standards that keep it running responsibly.",
       attribution: "Message from the CEO, 2024 Sustainability Report",
       pillars: [
         {
-          id: "emissions", image: "/images/home-sustainability.jpg", imageAlt: "Industrial facility surrounded by desert vegetation",
+          id: "treat", group: "Production Technologies", image: "/Treat.png", imageAlt: "Chemical injection metering pump dosing production treatment fluid",
+          title: "Treat",
+          body: "Solutions designed to support production treatment and operational optimisation.",
+          tags: ["Demulsifiers", "Water clarifiers", "Flow improvers"],
+        },
+        {
+          id: "protect", group: "Production Technologies", image: "/Corrosion and scale protection.png", imageAlt: "Coated steel pipelines running toward the horizon at sunset",
+          title: "Protect",
+          body: "Chemistry programs focused on asset protection, corrosion control and reliability.",
+          tags: ["Scale & corrosion inhibitors", "Hydrate & asphaltene inhibitors"],
+        },
+        {
+          id: "assure", group: "Production Technologies", image: "/Assure.png", imageAlt: "Illuminated wellhead valve assembly against a dusk sky",
+          title: "Assure",
+          body: "Flow assurance solutions to support continuous and efficient production.",
+          tags: ["H₂S & oxygen scavengers", "Scale dissolvers", "Microbiocides", "Defoamers"],
+        },
+        {
+          id: "emissions", group: "Sustainability", image: "/Emissions.png", imageAlt: "Elevated view across an industrial facility rooftop and stacks",
           title: "Emissions",
           body: "Reduction targets set across Scope 1, 2 and 3, reported openly rather than summarised.",
         },
         {
-          id: "environment", image: "/images/home-assure-1.jpg", imageAlt: "Water treatment equipment",
+          id: "environment", group: "Sustainability", image: "/Environment.png", imageAlt: "Water treatment basin with a still reflective surface",
           title: "Environment",
           body: "Spill prevention, energy reduction, emissions control and responsible waste handling across every site.",
         },
         {
-          id: "people", image: "/images/home-people.jpg", imageAlt: "Engineers at an industrial facility",
+          id: "people", group: "Sustainability", image: "/People & local content.png", imageAlt: "Engineers reviewing a schematic together in a training room",
           title: "People & local content",
           body: "Kuwaitisation, training and a work environment held to certified occupational health and safety standards.",
         },
@@ -280,9 +313,11 @@ const homePageByLocale: Record<Locale, HomePage> = {
     },
     contact: {
       title: "Let's get to work.",
-      image: "/images/hero/hero-banner-1.jpg",
-      imageAlt: "Drilling rig in a desert oilfield at sunset",
-      cta: "Talk to KDF",
+      image: "/footer-bg.png",
+      imageAlt: "Bright golden-hour photograph of a drilling rig and storage tanks at a Kuwaiti oilfield",
+      subscribePlaceholder: "Enter your email",
+      subscribeCta: "Subscribe",
+      subscribeSuccess: "Thank you — you're on the list.",
       emailLabel: "Email",
       phoneLabel: "Call",
       locationLabel: "Visit",
@@ -290,18 +325,37 @@ const homePageByLocale: Record<Locale, HomePage> = {
   },
   ar: {
     hero: {
-      eyebrow: "نخدم الكويت ودول الخليج",
-      eyebrowHighlight: "منذ عام 1966",
-      title: "سوائل دقيقة لأصعب آبار الخليج.",
-      strapline: "دقة هندسية. أداء ميداني مثبت.",
-      primaryCta: "استكشف حلولنا",
-      secondaryCta: "تحدث مع مهندسينا",
+      slides: [
+        {
+          title: "سوائل حفر مصممة للآبار الصعبة.",
+          caption: "الحفر والإكمال",
+          alt: "برج حفر يعمل في صحراء الكويت وقت الغروب",
+        },
+        {
+          title: "قدرات تصنيع مصممة لخدمة المنطقة.",
+          caption: "مزج المواد الكيميائية السائلة",
+          alt: "منشأة صناعية لمزج وتخزين المواد الكيميائية السائلة",
+        },
+        {
+          title: "كيمياء مختبرة قبل وصولها إلى الحقل.",
+          caption: "المختبر والبحث والتطوير",
+          alt: "مختص في المختبر يختبر عينات سوائل الحفر",
+        },
+        {
+          title: "معالجة معادن بقدرات إنتاجية موثوقة.",
+          caption: "تصنيع المعادن",
+          alt: "منشأة صناعية لطحن المعادن ومعالجة المساحيق",
+        },
+        {
+          title: "خبرات ميدانية تحافظ على استمرارية العمليات.",
+          caption: "الهندسة الميدانية",
+          alt: "مهندسون ميدانيون داخل منشأة لخدمات حقول النفط",
+        },
+      ],
     },
     footprint: {
       eyebrow: "حضورنا",
       title: "ستة عقود من الخبرة التشغيلية.",
-      clientsLead:
-        "موضع ثقة كبرى شركات الطاقة الوطنية في الكويت وأكبر المجموعات الصناعية في المنطقة.",
       clients: [
         { id: "koc", name: "شركة نفط الكويت", logo: "/images/client-logo-1.png" },
         {
@@ -326,14 +380,14 @@ const homePageByLocale: Record<Locale, HomePage> = {
     },
     solutions: {
       eyebrow: "الحلول والمنتجات",
-      title: "ثلاثة تخصصات هندسية لدى مورّد متكامل واحد.",
+      title: "مورّد واحد لكل تخصصات السوائل.",
       lead: "من أول متر يتم حفره إلى ضمان التدفق الذي يُبقي الحقل منتجًا، تتولى KDF تركيب وتصنيع وخدمة الكيمياء في ما بينهما.",
       items: [
         {
           id: "drilling",
           title: "سوائل الحفر والإكمال",
           strap: "حلول مُصمّمة خصيصًا لمعالجة تحديات الحفر والإكمال.",
-          image: "/images/home-drilling-1.jpg",
+          image: "/section-2-1.png",
           capabilities: [
             "مثبّتات ومثبطات الصخور الطفلية",
             "عوامل التحكم في الترشيح",
@@ -349,7 +403,7 @@ const homePageByLocale: Record<Locale, HomePage> = {
           id: "production",
           title: "كيمياء الإنتاج",
           strap: "كيمياء مُصمّمة لرفع الإنتاج وحماية الأصول وضمان التدفق، من المكمن إلى المصفاة.",
-          image: "/images/home-chemistry-1.jpg",
+          image: "/section-2-2.png",
           capabilities: [
             "Treat — كاسرات المستحلبات ومروّقات المياه ومحسّنات التدفق",
             "Protect — مثبطات الترسبات والتآكل والهيدرات والأسفلتين",
@@ -362,7 +416,7 @@ const homePageByLocale: Record<Locale, HomePage> = {
           id: "cementing",
           title: "حلول الإسمنت",
           strap: "منتجات وخدمات ودعم مخبري لسلامة الآبار على امتداد عمر الأصل.",
-          image: "/images/home-cementing-1.jpg",
+          image: "/section-2-3.png",
           capabilities: [
             "منتجات وخدمات الإسمنت",
             "الدعم المخبري والفني",
@@ -370,32 +424,26 @@ const homePageByLocale: Record<Locale, HomePage> = {
             "دراسات حالة ميدانية مُثبتة",
           ],
         },
-      ],
-    },
-    production: {
-      eyebrow: "تقنيات الإنتاج",
-      lead: "برامج كيمياء الإنتاج التي تساعد على تحسين الكفاءة التشغيلية وسلامة الأصول وضمان التدفق.",
-      pillars: [
         {
-          id: "treat",
-          title: "Treat",
-          description: "حلول مصمّمة لدعم معالجة الإنتاج وتحسين الكفاءة التشغيلية.",
-          tags: ["كاسرات المستحلبات", "مروّقات المياه", "محسّنات التدفق"],
-          image: "/images/home-treat-1.jpg",
+          id: "manufacturing",
+          title: "التصنيع والتوريد",
+          strap: "تصنيع وخلط المواد الكيميائية محليًا، مع قدرات لوجستية وتوزيعية لعمليات حقول النفط.",
+          image: "/section-2-4.png",
+          capabilities: [],
         },
         {
-          id: "protect",
-          title: "Protect",
-          description: "برامج كيميائية تركّز على حماية الأصول ومكافحة التآكل والموثوقية.",
-          tags: ["مثبطات الترسبات والتآكل", "مثبطات الهيدرات والأسفلتين"],
-          image: "/images/home-protect-1.jpg",
+          id: "technical-services",
+          title: "الخدمات الفنية",
+          strap: "خدمات مختبرية واستشارات فنية ودعم ميداني وحلول هندسية للمشكلات.",
+          image: "/section-2-5.png",
+          capabilities: [],
         },
         {
-          id: "assure",
-          title: "Assure",
-          description: "حلول ضمان التدفق لدعم إنتاج مستمر وفعّال.",
-          tags: ["كواسح كبريتيد الهيدروجين والأكسجين", "مذيبات الترسبات", "المبيدات الميكروبية", "مزيلات الرغوة"],
-          image: "/images/home-assure-1.jpg",
+          id: "water-treatment",
+          title: "معالجة المياه",
+          strap: "دعم متخصص لمعالجة المياه في العمليات الصناعية وقطاع الطاقة.",
+          image: "/section-2-6.png",
+          capabilities: [],
         },
       ],
     },
@@ -422,7 +470,7 @@ const homePageByLocale: Record<Locale, HomePage> = {
       eyebrow: "البنية التحتية والإمكانات",
       title: "قاعدة تصنيع على مساحة 70,000 م² داخل ميناء الشعيبة.",
       lead: "ثلاثة مصانع طحن دوّارة بأحدث التقنيات وخطوط خلط شبه آلية، لا يضاهيها أي مزوّد خدمات مماثل في الكويت، وهي سبب قدرة KDF على تزويد المنطقة بدل الاستيراد إليها.",
-      image: "/images/home-chemistry-1.jpg",
+      image: "/section-5-background.png",
       items: [
         {
           id: "site",
@@ -459,47 +507,65 @@ const homePageByLocale: Record<Locale, HomePage> = {
       title: "تميّز يستحق التقدير.",
       lead: "سجل KDF تقيسه الجهات التي تدقّقه: جوائز وطنية وهيئات سلامة دولية وأنظمة إدارة معتمدة.",
       awards: [
-        { id: "assp-gold-2024", image: "/images/home-people.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "ذهبية ASSP", year: "2024", title: "ASSP الخليج — الجائزة الذهبية للتميّز الإداري" },
-        { id: "assp-silver-2024", image: "/images/home-protect-1.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "فضية ASSP", year: "2024", title: "ASSP الخليج — الجائزة الفضية للتميّز في الصحة والسلامة" },
+        { id: "assp-gold-2024", image: "/ASSP GCC Gold — Management Excellence (2024).png", imageAlt: "شهادة جائزة ASSP الخليج الذهبية 2024 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية للتميّز الإداري", imagePlaceholder: false, shortTitle: "ذهبية ASSP", year: "2024", title: "ASSP الخليج — الجائزة الذهبية للتميّز الإداري" },
+        { id: "assp-silver-2024", image: "/ASSP GCC Silver — HSE Excellence (2024).png", imageAlt: "شهادة جائزة ASSP الخليج الفضية 2024 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية للتميّز في الصحة والسلامة", imagePlaceholder: false, shortTitle: "فضية ASSP", year: "2024", title: "ASSP الخليج — الجائزة الفضية للتميّز في الصحة والسلامة" },
         {
-          id: "amir-2023", image: "/images/hero/hero-banner-2.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "جائزة سمو الأمير",
+          id: "amir-2023", image: "/Amir of Kuwait's Award for Outstanding Factories (2023).png", imageAlt: "شهادة جائزة حضرة صاحب السمو أمير البلاد للمصانع المتميّزة 2023 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية", imagePlaceholder: false, shortTitle: "جائزة سمو الأمير",
           year: "2023",
           title: "جائزة حضرة صاحب السمو أمير البلاد للمصانع المتميّزة",
         },
         {
-          id: "stevie-2020", image: "/images/home-chemistry-1.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "ذهبية Stevie",
+          id: "stevie-2020", image: "/Stevie Gold — Innovation in Technology Development (2020).png", imageAlt: "شهادة جائزة Stevie الذهبية 2020 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية للابتكار في تطوير التقنية", imagePlaceholder: false, shortTitle: "ذهبية Stevie",
           year: "2020",
           title: "جائزة Stevie الذهبية للابتكار في تطوير التقنية (HPWBF)",
         },
-        { id: "ehs-2018", image: "/images/home-people.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "التميّز في السلامة", year: "2018", title: "جائزة الأداء المتميّز في البيئة والصحة والسلامة" },
-        { id: "koc-2017", image: "/images/home-treat-1.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "جائزة الرئيس التنفيذي لشركة نفط الكويت", year: "2017", title: "جائزة الرئيس التنفيذي لشركة نفط الكويت — مشروع معالجة الغاز" },
-        { id: "chesm-2017", image: "/images/home-drilling-1.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, shortTitle: "تصنيف A من CHESM", year: "2017", title: "جائزة CHESM لتصنيف A في البيئة والصحة والسلامة" },
+        { id: "ehs-2018", image: "/EHS Outstanding Performance Award (2018).png", imageAlt: "شهادة جائزة الأداء المتميّز في البيئة والصحة والسلامة 2018 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية", imagePlaceholder: false, shortTitle: "التميّز في السلامة", year: "2018", title: "جائزة الأداء المتميّز في البيئة والصحة والسلامة" },
+        { id: "koc-2017", image: "/KOC CEO Award — Gas Conditioning Project (2017).png", imageAlt: "شهادة جائزة الرئيس التنفيذي لشركة نفط الكويت 2017 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية عن مشروع معالجة الغاز", imagePlaceholder: false, shortTitle: "جائزة الرئيس التنفيذي لشركة نفط الكويت", year: "2017", title: "جائزة الرئيس التنفيذي لشركة نفط الكويت — مشروع معالجة الغاز" },
+        { id: "chesm-2017", image: "/CHESM Award for EHS A-Rating (2017).png", imageAlt: "شهادة جائزة CHESM لتصنيف A في البيئة والصحة والسلامة 2017 الممنوحة للشركة الكويتية لسوائل الحفر والخدمات النفطية", imagePlaceholder: false, shortTitle: "تصنيف A من CHESM", year: "2017", title: "جائزة CHESM لتصنيف A في البيئة والصحة والسلامة" },
       ],
       certifications: [
-        { id: "iso-9001", image: "/images/home-chemistry-1.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, standard: "ISO 9001:2015", label: "إدارة الجودة" },
-        { id: "iso-14001", image: "/images/home-sustainability.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, standard: "ISO 14001:2015", label: "الإدارة البيئية" },
-        { id: "iso-45001", image: "/images/home-people.jpg", imageAlt: "صورة توضيحية مؤقتة", imagePlaceholder: true, standard: "ISO 45001:2018", label: "الصحة والسلامة المهنية" },
+        { id: "iso-9001", image: "/ISO 9001 2015 — Quality Management.png", imageAlt: "شهادة تسجيل الأيزو 9001:2015 لإدارة الجودة، صادرة للشركة الكويتية لسوائل الحفر والخدمات النفطية", imagePlaceholder: false, standard: "ISO 9001:2015", label: "إدارة الجودة" },
+        { id: "iso-14001", image: "/ISO 14001 2015 — Environmental Management.png", imageAlt: "شهادة تسجيل الأيزو 14001:2015 للإدارة البيئية، صادرة للشركة الكويتية لسوائل الحفر والخدمات النفطية", imagePlaceholder: false, standard: "ISO 14001:2015", label: "الإدارة البيئية" },
+        { id: "iso-45001", image: "/ISO 45001 2018 — Occupational Health & Safety.png", imageAlt: "شهادة تسجيل الأيزو 45001:2018 للصحة والسلامة المهنية، صادرة للشركة الكويتية لسوائل الحفر والخدمات النفطية", imagePlaceholder: false, standard: "ISO 45001:2018", label: "الصحة والسلامة المهنية" },
       ],
     },
     sustainability: {
-      eyebrow: "الاستدامة",
-      title: "من أجل غدٍ أفضل.",
+      eyebrow: "أسلوب عمل KDF",
+      title: "التخصصات الهندسية",
       quote:
-        "طموحنا واضح: خفض الانبعاثات في النطاقات الأول والثاني والثالث، والمضي نحو الحياد الصفري، وبناء علاقة متوازنة مع كوكبنا.",
+        "ستة تخصصات أساسية تواكب كل مشروع من كيمياء الإنتاج وصولًا إلى الكوادر والمعايير التي تضمن استمراره بمسؤولية.",
       attribution: "كلمة الرئيس التنفيذي، تقرير الاستدامة 2024",
       pillars: [
         {
-          id: "emissions", image: "/images/home-sustainability.jpg", imageAlt: "منشأة صناعية وسط نباتات الصحراء",
+          id: "treat", group: "تقنيات الإنتاج", image: "/Treat.png", imageAlt: "مضخة جرعات لحقن مواد كيميائية لمعالجة الإنتاج",
+          title: "Treat",
+          body: "حلول مصمّمة لدعم معالجة الإنتاج وتحسين الكفاءة التشغيلية.",
+          tags: ["كاسرات المستحلبات", "مروّقات المياه", "محسّنات التدفق"],
+        },
+        {
+          id: "protect", group: "تقنيات الإنتاج", image: "/Corrosion and scale protection.png", imageAlt: "أنابيب فولاذية مطلية تمتد نحو الأفق عند الغروب",
+          title: "Protect",
+          body: "برامج كيميائية تركّز على حماية الأصول ومكافحة التآكل والموثوقية.",
+          tags: ["مثبطات الترسبات والتآكل", "مثبطات الهيدرات والأسفلتين"],
+        },
+        {
+          id: "assure", group: "تقنيات الإنتاج", image: "/Assure.png", imageAlt: "تجميعة صمام رأس بئر مضاءة عند الغسق",
+          title: "Assure",
+          body: "حلول ضمان التدفق لدعم إنتاج مستمر وفعّال.",
+          tags: ["كواسح كبريتيد الهيدروجين والأكسجين", "مذيبات الترسبات", "المبيدات الميكروبية", "مزيلات الرغوة"],
+        },
+        {
+          id: "emissions", group: "الاستدامة", image: "/Emissions.png", imageAlt: "منظر علوي لسطح منشأة صناعية ومداخنها",
           title: "الانبعاثات",
           body: "أهداف خفض محددة عبر النطاقات الأول والثاني والثالث، مع إفصاح شفاف لا مجرد ملخّص.",
         },
         {
-          id: "environment", image: "/images/home-assure-1.jpg", imageAlt: "معدات معالجة المياه",
+          id: "environment", group: "الاستدامة", image: "/Environment.png", imageAlt: "حوض معالجة مياه بسطح ساكن عاكس",
           title: "البيئة",
           body: "منع الانسكابات وخفض استهلاك الطاقة والتحكم في الانبعاثات وإدارة النفايات بمسؤولية في كل موقع.",
         },
         {
-          id: "people", image: "/images/home-people.jpg", imageAlt: "مهندسون في منشأة صناعية",
+          id: "people", group: "الاستدامة", image: "/People & local content.png", imageAlt: "مهندسون يراجعون مخططًا معًا في قاعة تدريب",
           title: "الكوادر والمحتوى المحلي",
           body: "التكويت والتدريب وبيئة عمل تلتزم بمعايير معتمدة للصحة والسلامة المهنية.",
         },
@@ -537,9 +603,11 @@ const homePageByLocale: Record<Locale, HomePage> = {
     },
     contact: {
       title: "لنبدأ العمل معًا.",
-      image: "/images/hero/hero-banner-1.jpg",
-      imageAlt: "منصة حفر في حقل نفطي صحراوي عند الغروب",
-      cta: "تواصل مع KDF",
+      image: "/footer-bg.png",
+      imageAlt: "صورة مشرقة وقت الغروب لمنصة حفر وخزانات تخزين في حقل نفطي كويتي",
+      subscribePlaceholder: "أدخل بريدك الإلكتروني",
+      subscribeCta: "اشترك",
+      subscribeSuccess: "شكرًا لك — تم تسجيل بريدك الإلكتروني.",
       emailLabel: "راسلنا",
       phoneLabel: "اتصل بنا",
       locationLabel: "زرنا",

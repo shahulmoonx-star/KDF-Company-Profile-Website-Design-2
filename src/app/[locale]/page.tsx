@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
 import Footprint from "@/components/home/Footprint";
 import Hero from "@/components/home/Hero";
-import News from "@/components/home/News";
-import ProductionTechnologies from "@/components/home/ProductionTechnologies";
 import Recognition from "@/components/home/Recognition";
 import RegionalPresence from "@/components/home/RegionalPresence";
 import Solutions from "@/components/home/Solutions";
@@ -28,11 +26,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <Hero content={home.hero} />
       <Footprint content={home.footprint} />
       <Solutions content={home.solutions} />
-      <ProductionTechnologies content={home.production} />
       <RegionalPresence content={home.presence} capability={home.capability} />
       <Recognition content={home.recognition} locale={locale} />
       <Sustainability content={home.sustainability} />
-      <News content={home.news} />
     </main>
   );
 }

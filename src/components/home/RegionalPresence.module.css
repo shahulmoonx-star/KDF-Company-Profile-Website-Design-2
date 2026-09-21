@@ -2,6 +2,22 @@
    No prefers-reduced-motion guard anywhere in this file — see the standing
    note in globals.css on why this project always shows its motion. */
 
+/* react-simple-maps' Geography has no built-in hover styling in this
+   version of the library — the interactive brighten-on-hover for a
+   clickable country landmass has to come from a real CSS :hover rule
+   rather than a JS-side style object (see the comment where this class is
+   applied). transition lives here rather than on the inline style so it
+   only ever fires for fill/stroke, not for every SVG attribute React
+   touches on re-render. */
+.geoClickable {
+  transition: fill 200ms ease, stroke 200ms ease, stroke-width 200ms ease;
+}
+
+.geoClickable:hover {
+  fill: #fdfbf7 !important;
+  stroke: #f56501 !important;
+}
+
 .panelGrid {
   background-image:
     linear-gradient(to right, rgba(253, 251, 247, 0.05) 1px, transparent 1px),

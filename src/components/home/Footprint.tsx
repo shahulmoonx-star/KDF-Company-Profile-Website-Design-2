@@ -11,10 +11,8 @@ import ClientMarquee from "./ClientMarquee";
  * anchored to the start edge and mirrors in Arabic along with everything
  * else.
  *
- * Three things share the band because they are one claim: who KDF is (the
- * heading), who trusts it (the scrolling client logos), and at what scale
- * (the figures). The figures sit below a hairline as supporting evidence
- * rather than as the headline they used to be.
+ * The heading, client logos and operating figures share one band so the
+ * section reads as a single statement of KDF's reach and longevity.
  */
 export default function Footprint({ content }: { content: HomePage["footprint"] }) {
   return (
@@ -43,7 +41,7 @@ export default function Footprint({ content }: { content: HomePage["footprint"] 
 
       <div className="mx-auto max-w-[1280px] px-6 py-10 lg:py-12">
         <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10">
-          <div className="max-w-md">
+          <div className="max-w-lg">
             <Reveal
               as="p"
               className="font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-signal-600"
@@ -53,7 +51,7 @@ export default function Footprint({ content }: { content: HomePage["footprint"] 
             <Reveal
               as="h2"
               delay={90}
-              className="mt-5 text-[1.75rem] leading-[1.2] font-semibold text-balance text-brand-950 sm:text-[2rem]"
+              className="mt-5 text-[2.5rem] leading-[1.02] font-semibold tracking-[-0.045em] text-balance text-brand-950 sm:text-[3rem] lg:text-[3.5rem]"
             >
               {content.title}
             </Reveal>
@@ -62,8 +60,19 @@ export default function Footprint({ content }: { content: HomePage["footprint"] 
               delay={320}
               className="mt-6 block h-[3px] w-20 rounded-full bg-signal-500"
             />
-            <Reveal as="p" delay={200} className="mt-6 text-sm leading-relaxed text-brand-500">
-              {content.clientsLead}
+            <Reveal delay={200} className="mt-7 inline-flex items-stretch drop-shadow-[0_10px_18px_rgba(209,89,5,0.2)]">
+              <span
+                className="w-3 bg-signal-700 [clip-path:polygon(100%_0,0_50%,100%_100%)]"
+                aria-hidden="true"
+              />
+              <span className="flex items-baseline gap-2 border-y border-white/20 bg-signal-500 px-5 py-2.5 text-white">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.24em]">Since</span>
+                <span className="font-mono text-xl leading-none font-semibold">1966</span>
+              </span>
+              <span
+                className="w-4 bg-signal-700 [clip-path:polygon(0_0,100%_50%,0_100%)]"
+                aria-hidden="true"
+              />
             </Reveal>
           </div>
 

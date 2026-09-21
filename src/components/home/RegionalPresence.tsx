@@ -16,13 +16,20 @@ import styles from "./RegionalPresence.module.css";
  * "Infrastructure & capabilities" section (what KDF operates). Both
  * visible together, nothing hidden behind a tab.
  *
- * **The map itself is frozen.** Its projection, its country colours, its
- * arcs, its markers and its labels are exactly what they were — the only
- * thing that changed in this round is what surrounds it. The band used to
- * be a flat sheet of brand-950 with the dark map panel sitting on it, so
- * the panel had nothing to read against. Now the band is cream and the
- * panel is framed like an instrument mounted on a bright wall, which is
- * the contrast the map was missing, without touching anything inside it.
+ * The band used to be a flat sheet of brand-950 with the dark map panel
+ * sitting on it, so the panel had nothing to read against. Now the band is
+ * cream and the panel is framed like an instrument mounted on a bright
+ * wall, giving the dark panel edge something to read against.
+ *
+ * The landmasses themselves were later brightened (cream/light-brand tones
+ * rather than the original dark slate-on-slate) once real use showed the
+ * countries were too close in value to the panel background to read
+ * clearly — the map was legible as a shape but not as a set of distinct,
+ * nameable countries. Every plotted country is also clickable now, not
+ * just its list row or marker: clicking the landmass itself selects that
+ * location the same way clicking its row does, via the same
+ * `GEO_NAME_TO_ID` lookup used to connect `Geography`'s `properties.name`
+ * (the basemap's own English country names) to `location.id`.
  *
  * Neither `content.lead` nor `capability.lead` is rendered. Both stay in
  * the content model — the CMS fields and the API contract are unchanged,
@@ -73,6 +80,20 @@ const GCC_COUNTRIES = new Set([
   "Iraq",
   "Qatar",
 ]);
+
+// The basemap's `properties.name` is the country's plain English name
+// (Natural Earth's own naming), which doesn't match every `location.id` —
+// most obviously "United Arab Emirates" vs "uae" and "Saudi Arabia" vs
+// "saudi". This is what lets a click on the landmass itself resolve to the
+// same location a click on its list row or marker would select.
+const GEO_NAME_TO_LOCATION_ID: Record<string, string> = {
+  "Saudi Arabia": "saudi",
+  "United Arab Emirates": "uae",
+  Oman: "oman",
+  Bahrain: "bahrain",
+  Iraq: "iraq",
+  Kuwait: "kuwait",
+};
 
 // Bahrain's marker sits close enough to the coast that its default
 // right-growing label collides with the landmass — the only location that
@@ -291,7 +312,7 @@ export default function RegionalPresence({
             delay={200}
             className="rounded-[30px] border border-cream-300 bg-cream-100 p-2 shadow-[0_30px_70px_-42px_rgba(17,24,29,0.6)]"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-brand-800 bg-brand-900">
+            <div className="relative overflow-hidden rounded-3xl border border-brand-700 bg-brand-800">
               <div className={`pointer-events-none absolute inset-0 ${styles.panelGrid}`} aria-hidden="true" />
 
               <span className="pointer-events-none absolute start-5 top-4 z-10 font-mono text-[10px] tracking-[0.3em] text-brand-400">
@@ -313,16 +334,35 @@ export default function RegionalPresence({
                 <Geographies geography="/maps/countries-50m.json">
                   {({ geographies }) =>
                     geographies.map((geo) => {
-                      const isGcc = GCC_COUNTRIES.has((geo.properties?.name as string) ?? "");
+                      const name = (geo.properties?.name as string) ?? "";
+                      const isGcc = GCC_COUNTRIES.has(name);
+                      const locationId = GEO_NAME_TO_LOCATION_ID[name];
+                      // The HQ itself has no list row to select/deselect via —
+                      // clicking Kuwait on the map clears the selection, the
+                      // same as clicking the HQ row does.
+                      const isClickable = locationId !== undefined;
+                      const isActive = locationId !== undefined && locationId === activeId;
                       return (
                         <Geography
                           key={geo.rsmKey}
                           geography={geo}
+                          onClick={
+                            isClickable
+                              ? () => setActiveId(locationId === "kuwait" ? null : isActive ? null : locationId)
+                              : undefined
+                          }
+                          // This build of react-simple-maps has no
+                          // default/hover/pressed style API (that's an older
+                          // major version) — `style` here is a plain SVG
+                          // style object, so hover has to come from the
+                          // stylesheet's real `:hover` pseudo-class instead.
+                          className={isClickable ? styles.geoClickable : undefined}
                           style={{
-                            fill: isGcc ? "#28333c" : "#1d262d",
-                            stroke: "#34424c",
-                            strokeWidth: 0.6,
+                            fill: isActive ? "#f5b384" : isGcc ? "#d5dce2" : "#abbac4",
+                            stroke: isActive ? "#f56501" : "#6a8395",
+                            strokeWidth: isActive ? 1.4 : 0.6,
                             outline: "none",
+                            cursor: isClickable ? "pointer" : "default",
                           }}
                         />
                       );
@@ -337,6 +377,7 @@ export default function RegionalPresence({
                     if (!projected) return null;
                     const [hx, hy] = projected;
                     const r = ISLAND_HALO[location.id]!;
+                    const isActive = activeId === location.id;
                     return (
                       <ellipse
                         key={`${location.id}-halo`}
@@ -344,9 +385,11 @@ export default function RegionalPresence({
                         cy={hy}
                         rx={r}
                         ry={r * 1.7}
-                        fill="#28333c"
-                        stroke="#34424c"
+                        fill={isActive ? "#f5b384" : "#d5dce2"}
+                        stroke={isActive ? "#f56501" : "#6a8395"}
                         strokeWidth={1}
+                        className="cursor-pointer"
+                        onClick={() => setActiveId(isActive ? null : location.id)}
                       />
                     );
                   })}
@@ -387,8 +430,21 @@ export default function RegionalPresence({
                   const isActive = activeId === location.id;
                   return (
                     <Marker key={location.id} coordinates={location.coordinates}>
-                      <circle r={isActive ? 6 : 5} fill={isActive ? "#f56501" : "#6a8395"} />
-                      <circle r={2} fill="#fdfbf7" />
+                      <circle
+                        r={isActive ? 6 : 5}
+                        fill={isActive ? "#f56501" : "#28333c"}
+                        stroke="#fdfbf7"
+                        strokeWidth={1.5}
+                        className="cursor-pointer"
+                        onClick={() => setActiveId(isActive ? null : location.id)}
+                      />
+                      <circle r={2} fill="#fdfbf7" className="pointer-events-none" />
+                      {/* A light halo behind the label text rather than a
+                          plain fill colour: with the landmass now bright
+                          (cream/light-brand, not the original dark slate),
+                          dark label text needs its own contrast plate to
+                          stay legible over both the pale landmass and the
+                          open (dark brand-800) sea alike. */}
                       <text
                         x={override?.dx ?? 9}
                         y={4}
@@ -397,7 +453,11 @@ export default function RegionalPresence({
                           fontFamily: "var(--font-sans), sans-serif",
                           fontSize: 12,
                           fontWeight: isActive ? 700 : 600,
-                          fill: isActive ? "#fdfbf7" : "#abbac4",
+                          fill: isActive ? "#f56501" : "#1d262d",
+                          paintOrder: "stroke",
+                          stroke: "#fdfbf7",
+                          strokeWidth: 3,
+                          strokeLinejoin: "round",
                         }}
                       >
                         {location.name}
@@ -408,7 +468,7 @@ export default function RegionalPresence({
 
                 <Marker coordinates={content.hq.coordinates}>
                   <circle r={11} fill="#f56501" opacity={0.22} className={styles.hqPulse} />
-                  <circle r={7} fill="#f56501" />
+                  <circle r={7} fill="#f56501" stroke="#fdfbf7" strokeWidth={1.5} />
                   <circle r={2.8} fill="#fdfbf7" />
                   <text
                     x={12}
@@ -417,7 +477,11 @@ export default function RegionalPresence({
                       fontFamily: "var(--font-sans), sans-serif",
                       fontSize: 13,
                       fontWeight: 700,
-                      fill: "#f3893f",
+                      fill: "#ab4a07",
+                      paintOrder: "stroke",
+                      stroke: "#fdfbf7",
+                      strokeWidth: 3,
+                      strokeLinejoin: "round",
                     }}
                   >
                     {content.hq.name}
@@ -428,8 +492,12 @@ export default function RegionalPresence({
                     style={{
                       fontFamily: "var(--font-mono), monospace",
                       fontSize: 10,
-                      fill: "#6a8395",
+                      fill: "#1d262d",
                       letterSpacing: "0.12em",
+                      paintOrder: "stroke",
+                      stroke: "#fdfbf7",
+                      strokeWidth: 3,
+                      strokeLinejoin: "round",
                     }}
                   >
                     {content.hqSublabel}
@@ -450,7 +518,7 @@ export default function RegionalPresence({
           shape that fills to match it. */}
       <div className="relative isolate overflow-hidden">
         <Image src={capability.image} alt="" fill sizes="100vw" className="-z-20 object-cover" />
-        <span aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-950/92" />
+        <span aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-950/72" />
         <span
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-[radial-gradient(70%_120%_at_12%_0%,rgba(245,101,1,0.22),transparent_62%)]"
@@ -467,12 +535,12 @@ export default function RegionalPresence({
                 className="relative lg:border-s lg:border-brand-700/70 lg:ps-8 lg:first:border-s-0 lg:first:ps-0"
               >
                 <CapabilityGauge fill={item.fill} delay={index * 110 + 220} />
-                <p className="mt-5 flex flex-wrap items-baseline gap-x-1.5">
-                  <span className="font-mono text-[1.85rem] leading-none font-semibold text-cream-50 sm:text-[2.2rem]">
-                    <CountUp value={item.value} />
-                  </span>
-                  <span className="font-mono text-[11px] text-signal-400">{item.unit}</span>
+                <p className="mt-5 font-mono text-[1.85rem] leading-none font-semibold text-cream-50 sm:text-[2.2rem]">
+                  <CountUp value={item.value} />
                 </p>
+                <span className="mt-1.5 inline-block rounded-full bg-signal-500/15 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.08em] text-signal-400 uppercase">
+                  {item.unit}
+                </span>
                 <p className="mt-2.5 text-xs leading-snug text-brand-300">{item.label}</p>
               </Reveal>
             ))}

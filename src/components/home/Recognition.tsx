@@ -41,9 +41,6 @@ export default function Recognition({ content, locale }: { content: HomePage["re
           <p className={styles.eyebrow}>{content.eyebrow}</p>
           <h2 id="recognition-title" className={styles.title}>{content.title}</h2>
         </Reveal>
-        <button type="button" className={styles.control} aria-label={paused ? strings.playGallery : strings.pauseGallery} aria-pressed={paused} onClick={() => setPaused(!paused)}>
-          {paused ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z" fill="currentColor" /></svg> : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" strokeWidth="2" /></svg>}
-        </button>
       </div>
       <Reveal delay={150}>
         <div className={`${styles.viewport} ${paused ? styles.manual : ""}`} data-preview={selected ? "open" : undefined}>
@@ -53,7 +50,6 @@ export default function Recognition({ content, locale }: { content: HomePage["re
                 <li key={card.id} className={styles.card}>
                   <button type="button" className={styles.sheet} tabIndex={duplicate ? -1 : 0} aria-label={`${strings.enlargeImage}: ${card.fullTitle}`} onClick={() => openPreview(card)} onFocus={(event) => { if (!duplicate && event.currentTarget.matches(":focus-visible")) setPaused(true); }}>
                     <Image src={card.image} alt={duplicate ? "" : card.imageAlt} fill sizes="(max-width: 640px) 220px, 270px" className={card.imagePlaceholder ? styles.placeholderImage : styles.documentImage} />
-                    {card.imagePlaceholder && <span className={styles.previewBadge}>{strings.previewImage}</span>}
                     <span className={styles.expand} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5M19 5l-6 6M10 19H5v-5m0 5 6-6" stroke="currentColor" strokeWidth="1.5" /></svg></span>
                   </button>
                   <div className={styles.caption}><h3>{card.title}</h3><p>{card.caption}</p></div>
@@ -68,7 +64,7 @@ export default function Recognition({ content, locale }: { content: HomePage["re
         {selected && <div className={styles.previewContent}>
           <div className={styles.previewSheet}><Image src={selected.image} alt={selected.imageAlt} fill sizes="(max-width: 640px) 85vw, 500px" className={styles.documentImage} /></div>
           <h3 id="recognition-preview-title">{selected.fullTitle}</h3>
-          <p>{selected.imagePlaceholder ? strings.previewImage : selected.caption}</p>
+          <p>{selected.caption}</p>
         </div>}
       </dialog>
     </section>

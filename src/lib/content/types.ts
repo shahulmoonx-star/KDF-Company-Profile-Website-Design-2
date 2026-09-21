@@ -82,18 +82,6 @@ export interface HomeSolution {
   capabilities: string[];
 }
 
-/** One stage of the Treat / Protect / Assure production-chemistry sequence. */
-export interface HomeProductionPillar {
-  id: string;
-  /** Always "Treat", "Protect" or "Assure" — the client's own product-line
-   *  brand names, which stay in Latin script in both locales. */
-  title: string;
-  description: string;
-  /** Specific chemical categories under this stage, shown as small tags. */
-  tags: string[];
-  /** Path to this stage's photograph. */
-  image: string;
-}
 
 /** One point on the regional-presence map — KDF's HQ or one of the
  *  countries it serves from there. */
@@ -143,19 +131,15 @@ export interface HomeNewsItem {
 
 export interface HomePage {
   hero: {
-    eyebrow: string;
-    /** Trailing clause of the eyebrow, set apart in a brand-orange badge. */
-    eyebrowHighlight: string;
-    title: string;
-    strapline: string;
-    primaryCta: string;
-    secondaryCta: string;
+    slides: Array<{
+      title: string;
+      caption: string;
+      alt: string;
+    }>;
   };
   footprint: {
     eyebrow: string;
     title: string;
-    /** Lead-in line above the client logos. */
-    clientsLead: string;
     clients: HomeClient[];
     stats: HomeStat[];
   };
@@ -164,13 +148,6 @@ export interface HomePage {
     title: string;
     lead: string;
     items: HomeSolution[];
-  };
-  production: {
-    eyebrow: string;
-    lead: string;
-    /** Exactly three: Treat, Protect, Assure, in that order — the heading
-     *  is built from these titles rather than stored separately. */
-    pillars: HomeProductionPillar[];
   };
   presence: {
     eyebrow: string;
@@ -212,7 +189,23 @@ export interface HomePage {
     title: string;
     quote: string;
     attribution: string;
-    pillars: { id: string; title: string; body: string; image: string; imageAlt: string }[];
+    /**
+     * One continuous stack: KDF's production-chemistry stages (Treat /
+     * Protect / Assure) followed by its sustainability pillars, presented
+     * as a single pinned scroll-stack rather than two separate sections —
+     * both are "how KDF operates responsibly", just at different scales.
+     * `group` labels which half of the stack a pillar belongs to, purely
+     * for the small caption shown above its title.
+     */
+    pillars: {
+      id: string;
+      group: string;
+      title: string;
+      body: string;
+      image: string;
+      imageAlt: string;
+      tags?: string[];
+    }[];
   };
   news: {
     eyebrow: string;
@@ -223,7 +216,12 @@ export interface HomePage {
     title: string;
     image: string;
     imageAlt: string;
-    cta: string;
+    /** Placeholder text for the newsletter signup's email field. */
+    subscribePlaceholder: string;
+    /** Submit button label, e.g. "Subscribe". */
+    subscribeCta: string;
+    /** Shown in place of the form once a visitor submits their email. */
+    subscribeSuccess: string;
     emailLabel: string;
     phoneLabel: string;
     locationLabel: string;
