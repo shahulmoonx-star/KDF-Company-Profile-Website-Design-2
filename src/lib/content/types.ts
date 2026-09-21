@@ -79,6 +79,7 @@ export interface HomeSolution {
   strap: string;
   /** Path (later: a CMS asset URL) to this discipline's photograph. */
   image: string;
+  imageAlt: string;
   capabilities: string[];
 }
 
@@ -122,11 +123,20 @@ export interface HomeCertification extends RecognitionImage {
   label: string;
 }
 
-export interface HomeNewsItem {
+/** One card in the "How KDF operates" pinned scroll-stack — a production
+ *  chemistry discipline (Treat/Protect/Assure) or a sustainability pillar. */
+export interface HomeSustainabilityPillar {
   id: string;
-  year: string;
-  category: string;
+  /** Which half of the stack this belongs to, shown as a small caption
+   *  above the title (e.g. "Production Technologies" or "Sustainability"). */
+  group: string;
   title: string;
+  body: string;
+  image: string;
+  imageAlt: string;
+  /** Chemistry/product tags — only populated for the "Production
+   *  Technologies" group; the "Sustainability" group has none. */
+  tags?: string[];
 }
 
 export interface HomePage {
@@ -175,6 +185,7 @@ export interface HomePage {
     /** Backdrop photograph for the band. Content, not a constant — a CMS
      *  editor swaps it exactly the way they swap a solution's photo. */
     image: string;
+    imageAlt: string;
     items: HomeCapacity[];
   };
   recognition: {
@@ -197,20 +208,7 @@ export interface HomePage {
      * `group` labels which half of the stack a pillar belongs to, purely
      * for the small caption shown above its title.
      */
-    pillars: {
-      id: string;
-      group: string;
-      title: string;
-      body: string;
-      image: string;
-      imageAlt: string;
-      tags?: string[];
-    }[];
-  };
-  news: {
-    eyebrow: string;
-    title: string;
-    items: HomeNewsItem[];
+    pillars: HomeSustainabilityPillar[];
   };
   contact: {
     title: string;

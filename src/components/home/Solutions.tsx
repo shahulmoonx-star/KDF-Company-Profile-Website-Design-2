@@ -36,7 +36,7 @@ export default function Solutions({ content }: { content: HomePage["solutions"] 
             >
               <Image
                 src={item.image}
-                alt=""
+                alt={item.imageAlt}
                 fill
                 sizes={index === 0 ? "(max-width: 900px) 100vw, 1280px" : "(max-width: 900px) 100vw, 640px"}
                 className={styles.image}

@@ -8,11 +8,11 @@ import HeroSlideshow from "./HeroSlideshow";
 const SLIDE_INTERVAL_MS = 6000;
 
 const HERO_IMAGES = [
-  "/hero-image-1.png",
-  "/hero-image-2.png",
-  "/hero-image-3.png",
-  "/hero-image-4.png",
-  "/hero-image-5.png",
+  "/hero-image-1.webp",
+  "/hero-image-2.webp",
+  "/hero-image-3.webp",
+  "/hero-image-4.webp",
+  "/hero-image-5.webp",
 ] as const;
 
 function ChevronIcon({ direction }: { direction: "prev" | "next" }) {

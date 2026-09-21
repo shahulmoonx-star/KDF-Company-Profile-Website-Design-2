@@ -517,7 +517,7 @@ export default function RegionalPresence({
           the same grammar the location tracks above use: a value, and a
           shape that fills to match it. */}
       <div className="relative isolate overflow-hidden">
-        <Image src={capability.image} alt="" fill sizes="100vw" className="-z-20 object-cover" />
+        <Image src={capability.image} alt={capability.imageAlt} fill sizes="100vw" className="-z-20 object-cover" />
         <span aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-950/72" />
         <span
           aria-hidden="true"
