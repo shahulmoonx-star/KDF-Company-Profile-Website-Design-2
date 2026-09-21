@@ -73,14 +73,12 @@ export default function MegaMenu({ items, locale }: { items: NavItem[]; locale: 
               >
                 <span className="flex items-center gap-1.5">
                   <span
-                    className={`text-[14.5px] font-medium tracking-[0.01em] transition-colors ${
+                    className={`text-[14.5px] tracking-[0.01em] transition-[color,font-weight] group-hover:font-bold ${
                       isOpen
-                        ? transparent
-                          ? "text-signal-300"
-                          : "text-signal-700"
+                        ? `font-bold ${transparent ? "text-signal-300" : "text-signal-700"}`
                         : transparent
-                          ? "text-cream-50 group-hover:text-signal-300"
-                          : "text-brand-800 group-hover:text-signal-600"
+                          ? "font-medium text-cream-50 group-hover:text-signal-300"
+                          : "font-medium text-brand-800 group-hover:text-signal-600"
                     }`}
                   >
                     {item.label}
@@ -127,7 +125,7 @@ export default function MegaMenu({ items, locale }: { items: NavItem[]; locale: 
                             <li key={leaf.id}>
                               <button
                                 type="button"
-                                className="-mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] items-center rounded-[10px] px-3 text-start text-[14.5px] text-brand-500 transition-colors hover:bg-signal-100 hover:text-signal-700"
+                                className="-mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] items-center rounded-[10px] px-3 text-start text-[14.5px] font-medium text-brand-500 transition-[color,background-color,font-weight] hover:bg-signal-100 hover:font-bold hover:text-signal-700"
                                 onClick={() => setOpenId(null)}
                               >
                                 {leaf.label}

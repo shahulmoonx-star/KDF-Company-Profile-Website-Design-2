@@ -302,25 +302,6 @@ const mainNavigationSource: NavItemSource[] = [
             id: "media-news-events-exhibitions",
             label: { en: "Events and exhibitions", ar: "الفعاليات والمعارض" },
           },
-          {
-            id: "work-tendering-supplier-registration",
-            label: {
-              en: "Tendering / Supplier Registration",
-              ar: "المناقصات وتسجيل الموردين",
-            },
-          },
-          {
-            id: "work-careers-working-at-kdf",
-            label: { en: "Working at KDF", ar: "العمل في KDF" },
-          },
-          {
-            id: "work-careers-current-vacancies",
-            label: { en: "Current Vacancies", ar: "الوظائف الشاغرة" },
-          },
-          {
-            id: "work-careers-submit-cv",
-            label: { en: "Submit Your CV", ar: "إرسال سيرتك الذاتية" },
-          },
         ],
       },
       {
@@ -358,6 +339,37 @@ const mainNavigationSource: NavItemSource[] = [
           {
             id: "media-partners-industries-served",
             label: { en: "Industries served", ar: "القطاعات التي نخدمها" },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "work-with-us",
+    label: { en: "Work With Us", ar: "اعمل معنا" },
+    children: [
+      {
+        id: "work-tendering-supplier-registration",
+        label: {
+          en: "Tendering / Supplier Registration",
+          ar: "المناقصات وتسجيل الموردين",
+        },
+      },
+      {
+        id: "work-careers",
+        label: { en: "Careers", ar: "الوظائف" },
+        children: [
+          {
+            id: "work-careers-working-at-kdf",
+            label: { en: "Working at KDF", ar: "العمل في KDF" },
+          },
+          {
+            id: "work-careers-current-vacancies",
+            label: { en: "Current Vacancies", ar: "الوظائف الشاغرة" },
+          },
+          {
+            id: "work-careers-submit-cv",
+            label: { en: "Submit Your CV", ar: "إرسال سيرتك الذاتية" },
           },
         ],
       },
