@@ -136,7 +136,7 @@ export default function Sustainability({ content }: { content: HomePage["sustain
         {/* giant ghost counter — brand orange, at an opacity that keeps it
             clearly legible against KDF's cream backdrop without competing
             with the card content in front of it. */}
-        <span className="absolute right-4 lg:right-10 top-6 lg:top-10 font-sans font-black text-[90px] lg:text-[160px] leading-none text-signal-500/[0.28] select-none pointer-events-none">
+        <span className="absolute right-4 lg:right-10 top-6 lg:top-10 font-sans font-black text-[56px] sm:text-[90px] lg:text-[160px] leading-none text-signal-500/[0.28] select-none pointer-events-none">
           {String(active + 1).padStart(2, "0")}
         </span>
 
@@ -149,12 +149,14 @@ export default function Sustainability({ content }: { content: HomePage["sustain
             <h2 className="font-sans text-3xl lg:text-5xl font-bold leading-tight mb-3 lg:mb-5 text-balance text-brand-950">
               {content.title}
             </h2>
-            <p className="hidden lg:block text-brand-500 text-base leading-relaxed mb-8">
+            <p className="hidden sm:block text-brand-500 text-sm sm:text-base leading-relaxed mb-5 sm:mb-8">
               {content.quote}
             </p>
 
-            {/* rail — desktop */}
-            <div className="hidden lg:flex gap-4">
+            {/* rail — tablet & desktop. Shown from sm: up (not just lg:) so
+                tablets get the real navigable list instead of falling back
+                to the bare mobile counter. */}
+            <div className="hidden sm:flex gap-3 lg:gap-4">
               {/* progress track */}
               <div className="relative w-0.5 bg-cream-300 self-stretch rounded-full">
                 <span
@@ -162,7 +164,7 @@ export default function Sustainability({ content }: { content: HomePage["sustain
                   style={{ height: `${progress * 100}%` }}
                 />
               </div>
-              <ul className="flex flex-col gap-2.5">
+              <ul className="flex flex-col gap-2 lg:gap-2.5">
                 {services.map((s, i) => {
                   const isActive = i === active;
                   return (
@@ -174,12 +176,12 @@ export default function Sustainability({ content }: { content: HomePage["sustain
                           isActive ? "text-brand-950" : "text-brand-400/50 hover:text-brand-400"
                         }`}
                       >
-                        <span className={`font-mono text-[12px] font-bold tracking-wider ${isActive ? "text-signal-500" : ""}`}>
+                        <span className={`font-mono text-[11px] lg:text-[12px] font-bold tracking-wider ${isActive ? "text-signal-500" : ""}`}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span
                           className={`font-sans leading-snug transition-all duration-300 ${
-                            isActive ? "font-bold text-[18px]" : "font-medium text-[16px]"
+                            isActive ? "font-bold text-[16px] lg:text-[18px]" : "font-medium text-[14px] lg:text-[16px]"
                           }`}
                         >
                           {s.title}
@@ -191,8 +193,8 @@ export default function Sustainability({ content }: { content: HomePage["sustain
               </ul>
             </div>
 
-            {/* counter — mobile */}
-            <p className="lg:hidden text-sm text-brand-500 font-semibold tracking-widest">
+            {/* counter — phones only, now that the rail covers tablet too */}
+            <p className="sm:hidden text-sm text-brand-500 font-semibold tracking-widest">
               <span className="font-mono text-signal-500 font-bold">{String(active + 1).padStart(2, "0")}</span>
               <span className="mx-1.5 text-cream-300">/</span>
               <span className="font-mono">{N}</span>

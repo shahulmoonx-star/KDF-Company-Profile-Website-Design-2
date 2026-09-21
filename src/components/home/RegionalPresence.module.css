@@ -77,6 +77,38 @@
   animation: rp-hq-pulse 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
+/* Map label text sizes. Set here (rather than only inline) so they can be
+   bumped up at small viewport widths: the map's SVG coordinate system stays
+   a fixed 900x700 regardless of its rendered size, so on narrow phones the
+   whole map — labels included — scales down together, and a label that
+   reads fine on tablet/desktop can get close to illegible on a small
+   phone's screen. */
+.mapLocationLabel {
+  font-size: 12px;
+}
+
+.mapHqLabel {
+  font-size: 13px;
+}
+
+.mapHqSublabel {
+  font-size: 10px;
+}
+
+@media (max-width: 480px) {
+  .mapLocationLabel {
+    font-size: 22px;
+  }
+
+  .mapHqLabel {
+    font-size: 24px;
+  }
+
+  .mapHqSublabel {
+    font-size: 18px;
+  }
+}
+
 /* The capability cards' ring gauges. stroke-dasharray is constant (the
    ring's own circumference); stroke-dashoffset animates from that same
    full value down to each card's own target, both passed in per-element

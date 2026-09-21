@@ -449,9 +449,9 @@ export default function RegionalPresence({
                         x={override?.dx ?? 9}
                         y={4}
                         textAnchor={override?.anchor ?? "start"}
+                        className={styles.mapLocationLabel}
                         style={{
                           fontFamily: "var(--font-sans), sans-serif",
-                          fontSize: 12,
                           fontWeight: isActive ? 700 : 600,
                           fill: isActive ? "#f56501" : "#1d262d",
                           paintOrder: "stroke",
@@ -473,9 +473,9 @@ export default function RegionalPresence({
                   <text
                     x={12}
                     y={-6}
+                    className={styles.mapHqLabel}
                     style={{
                       fontFamily: "var(--font-sans), sans-serif",
-                      fontSize: 13,
                       fontWeight: 700,
                       fill: "#ab4a07",
                       paintOrder: "stroke",
@@ -489,11 +489,11 @@ export default function RegionalPresence({
                   <text
                     x={12}
                     y={8}
+                    className={styles.mapHqSublabel}
                     style={{
                       fontFamily: "var(--font-mono), monospace",
-                      fontSize: 10,
-                      fill: "#1d262d",
                       letterSpacing: "0.12em",
+                      fill: "#1d262d",
                       paintOrder: "stroke",
                       stroke: "#fdfbf7",
                       strokeWidth: 3,

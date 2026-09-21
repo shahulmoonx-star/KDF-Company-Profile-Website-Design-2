@@ -40,7 +40,7 @@ export default function Footprint({ content }: { content: HomePage["footprint"] 
       </div>
 
       <div className="mx-auto max-w-[1280px] px-6 py-10 lg:py-12">
-        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10">
+        <div className="grid items-center gap-6 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] sm:gap-8 lg:gap-10">
           <div className="max-w-lg">
             <Reveal
               as="p"
