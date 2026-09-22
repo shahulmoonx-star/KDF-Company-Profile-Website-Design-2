@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import About from "@/components/home/About";
 import Footprint from "@/components/home/Footprint";
 import Hero from "@/components/home/Hero";
 import Recognition from "@/components/home/Recognition";
@@ -24,6 +25,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <main className="flex-1">
       <Hero content={home.hero} />
+      <About content={home.about} />
       <Footprint content={home.footprint} />
       <Solutions content={home.solutions} />
       <RegionalPresence content={home.presence} capability={home.capability} />

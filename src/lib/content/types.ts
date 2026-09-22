@@ -64,6 +64,24 @@ export interface HomeStat {
   label: string;
 }
 
+/**
+ * One figure in the About KDF band. Most figures count up from zero
+ * (`value` + optional `suffix`, e.g. 60 + "+"); a couple aren't really
+ * counts at all (a ratio like "24/7", a fixed "100%") — `display`
+ * overrides the animated number with a static string for those, while
+ * `value` still carries a sortable/meaningful number for anything that
+ * later needs one (kept at 0 where genuinely inapplicable).
+ */
+export interface HomeAboutStat {
+  id: string;
+  value: number;
+  suffix?: string;
+  /** Static override shown instead of the animated `value`, for figures
+   *  that aren't a count (e.g. "24/7", "100%"). */
+  display?: string;
+  label: string;
+}
+
 /** A client whose logo appears in the homepage's trusted-by marquee. */
 export interface HomeClient {
   id: string;
@@ -147,11 +165,22 @@ export interface HomePage {
       alt: string;
     }>;
   };
+  about: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    /** Two flanking photographs, framing the stat grid between them —
+     *  a compositional device, not a full-bleed backdrop. */
+    imageStart: string;
+    imageStartAlt: string;
+    imageEnd: string;
+    imageEndAlt: string;
+    stats: HomeAboutStat[];
+  };
   footprint: {
     eyebrow: string;
     title: string;
     clients: HomeClient[];
-    stats: HomeStat[];
   };
   solutions: {
     eyebrow: string;

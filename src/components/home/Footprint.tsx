@@ -1,5 +1,4 @@
 import Image from "next/image";
-import CountUp from "@/components/motion/CountUp";
 import Reveal from "@/components/motion/Reveal";
 import type { HomePage } from "@/lib/content/types";
 import ClientMarquee from "./ClientMarquee";
@@ -11,8 +10,10 @@ import ClientMarquee from "./ClientMarquee";
  * anchored to the start edge and mirrors in Arabic along with everything
  * else.
  *
- * The heading, client logos and operating figures share one band so the
- * section reads as a single statement of KDF's reach and longevity.
+ * The scale figures (years, employees, countries, clients) that used to
+ * live in this band moved to the new About KDF section right after the
+ * Hero, which is now the one authoritative place for those numbers — this
+ * band keeps only the heading, "Since 1966" badge and client-logo marquee.
  */
 export default function Footprint({ content }: { content: HomePage["footprint"] }) {
   return (
@@ -80,23 +81,6 @@ export default function Footprint({ content }: { content: HomePage["footprint"] 
             <ClientMarquee clients={content.clients} />
           </Reveal>
         </div>
-
-        {/* Centred as its own band rather than inheriting the start-edge
-            alignment of the heading column above it — each figure is
-            centred in its own cell too, so the row reads as an
-            independent strip of numbers at every width, including the
-            two-up mobile layout. */}
-        <dl className="mx-auto mt-6 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-8 border-t border-cream-300 pt-6 text-center sm:grid-cols-4 lg:mt-8">
-          {content.stats.map((stat, index) => (
-            <Reveal key={stat.id} delay={index * 120} className="flex flex-col items-center">
-              <dd className="order-1 font-mono text-4xl leading-none font-semibold text-brand-950 lg:text-5xl">
-                <CountUp value={stat.value} />
-                {stat.suffix}
-              </dd>
-              <dt className="order-2 mt-3 text-sm leading-snug text-brand-500">{stat.label}</dt>
-            </Reveal>
-          ))}
-        </dl>
       </div>
     </section>
   );
