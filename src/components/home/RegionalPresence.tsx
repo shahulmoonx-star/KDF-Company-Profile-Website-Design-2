@@ -1,20 +1,20 @@
 "use client";
 
-import Image from "next/image";
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { geoMercator } from "d3-geo";
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
-import CountUp from "@/components/motion/CountUp";
 import Reveal from "@/components/motion/Reveal";
-import SectionHeading from "./SectionHeading";
 import type { HomePage } from "@/lib/content/types";
 import styles from "./RegionalPresence.module.css";
 
 /**
- * Reach and scale, as two chapters of one section: the map (where KDF
- * operates) and the manufacturing figures that used to be their own
- * "Infrastructure & capabilities" section (what KDF operates). Both
- * visible together, nothing hidden behind a tab.
+ * Reach: where KDF operates, plotted on a GCC/MENA map. This band used to
+ * carry a second chapter — the manufacturing-scale figures for "what KDF
+ * operates" — set over a photograph beneath the map. Those figures briefly
+ * had their own standalone Infrastructure & Capabilities section, since
+ * removed at the client's request; the 6 disciplines it introduced live on
+ * as reworded, number-free content inside Sustainability.tsx's "How KDF
+ * operates" pillars instead. This band is the map alone.
  *
  * The band used to be a flat sheet of brand-950 with the dark map panel
  * sitting on it, so the panel had nothing to read against. Now the band is
@@ -30,11 +30,6 @@ import styles from "./RegionalPresence.module.css";
  * location the same way clicking its row does, via the same
  * `GEO_NAME_TO_ID` lookup used to connect `Geography`'s `properties.name`
  * (the basemap's own English country names) to `location.id`.
- *
- * Neither `content.lead` nor `capability.lead` is rendered. Both stay in
- * the content model — the CMS fields and the API contract are unchanged,
- * and the interior pages still use them — but this band now leads with a
- * heading, a photograph and its figures instead of paragraphs.
  *
  * The location list is the section's real interaction: each row is a track
  * whose fill is that country's great-circle distance from Kuwait as a
@@ -146,56 +141,7 @@ function distanceKm(a: [number, number], b: [number, number]): number {
   return Math.round(R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h)));
 }
 
-const GAUGE_RADIUS = 30;
-const GAUGE_CIRCUMFERENCE = 2 * Math.PI * GAUGE_RADIUS;
-
-/** The capability figures' ring — item.fill (0–1) drawn as a dial. Sized by
- *  its class rather than width/height attributes so the viewBox can stay at
- *  the geometry it was authored against. Draws in once on mount via a CSS
- *  custom-property keyframe, the same "runs once, unconditionally" approach
- *  the map's own connector arcs already use in this file. */
-function CapabilityGauge({ fill, delay }: { fill: number; delay: number }) {
-  const offset = GAUGE_CIRCUMFERENCE * (1 - Math.min(1, Math.max(0, fill)));
-  const gaugeStyle = {
-    "--gauge-circumference": GAUGE_CIRCUMFERENCE,
-    "--gauge-offset": offset,
-    animationDelay: `${delay}ms`,
-  } as CSSProperties;
-
-  return (
-    <svg viewBox="0 0 72 72" className="h-[68px] w-[68px] -rotate-90 shrink-0" aria-hidden="true">
-      {/* Translucent cream rather than a solid navy: the track now sits over
-          a photograph and has to hold on light and dark areas of it alike. */}
-      <circle
-        cx="36"
-        cy="36"
-        r={GAUGE_RADIUS}
-        fill="none"
-        stroke="rgba(253,251,247,0.18)"
-        strokeWidth="6"
-      />
-      <circle
-        cx="36"
-        cy="36"
-        r={GAUGE_RADIUS}
-        fill="none"
-        stroke="#f56501"
-        strokeWidth="6"
-        strokeLinecap="round"
-        className={styles.gaugeRing}
-        style={gaugeStyle}
-      />
-    </svg>
-  );
-}
-
-export default function RegionalPresence({
-  content,
-  capability,
-}: {
-  content: HomePage["presence"];
-  capability: HomePage["capability"];
-}) {
+export default function RegionalPresence({ content }: { content: HomePage["presence"] }) {
   // null = resting state, every route shown at the same calm brightness —
   // exactly how this looked before selection existed. Picking a location
   // (from the list; the map mirrors it) brightens its own arc and dims the
@@ -506,45 +452,6 @@ export default function RegionalPresence({
               </ComposableMap>
             </div>
           </Reveal>
-        </div>
-      </div>
-
-      {/* Second chapter, still the same section: the manufacturing figures
-          that used to be a separate "Infrastructure & capabilities" band.
-          They are numbers about a physical place, so they are set over a
-          photograph of it and given the full width of the page rather than
-          boxed into four bordered cards. The ring gauges stay — they are
-          the same grammar the location tracks above use: a value, and a
-          shape that fills to match it. */}
-      <div className="relative isolate overflow-hidden">
-        <Image src={capability.image} alt={capability.imageAlt} fill sizes="100vw" className="-z-20 object-cover" />
-        <span aria-hidden="true" className="absolute inset-0 -z-10 bg-brand-950/72" />
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(70%_120%_at_12%_0%,rgba(245,101,1,0.22),transparent_62%)]"
-        />
-
-        <div className="mx-auto max-w-[1280px] px-6 py-12 lg:py-16">
-          <SectionHeading eyebrow={capability.eyebrow} title={capability.title} tone="dark" />
-
-          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-x-10 lg:mt-14 lg:grid-cols-4">
-            {capability.items.map((item, index) => (
-              <Reveal
-                key={item.id}
-                delay={index * 110}
-                className="relative lg:border-s lg:border-brand-700/70 lg:ps-8 lg:first:border-s-0 lg:first:ps-0"
-              >
-                <CapabilityGauge fill={item.fill} delay={index * 110 + 220} />
-                <p className="mt-5 font-mono text-[1.85rem] leading-none font-semibold text-cream-50 sm:text-[2.2rem]">
-                  <CountUp value={item.value} />
-                </p>
-                <span className="mt-1.5 inline-block rounded-full bg-signal-500/15 px-2 py-0.5 font-mono text-[10px] font-bold tracking-[0.08em] text-signal-400 uppercase">
-                  {item.unit}
-                </span>
-                <p className="mt-2.5 text-xs leading-snug text-brand-300">{item.label}</p>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </div>
     </section>

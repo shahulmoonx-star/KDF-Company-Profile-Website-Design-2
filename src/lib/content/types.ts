@@ -67,7 +67,7 @@ export interface HomeStat {
 /**
  * One figure in the About KDF band. Most figures count up from zero
  * (`value` + optional `suffix`, e.g. 60 + "+"); a couple aren't really
- * counts at all (a ratio like "24/7", a fixed "100%") — `display`
+ * counts at all (a ratio like "24/7", a fixed "100%") - `display`
  * overrides the animated number with a static string for those, while
  * `value` still carries a sortable/meaningful number for anything that
  * later needs one (kept at 0 where genuinely inapplicable).
@@ -111,16 +111,6 @@ export interface HomePresenceLocation {
   coordinates: [number, number];
 }
 
-/** A manufacturing capacity figure, drawn as a filling gauge. */
-export interface HomeCapacity {
-  id: string;
-  value: number;
-  unit: string;
-  label: string;
-  /** How full this gauge draws, 0–1 — a visual weight, not a measured ratio. */
-  fill: number;
-}
-
 export interface RecognitionImage {
   image: string;
   imageAlt: string;
@@ -141,6 +131,21 @@ export interface HomeCertification extends RecognitionImage {
   label: string;
 }
 
+/**
+ * One card in the News & Blogs showcase — a static display, not a link:
+ * there are no article pages yet, so each entry shows only what fits on
+ * the card itself (no click, no further detail). Currently seeded with
+ * KDF announcement graphics as placeholder content until real news/blog
+ * posts replace them, each with its own dedicated image.
+ */
+export interface HomeNewsItem extends RecognitionImage {
+  id: string;
+  year: string;
+  title: string;
+  /** One-line teaser shown under the title. */
+  excerpt: string;
+}
+
 /** One card in the "How KDF operates" pinned scroll-stack — a production
  *  chemistry discipline (Treat/Protect/Assure) or a sustainability pillar. */
 export interface HomeSustainabilityPillar {
@@ -152,8 +157,10 @@ export interface HomeSustainabilityPillar {
   body: string;
   image: string;
   imageAlt: string;
-  /** Chemistry/product tags — only populated for the "Production
-   *  Technologies" group; the "Sustainability" group has none. */
+  /** Optional chemistry/product tags. Not currently rendered by
+   *  Sustainability.tsx (see its own doc comment) — kept on the type for
+   *  content that predates the pinned-scroll-stack redesign and any future
+   *  layout that wants them, but no current pillar sets it. */
   tags?: string[];
 }
 
@@ -168,13 +175,15 @@ export interface HomePage {
   about: {
     eyebrow: string;
     title: string;
-    lead: string;
-    /** Two flanking photographs, framing the stat grid between them —
-     *  a compositional device, not a full-bleed backdrop. */
-    imageStart: string;
-    imageStartAlt: string;
-    imageEnd: string;
-    imageEndAlt: string;
+    /** Single supporting paragraph under the title. */
+    description: string;
+    /** Photo shown beside the content, with a "Since {foundedYear}" ribbon
+     *  across its corner. */
+    image: string;
+    imageAlt: string;
+    /** Year KDF was founded, shown on the photo's ribbon (e.g. 1966). */
+    foundedYear: number;
+    /** All figures render together in one evenly weighted row. */
     stats: HomeAboutStat[];
   };
   footprint: {
@@ -207,16 +216,6 @@ export interface HomePage {
     hq: HomePresenceLocation;
     locations: HomePresenceLocation[];
   };
-  capability: {
-    eyebrow: string;
-    title: string;
-    lead: string;
-    /** Backdrop photograph for the band. Content, not a constant — a CMS
-     *  editor swaps it exactly the way they swap a solution's photo. */
-    image: string;
-    imageAlt: string;
-    items: HomeCapacity[];
-  };
   recognition: {
     eyebrow: string;
     title: string;
@@ -227,8 +226,6 @@ export interface HomePage {
   sustainability: {
     eyebrow: string;
     title: string;
-    quote: string;
-    attribution: string;
     /**
      * One continuous stack: KDF's production-chemistry stages (Treat /
      * Protect / Assure) followed by its sustainability pillars, presented
@@ -238,6 +235,15 @@ export interface HomePage {
      * for the small caption shown above its title.
      */
     pillars: HomeSustainabilityPillar[];
+  };
+  /** The closing section, right before the footer: a static News & Blogs
+   *  showcase (no article pages exist yet, so cards don't link anywhere).
+   *  See HomeNewsItem's doc comment for the placeholder content it holds
+   *  today. */
+  news: {
+    eyebrow: string;
+    title: string;
+    items: HomeNewsItem[];
   };
   contact: {
     title: string;
@@ -249,6 +255,8 @@ export interface HomePage {
     subscribeCta: string;
     /** Shown in place of the form once a visitor submits their email. */
     subscribeSuccess: string;
+    /** A warmer, smaller second line under subscribeSuccess. */
+    subscribeSuccessNote: string;
     emailLabel: string;
     phoneLabel: string;
     locationLabel: string;

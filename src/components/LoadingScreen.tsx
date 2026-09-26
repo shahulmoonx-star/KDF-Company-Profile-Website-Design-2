@@ -109,6 +109,22 @@ export default function LoadingScreen() {
     if (hasRunRef.current) return;
     hasRunRef.current = true;
 
+    // The browser's own scroll restoration can land a reload mid-page —
+    // e.g. after a session spent scrolled down to News & Blogs — before
+    // this effect ever runs. Because the overlay below is a fixed
+    // full-viewport layer that does not itself lock body scroll, that
+    // leaves the real page scrolled past the Hero underneath it: the
+    // overlay fades out and the visitor never sees the top of the page at
+    // all, landing instead on whatever section the old scroll position
+    // pointed at. Forcing scroll restoration off and jumping to the top
+    // before paint guarantees every fresh load (and every reload) starts
+    // the loading sequence — and therefore the Hero behind it — at the
+    // real top of the page.
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+
     if (alreadySeenThisTab()) {
       skippedRef.current = true;
       // Before paint: React resolves this state change before the browser
@@ -188,10 +204,22 @@ export default function LoadingScreen() {
     // Nothing to schedule for a tab that already skipped straight to "done".
     if (skippedRef.current) return;
 
+    // Keep the page pinned at the top for the sequence's duration — see the
+    // scrollRestoration note above for why an unlocked page can drift.
+    // Restored explicitly when the fade begins below, NOT via this effect's
+    // own cleanup: `phase === "done"` makes the component render `null`,
+    // but that only changes its output, not its lifecycle — the fiber stays
+    // mounted and this effect's cleanup never runs, which previously left
+    // `overflow: hidden` on the body forever (every section below Hero
+    // permanently unreachable by scroll after the very first load).
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     // The sequence runs for every viewer. It is deliberately not gated on
     // prefers-reduced-motion — see the note at the foot of the stylesheet.
     const fadeTimer = setTimeout(() => {
       setPhase("fading");
+      document.body.style.overflow = previousOverflow;
       // Released as the fade begins, not after it: the page's own entrance
       // animations rise in while this overlay dissolves. Timings are not
       // shared — see motion/intro.ts.
@@ -201,6 +229,7 @@ export default function LoadingScreen() {
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(doneTimer);
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 

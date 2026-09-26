@@ -5,12 +5,12 @@ import styles from "./Solutions.module.css";
 
 /**
  * An image-first editorial mosaic for KDF's core products and services. The
- * photography carries the section; each card keeps only its sequence number
- * and title so the offer can be understood at a glance.
+ * photography carries the section; each card keeps only its title so the
+ * offer can be understood at a glance.
  */
 export default function Solutions({ content }: { content: HomePage["solutions"] }) {
   return (
-    <section className={styles.section}>
+    <section id="solutions" className={styles.section}>
       <span className={styles.orbit} aria-hidden="true" />
 
       <div className={styles.inner}>
@@ -43,11 +43,6 @@ export default function Solutions({ content }: { content: HomePage["solutions"] 
               />
               <span className={styles.scrim} aria-hidden="true" />
               <span className={styles.edge} aria-hidden="true" />
-
-              <div className={styles.cardTop}>
-                <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
-                <span className={styles.marker} aria-hidden="true" />
-              </div>
 
               <div className={styles.cardTitle}>
                 <h3>{item.title}</h3>

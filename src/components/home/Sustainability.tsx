@@ -146,12 +146,9 @@ export default function Sustainability({ content }: { content: HomePage["sustain
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-signal-600 mb-3">
               {content.eyebrow}
             </p>
-            <h2 className="font-sans text-3xl lg:text-5xl font-bold leading-tight mb-3 lg:mb-5 text-balance text-brand-950">
+            <h2 className="font-sans text-4xl lg:text-6xl font-bold leading-tight mb-8 sm:mb-10 lg:mb-12 text-balance text-brand-950">
               {content.title}
             </h2>
-            <p className="hidden sm:block text-brand-500 text-sm sm:text-base leading-relaxed mb-5 sm:mb-8">
-              {content.quote}
-            </p>
 
             {/* rail — tablet & desktop. Shown from sm: up (not just lg:) so
                 tablets get the real navigable list instead of falling back

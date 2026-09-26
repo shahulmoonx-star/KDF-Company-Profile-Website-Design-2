@@ -24,6 +24,10 @@ export interface UiStrings {
    * (About KDF's Milestones/Awards/Facilities, Contact's two enquiry
    * types) without claiming a false thematic connection between them. */
   quickLinksHeading: string;
+  /** Alt text for the Great Place to Work certification badge. */
+  greatPlaceToWorkAlt: string;
+  /** Alt text for the quality/environment/safety certification badges. */
+  certificationBadgesAlt: string;
   languageSwitcherLabel: string;
   /** Each language names itself, in its own script — the standard convention. */
   languageNames: Record<Locale, string>;
@@ -43,6 +47,8 @@ const uiStrings: Record<Locale, UiStrings> = {
     allRightsReserved: "All rights reserved.",
     developedBy: "Designed and developed by",
     quickLinksHeading: "Quick Links",
+    greatPlaceToWorkAlt: "Great Place to Work Certified, Kuwait",
+    certificationBadgesAlt: "Quality, environmental and occupational safety certification marks",
     languageSwitcherLabel: "Choose language",
     languageNames: { en: "English", ar: "العربية" },
     languageShortNames: { en: "EN", ar: "AR" },
@@ -57,6 +63,8 @@ const uiStrings: Record<Locale, UiStrings> = {
     allRightsReserved: "جميع الحقوق محفوظة.",
     developedBy: "تصميم وتطوير",
     quickLinksHeading: "روابط سريعة",
+    greatPlaceToWorkAlt: "شهادة Great Place to Work المعتمدة، الكويت",
+    certificationBadgesAlt: "شارات اعتماد الجودة والبيئة والسلامة المهنية",
     languageSwitcherLabel: "اختر اللغة",
     languageNames: { en: "English", ar: "العربية" },
     languageShortNames: { en: "EN", ar: "AR" },

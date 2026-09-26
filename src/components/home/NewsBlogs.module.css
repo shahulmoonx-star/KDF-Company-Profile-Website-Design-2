@@ -1,0 +1,69 @@
+.section { padding: 76px 0 66px; background: #eee9df; overflow: hidden; }
+.heading { max-width: 720px; margin: 0 auto 34px; padding-inline: 24px; text-align: center; }
+.eyebrow { color: var(--color-signal-700); font: 700 12px var(--font-mono), monospace; text-transform: uppercase; letter-spacing: 0.3em; }
+.title { margin-top: 12px; color: var(--color-brand-950); font-size: clamp(32px, 3.6vw, 48px); font-weight: 500; line-height: 1.18; letter-spacing: -0.04em; }
+.viewport { display: flex; overflow: hidden; padding: 20px 0 10px; direction: ltr; }
+.track { display: flex; flex-shrink: 0; gap: 28px; padding: 0 14px; margin: 0; list-style: none; animation: news-travel 110s linear infinite; }
+.viewport:hover .track { animation-play-state: paused; }
+.card {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--color-cream-50);
+  box-shadow: 0 18px 34px -22px rgb(17 24 29 / 22%);
+}
+.sheet {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--color-brand-900);
+}
+.photo { object-fit: cover; }
+.year {
+  position: absolute;
+  top: 14px;
+  inset-inline-start: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--color-signal-500);
+  color: var(--color-brand-950);
+  font: 700 12px var(--font-mono), monospace;
+  letter-spacing: 0.06em;
+}
+.caption { display: flex; flex-direction: column; flex: 1; padding: 18px 20px 22px; }
+.caption h3 {
+  overflow: hidden;
+  color: var(--color-brand-900);
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.caption p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-top: 8px;
+  color: var(--color-brand-500);
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  min-height: calc(1.55em * 3);
+}
+@keyframes news-travel { to { transform: translateX(-100%); } }
+:global(html[dir="rtl"]) .caption { direction: rtl; }
+:global(html[dir="rtl"]) .title { letter-spacing: 0; }
+:global(html[dir="rtl"]) .track { animation-direction: reverse; }
+@media (max-width: 640px) {
+ .section { padding: 46px 0 36px; }
+ .heading { margin-bottom: 22px; }
+ .title { font-size: 32px; }
+ .card { width: 240px; }
+ .track { gap: 20px; padding-inline: 10px; animation-duration: 95s; }
+ .caption h3 { font-size: 14px; }
+ .caption p { font-size: 12.5px; }
+}

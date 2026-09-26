@@ -142,17 +142,6 @@ html[dir="rtl"] [data-reveal-variant="rule"] {
   transform: none;
 }
 
-/* Measure ticks laid over a gauge track (src/components/home/Capability.tsx). */
-.kdf-ticks {
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(253, 251, 247, 0.22) 0px,
-    rgba(253, 251, 247, 0.22) 1px,
-    transparent 1px,
-    transparent 40px
-  );
-}
-
 /* Mega-menu panel entrance (src/components/nav/MegaMenu.tsx). Transform +
    opacity only, no reduced-motion gate — see the loading screen's standing
    note on why this project always shows its motion. */
@@ -164,6 +153,20 @@ html[dir="rtl"] [data-reveal-variant="rule"] {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Plays when switching directly from one open top-level item to another
+   (see MegaMenu.tsx's `closing` state) — the shared panel fades/lifts out
+   before its content is swapped and kdf-panel-enter plays again. */
+@keyframes kdf-panel-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
   }
 }
 

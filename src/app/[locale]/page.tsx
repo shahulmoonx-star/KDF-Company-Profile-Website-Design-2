@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 import About from "@/components/home/About";
 import Footprint from "@/components/home/Footprint";
 import Hero from "@/components/home/Hero";
+import NewsBlogs from "@/components/home/NewsBlogs";
 import Recognition from "@/components/home/Recognition";
-import RegionalPresence from "@/components/home/RegionalPresence";
 import Solutions from "@/components/home/Solutions";
 import Sustainability from "@/components/home/Sustainability";
 import { getHomePage } from "@/lib/content/home";
@@ -28,9 +28,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <About content={home.about} />
       <Footprint content={home.footprint} />
       <Solutions content={home.solutions} />
-      <RegionalPresence content={home.presence} capability={home.capability} />
+      {/* RegionalPresence (the GCC/MENA map) is hidden for now per request. */}
       <Recognition content={home.recognition} locale={locale} />
       <Sustainability content={home.sustainability} />
+      <NewsBlogs content={home.news} />
     </main>
   );
 }

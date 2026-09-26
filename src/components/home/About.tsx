@@ -1,117 +1,99 @@
 import Image from "next/image";
 import CountUp from "@/components/motion/CountUp";
 import Reveal from "@/components/motion/Reveal";
-import SectionHeading from "./SectionHeading";
 import type { HomePage } from "@/lib/content/types";
 
 /**
- * "About KDF" — the section right after the Hero, opening the page's case
- * with scale rather than description: seven figures instead of a paragraph
- * of prose. Deliberately not a photographic backdrop like the loading
- * screen or Sustainability's card deck: the brief asked for the imagery
- * framing the numbers from the sides, not sitting behind them, so the dark
- * instrument-panel band (bg-brand-950 + the same blueprint grid motif
- * Sustainability uses, just in the cool navy register instead of orange)
- * stays the one continuous surface the eye reads first, with a photograph
- * standing in each margin like a frame around it.
- *
- * One viewport tall on desktop (min-h-screen, not a hard h-screen — content
- * that's taller than the viewport at extreme zoom/font-size settings should
- * still be reachable, not clipped) and its natural stacked height on
- * phones, where seven stats need more room than one screen comfortably
- * gives.
+ * "About KDF" - the section right after the Hero. A light, editorial
+ * treatment that sits on the same cream body colour as the rest of the
+ * page: a single photograph carrying a "Since {foundedYear}" corner
+ * ribbon, paired with a heading, one justified paragraph, and all seven
+ * figures shown together in one evenly weighted row.
  */
 export default function About({ content }: { content: HomePage["about"] }) {
-  const stats = content.stats;
-
   return (
-    <section className="relative isolate overflow-hidden bg-brand-950 min-h-screen flex items-center py-16 lg:py-0">
-      {/* blueprint grid backdrop, same motif as Sustainability's but in the
-          cool brand register rather than orange, since this band is dark
-          rather than cream. */}
+    <section
+      id="about"
+      className="relative isolate flex min-h-screen items-center overflow-hidden bg-cream-50 py-20 sm:py-24 lg:py-16"
+    >
+      {/* Soft orange glow - the section's one accent of colour beyond the
+          photograph. Purely decorative. */}
       <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(253,251,247,1) 1px, transparent 1px), linear-gradient(90deg, rgba(253,251,247,1) 1px, transparent 1px)",
-          backgroundSize: "44px 44px",
-        }}
-        aria-hidden="true"
-      />
-      {/* A soft orange glow low in the frame — the one warm accent in an
-          otherwise cool, technical band, echoing the brand rule under the
-          heading rather than competing with it. */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-1/2 opacity-[0.14] pointer-events-none"
-        style={{
-          background: "radial-gradient(60% 60% at 50% 100%, #f56501 0%, transparent 70%)",
-        }}
+        className="pointer-events-none absolute -top-24 end-0 h-[420px] w-[420px] rounded-full opacity-[0.14] blur-3xl"
+        style={{ background: "radial-gradient(circle, #f56501 0%, transparent 70%)" }}
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-10 px-6 lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)_minmax(0,220px)] lg:gap-8 lg:px-10 xl:grid-cols-[minmax(0,280px)_minmax(0,1fr)_minmax(0,280px)]">
-        {/* left flanking image — hidden below lg, since a phone-width column
-            has no room to frame anything without crowding the stats. */}
-        <Reveal
-          variant="fade"
-          className="relative hidden aspect-[3/4] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.7)] lg:block"
-        >
-          <Image
-            src={content.imageStart}
-            alt={content.imageStartAlt}
-            fill
-            sizes="280px"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-950/70 via-transparent to-transparent" />
-          <span className="absolute inset-x-0 bottom-0 h-1 bg-signal-500" aria-hidden="true" />
-        </Reveal>
+      <div className="relative mx-auto w-full max-w-[1280px] px-6">
+        <div className="grid items-center gap-16 lg:grid-cols-[1fr_1.1fr] lg:gap-14 xl:gap-20">
+          {/* ---- photo ---- */}
+          <Reveal variant="fade" className="relative mx-auto w-full max-w-[440px] lg:max-w-none">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] shadow-[0_40px_80px_-32px_rgba(17,24,29,0.35)]">
+              <Image
+                src={content.image}
+                alt={content.imageAlt}
+                fill
+                sizes="(max-width: 1024px) 84vw, 480px"
+                className="object-cover"
+              />
 
-        {/* center: heading + stat grid */}
-        <div className="mx-auto w-full max-w-3xl text-center">
-          <div className="mx-auto flex flex-col items-center">
-            <SectionHeading eyebrow={content.eyebrow} title={content.title} lead={content.lead} tone="dark" />
+              {/* "Since 1966" corner ribbon */}
+              <div className="absolute -end-14 top-9 w-52 rotate-45 bg-signal-500 py-2 text-center shadow-[0_8px_20px_rgba(0,0,0,0.25)] rtl:-rotate-45">
+                <span className="text-[13px] font-bold tracking-[0.08em] text-cream-50 uppercase">
+                  Since {content.foundedYear}
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ---- content ---- */}
+          <div>
+            <Reveal
+              as="p"
+              className="font-mono text-[11px] font-bold tracking-[0.3em] text-signal-600 uppercase"
+            >
+              {content.eyebrow}
+            </Reveal>
+
+            <Reveal
+              as="h2"
+              delay={90}
+              className="mt-5 max-w-xl text-[1.9rem] leading-[1.18] font-semibold text-balance text-brand-950 sm:text-4xl lg:text-[2.6rem]"
+            >
+              {content.title}
+            </Reveal>
+
+            <Reveal
+              as="p"
+              delay={200}
+              className="mt-6 text-justify text-[15.5px] leading-relaxed text-brand-500 sm:text-base"
+            >
+              {content.description}
+            </Reveal>
+
+            {/* all seven figures, one evenly weighted row. flex-wrap (not a
+                4-column grid) so the trailing 3 items on the second row
+                centre as their own group instead of hugging the start
+                edge under an invisible 4th column. */}
+            <dl className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-8 border-t border-cream-300 pt-10 text-center">
+              {content.stats.map((stat, index) => (
+                <Reveal key={stat.id} delay={280 + index * 70} className="w-[calc(50%-0.75rem)] sm:w-[calc(25%-1.125rem)]">
+                  <dd className="font-sans text-[1.9rem] leading-none font-bold text-brand-950 tabular-nums sm:text-[2.1rem]">
+                    {stat.display ?? (
+                      <>
+                        <CountUp value={stat.value} />
+                        {stat.suffix}
+                      </>
+                    )}
+                  </dd>
+                  <dt className="mx-auto mt-2.5 min-h-[2.4em] max-w-[9rem] text-[12px] leading-snug font-medium text-balance text-brand-500">
+                    {stat.label}
+                  </dt>
+                </Reveal>
+              ))}
+            </dl>
           </div>
-
-          <dl className="mx-auto mt-12 flex flex-wrap justify-center gap-x-8 gap-y-10 lg:mt-14 lg:gap-x-10">
-            {stats.map((stat, index) => (
-              <Reveal
-                key={stat.id}
-                delay={120 + index * 90}
-                className="relative flex w-[calc(50%-16px)] flex-col items-center border-t-2 border-white/10 pt-5 sm:w-[calc(33.333%-22px)] lg:w-[calc(33.333%-27px)]"
-              >
-                <dd className="font-mono text-[2.1rem] leading-none font-bold text-cream-50 sm:text-4xl lg:text-[2.6rem]">
-                  {stat.display ?? (
-                    <>
-                      <CountUp value={stat.value} />
-                      {stat.suffix}
-                    </>
-                  )}
-                </dd>
-                <dt className="mt-3 max-w-[9rem] text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-300 sm:text-xs">
-                  {stat.label}
-                </dt>
-              </Reveal>
-            ))}
-          </dl>
         </div>
-
-        {/* right flanking image */}
-        <Reveal
-          variant="fade"
-          delay={140}
-          className="relative hidden aspect-[3/4] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.7)] lg:block"
-        >
-          <Image
-            src={content.imageEnd}
-            alt={content.imageEndAlt}
-            fill
-            sizes="280px"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-950/70 via-transparent to-transparent" />
-          <span className="absolute inset-x-0 bottom-0 h-1 bg-signal-500" aria-hidden="true" />
-        </Reveal>
       </div>
     </section>
   );

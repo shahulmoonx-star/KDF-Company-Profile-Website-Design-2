@@ -19,7 +19,7 @@ const siteSettingsByLocale: Record<Locale, SiteSettings> = {
     companyName: "Kuwait Drilling Fluids & Oil Service Company",
     shortName: "KDF",
     description:
-      "Kuwait's and the GCC's leading manufacturer and service provider for drilling fluids, production chemistry, and cementing solutions since 1966.",
+      "KDF has been manufacturing drilling fluids, production chemicals, and cementing solutions in Kuwait since 1966, serving oil and gas operators across the GCC.",
     developer: {
       name: "Uniweb IT Solutions",
       url: "https://uniwebonline.com",
@@ -37,7 +37,7 @@ const siteSettingsByLocale: Record<Locale, SiteSettings> = {
     companyName: "الشركة الكويتية لسوائل الحفر والخدمات النفطية",
     shortName: "KDF",
     description:
-      "الشركة الرائدة في الكويت ودول مجلس التعاون الخليجي في تصنيع وتوفير سوائل الحفر وكيمياء الإنتاج وحلول الإسمنت منذ عام 1966.",
+      "تُصنّع KDF سوائل الحفر وكيماويات الإنتاج وحلول الإسمنت في الكويت منذ عام 1966، وتخدم شركات النفط والغاز في دول مجلس التعاون الخليجي.",
     developer: {
       // Brand name kept in Latin script, matching common Gulf corporate practice.
       name: "Uniweb IT Solutions",

@@ -109,21 +109,3 @@
   }
 }
 
-/* The capability cards' ring gauges. stroke-dasharray is constant (the
-   ring's own circumference); stroke-dashoffset animates from that same
-   full value down to each card's own target, both passed in per-element
-   as CSS custom properties since the target differs per gauge. */
-.gaugeRing {
-  stroke-dasharray: var(--gauge-circumference);
-  stroke-dashoffset: var(--gauge-circumference);
-  animation: rp-gauge-in 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes rp-gauge-in {
-  from {
-    stroke-dashoffset: var(--gauge-circumference);
-  }
-  to {
-    stroke-dashoffset: var(--gauge-offset);
-  }
-}

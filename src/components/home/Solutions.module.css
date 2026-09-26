@@ -147,37 +147,6 @@
   height: 58%;
 }
 
-.cardTop {
-  position: absolute;
-  z-index: 3;
-  top: 26px;
-  inset-inline: 28px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 28px;
-  border: 1px solid rgb(255 255 255 / 30%);
-  border-radius: 999px;
-  background: rgb(17 24 29 / 40%);
-  color: var(--color-cream-50);
-  font: 700 10px var(--font-mono), monospace;
-  letter-spacing: 0.16em;
-  backdrop-filter: blur(10px);
-}
-
-.marker {
-  width: 26px;
-  height: 1px;
-  background: var(--color-signal-500);
-}
-
 .cardTitle {
   position: absolute;
   z-index: 3;
@@ -289,11 +258,6 @@
   .featured {
     min-height: 330px;
     border-radius: 22px 22px 8px 22px;
-  }
-
-  .cardTop {
-    top: 18px;
-    inset-inline: 18px;
   }
 
   .cardTitle {

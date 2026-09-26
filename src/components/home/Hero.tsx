@@ -86,11 +86,11 @@ export default function Hero({ content }: { content: HomePage["hero"] }) {
           header's white text and the bottom control bar readable without
           visibly flattening the image. */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-black/60 from-0% via-black/15 via-45% to-transparent to-80%"
+        className="absolute inset-0 bg-gradient-to-r from-black/42 from-0% via-black/8 via-45% to-transparent to-80%"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/35 from-0% via-transparent via-35% to-black/45 to-100%"
+        className="absolute inset-0 bg-gradient-to-b from-black/22 from-0% via-transparent via-35% to-black/32 to-100%"
         aria-hidden="true"
       />
 
@@ -102,7 +102,7 @@ export default function Hero({ content }: { content: HomePage["hero"] }) {
               as="h1"
               variant="rise"
               delay={110}
-              className="text-4xl leading-[1.12] font-semibold tracking-[-0.02em] text-cream-50 [text-shadow:0_4px_24px_rgba(0,0,0,0.45)] sm:text-5xl lg:text-6xl"
+              className="text-4xl leading-[1.12] font-semibold tracking-[-0.02em] text-cream-50 [text-shadow:0_4px_28px_rgba(0,0,0,0.6)] sm:text-5xl lg:text-6xl"
             >
               {activeSlide.title}
             </Reveal>
@@ -114,7 +114,7 @@ export default function Hero({ content }: { content: HomePage["hero"] }) {
           >
             <div className="flex flex-col gap-2.5">
               <span className="font-mono text-[11px] uppercase tracking-[0.26em] text-white/85">
-                {String(index + 1).padStart(2, "0")} — {activeSlide.caption}
+                {activeSlide.caption}
               </span>
               <div className="flex items-center gap-2">
                 {slides.map((slide, i) => (

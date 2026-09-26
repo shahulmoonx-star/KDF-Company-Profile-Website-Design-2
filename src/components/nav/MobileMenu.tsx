@@ -150,8 +150,8 @@ export default function MobileMenu({
         aria-hidden={!open}
         inert={!open}
       >
-        <div className="flex h-18 shrink-0 items-center justify-between border-b-[3px] border-signal-500 bg-cream-100 px-5">
-          <Image src={logoSrc} alt={logoAlt} width={320} height={118} className="h-8 w-auto" />
+        <div className="flex h-20 shrink-0 items-center justify-between border-b-[3px] border-signal-500 bg-cream-100 px-5">
+          <Image src={logoSrc} alt={logoAlt} width={320} height={118} className="h-12 w-auto" />
           <button
             type="button"
             className="flex size-11 items-center justify-center text-brand-800"
