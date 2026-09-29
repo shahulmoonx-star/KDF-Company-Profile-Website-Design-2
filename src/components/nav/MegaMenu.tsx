@@ -145,7 +145,7 @@ function MenuPanel({
             than swapping in place. */}
         <ul
           key={active.id}
-          className="mt-4 grid list-none grid-cols-3 gap-x-3"
+          className="mt-4 grid list-none grid-cols-3 gap-x-11 gap-y-1.5"
         >
           {active.items.map((leaf, index) => (
             <li key={leaf.id}>
@@ -158,7 +158,7 @@ function MenuPanel({
                   that move, none of which resize the text. */}
               <button
                 type="button"
-                className="group relative -mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] animate-[kdf-column-enter_220ms_ease-out_both] items-center overflow-hidden rounded-[10px] px-3 text-start text-[14.5px] font-medium text-brand-500 transition-colors duration-150 hover:bg-signal-100 hover:text-signal-700 focus-visible:bg-signal-100 focus-visible:text-signal-700 focus-visible:outline-none"
+                className="group relative -mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] animate-[kdf-column-enter_220ms_ease-out_both] items-center overflow-hidden rounded-[10px] px-3 py-2 text-start text-[14.5px] font-medium leading-snug text-brand-500 transition-colors duration-150 hover:bg-signal-100 hover:text-signal-700 focus-visible:bg-signal-100 focus-visible:text-signal-700 focus-visible:outline-none"
                 style={{ animationDelay: `${Math.min(index * 25, 140)}ms` }}
                 onClick={onNavigate}
               >
