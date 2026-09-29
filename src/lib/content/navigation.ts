@@ -13,6 +13,9 @@ interface NavItemSource {
   id: string;
   label: Record<Locale, string>;
   href?: string;
+  /** Heading for this item's own direct (childless) links where they are
+   *  shown as a group of their own. See NavItem.directLabel in types.ts. */
+  directLabel?: Record<Locale, string>;
   children?: NavItemSource[];
 }
 
@@ -48,6 +51,7 @@ const mainNavigationSource: NavItemSource[] = [
   {
     id: "about",
     label: { en: "About KDF", ar: "عن الشركة" },
+    directLabel: { en: "The Company", ar: "هوية الشركة" },
     children: [
       {
         id: "about-who-we-are",
@@ -187,6 +191,7 @@ const mainNavigationSource: NavItemSource[] = [
   {
     id: "infrastructure",
     label: { en: "Infrastructure & Capabilities", ar: "البنية التحتية والإمكانات" },
+    directLabel: { en: "Facilities & Standards", ar: "المنشآت والمعايير" },
     children: [
       {
         id: "infrastructure-qhse",
@@ -216,6 +221,7 @@ const mainNavigationSource: NavItemSource[] = [
   {
     id: "sustainability",
     label: { en: "Sustainability", ar: "الاستدامة" },
+    directLabel: { en: "Strategy & Reporting", ar: "الاستراتيجية والتقارير المؤسسية" },
     children: [
       {
         id: "sustainability-strategy",
@@ -316,6 +322,7 @@ const mainNavigationSource: NavItemSource[] = [
   {
     id: "work-with-us",
     label: { en: "Work With Us", ar: "اعمل معنا" },
+    directLabel: { en: "Suppliers", ar: "شؤون الموردين" },
     children: [
       {
         id: "work-supplier-registration",
@@ -352,6 +359,7 @@ const mainNavigationSource: NavItemSource[] = [
   {
     id: "contact",
     label: { en: "Contact Us", ar: "اتصل بنا" },
+    directLabel: { en: "Get in Touch", ar: "قنوات التواصل" },
     children: [
       {
         id: "contact-general-enquiry",
@@ -377,6 +385,7 @@ function localize(items: NavItemSource[], locale: Locale): NavItem[] {
     id: item.id,
     label: item.label[locale],
     href: item.href,
+    directLabel: item.directLabel?.[locale],
     children: item.children ? localize(item.children, locale) : undefined,
   }));
 }

@@ -18,8 +18,10 @@ import type { NavItem } from "@/lib/content/types";
  */
 export interface MenuSection {
   id: string;
-  /** Null for the pooled flat entry, which has no group name of its own —
-   *  the caller substitutes the "Quick Links" UI string. */
+  /** Null only when the pooled flat entry has no `directLabel` set on its
+   *  parent — the caller then substitutes a generic UI string. Every
+   *  top-level item that needs one sets it, so this is a fallback for
+   *  CMS-authored sections rather than the normal path. */
   heading: string | null;
   items: NavItem[];
 }
@@ -39,7 +41,11 @@ export function buildSections(item: NavItem): MenuSection[] {
   // (About KDF, Contact Us) it is the only entry, so the panel opens
   // straight onto those links with nothing to choose first.
   if (flat.length > 0) {
-    sections.unshift({ id: `${item.id}-flat`, heading: null, items: flat });
+    sections.unshift({
+      id: `${item.id}-flat`,
+      heading: item.directLabel ?? null,
+      items: flat,
+    });
   }
 
   return sections;

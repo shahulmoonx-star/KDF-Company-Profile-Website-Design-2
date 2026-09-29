@@ -17,12 +17,13 @@ export interface UiStrings {
   skipToContent: string;
   allRightsReserved: string;
   developedBy: string;
-  /** Fallback column heading for a mega-menu column that has no natural
-   * group name of its own (menu-utils' flat leftover chunk) — deliberately
-   * a standard web convention ("Quick Links") rather than a vague "More",
-   * since it has to read sensibly over very different leftover content
-   * (About KDF's Milestones/Awards/Facilities, Contact's two enquiry
-   * types) without claiming a false thematic connection between them. */
+  /** Last-resort heading for a mega-menu section whose top-level item has
+   * no `directLabel` of its own (see NavItem.directLabel). Every section in
+   * the shipped navigation sets a real title — "The Company", "Get in
+   * Touch" and so on — because the client asked for headings that name
+   * what the links actually are. This exists only so a CMS editor who adds
+   * a section without setting one still gets a sensible heading rather than
+   * a blank space. */
   quickLinksHeading: string;
   /** Alt text for the Great Place to Work certification badge. */
   greatPlaceToWorkAlt: string;

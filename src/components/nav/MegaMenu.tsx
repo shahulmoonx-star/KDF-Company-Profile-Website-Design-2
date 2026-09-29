@@ -89,10 +89,13 @@ function MenuPanel({
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                className={`flex min-h-[44px] w-full items-center gap-2 rounded-[10px] px-3.5 text-start text-[14.5px] transition-[color,background-color,font-weight] ${
+                // font-semibold on every state, not just the active one:
+                // switching weight on selection reflowed the label and made
+                // the rail twitch as the pointer ran down it.
+                className={`relative flex min-h-[44px] w-full items-center gap-2 overflow-hidden rounded-[10px] px-3.5 text-start text-[14.5px] font-semibold transition-colors duration-150 focus-visible:outline-none ${
                   isActive
-                    ? "bg-cream-50 font-bold text-signal-700 shadow-[0_1px_3px_rgba(17,24,29,0.10)]"
-                    : "font-medium text-brand-500 hover:text-signal-700"
+                    ? "bg-cream-50 text-signal-700 shadow-[0_1px_3px_rgba(17,24,29,0.10)]"
+                    : "text-brand-500 hover:bg-cream-50/70 hover:text-signal-700"
                 }`}
                 // Hover selects as well as click: the rail is a preview
                 // control, not a destination, so pointer users never have
@@ -101,9 +104,22 @@ function MenuPanel({
                 onFocus={() => setActiveId(section.id)}
                 onClick={() => setActiveId(section.id)}
               >
+                {/* height/opacity rather than scale-y: in Tailwind v4 the
+                    base `scale-y-0` and a conditional `scale-y-100` both
+                    write --tw-scale-y, so the base wins and the marker
+                    never grows. Same reason the link markers below animate
+                    height. */}
+                <span
+                  className={`absolute start-0 top-1/2 w-[3px] -translate-y-1/2 rounded-full bg-signal-500 transition-[height,opacity] duration-150 ease-out ${
+                    isActive ? "h-[calc(100%-16px)] opacity-100" : "h-0 opacity-0"
+                  }`}
+                  aria-hidden="true"
+                />
                 <span className="min-w-0 flex-1">{heading}</span>
                 <span
-                  className={`shrink-0 text-signal-500 transition-opacity ${isActive ? "opacity-100" : "opacity-0"}`}
+                  className={`shrink-0 text-signal-500 transition-opacity duration-150 rtl:rotate-180 ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`}
                   aria-hidden="true"
                 >
                   ›
@@ -133,13 +149,26 @@ function MenuPanel({
         >
           {active.items.map((leaf, index) => (
             <li key={leaf.id}>
+              {/* The hover state the client asked to make more visible.
+                  The previous one changed only text colour and weight,
+                  which barely read on cream — and the weight change made
+                  the label reflow under the cursor. This instead fills the
+                  row, slides an orange marker out from the leading edge
+                  and nudges the label across to meet it: three signals
+                  that move, none of which resize the text. */}
               <button
                 type="button"
-                className="-mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] animate-[kdf-column-enter_220ms_ease-out_both] items-center rounded-[10px] px-3 text-start text-[14.5px] font-medium text-brand-500 transition-[color,background-color,font-weight] hover:bg-signal-100 hover:font-bold hover:text-signal-700"
+                className="group relative -mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] animate-[kdf-column-enter_220ms_ease-out_both] items-center overflow-hidden rounded-[10px] px-3 text-start text-[14.5px] font-medium text-brand-500 transition-colors duration-150 hover:bg-signal-100 hover:text-signal-700 focus-visible:bg-signal-100 focus-visible:text-signal-700 focus-visible:outline-none"
                 style={{ animationDelay: `${Math.min(index * 25, 140)}ms` }}
                 onClick={onNavigate}
               >
-                {leaf.label}
+                <span
+                  className="absolute start-0 top-1/2 h-0 w-[3px] -translate-y-1/2 rounded-full bg-signal-500 opacity-0 transition-[height,opacity] duration-150 ease-out group-hover:h-[calc(100%-12px)] group-hover:opacity-100 group-focus-visible:h-[calc(100%-12px)] group-focus-visible:opacity-100"
+                  aria-hidden="true"
+                />
+                <span className="ps-0 transition-[padding] duration-150 ease-out group-hover:ps-2.5 group-focus-visible:ps-2.5">
+                  {leaf.label}
+                </span>
               </button>
             </li>
           ))}
@@ -289,7 +318,17 @@ export default function MegaMenu({ items, locale }: { items: NavItem[]; locale: 
               // two-pane layout is that every menu opens the same size, so
               // the panel never restretches between items. Capped at the
               // viewport on narrow desktops so it can't overflow.
-              className={`absolute start-6 top-full z-30 w-[min(980px,calc(100vw-3rem))] overflow-hidden rounded-[20px] bg-cream-50 shadow-[0_28px_56px_-20px_rgba(17,24,29,0.30)] ${
+              //
+              // `fixed` rather than `absolute`, and positioned from the
+              // header's own inline padding (px-6 = 1.5rem) instead of
+              // from the nav: the nav sits inside a `flex-1 justify-center`
+              // wrapper (see Navbar.tsx), so anything anchored to it starts
+              // wherever the centred menu happens to begin. The client asked
+              // for the panel to line up under the logo, and the logo card
+              // sits at exactly that same 1.5rem header padding — so this
+              // shares an edge with it at any viewport width. `top` is the
+              // header's own height (h-24 = 6rem).
+              className={`fixed start-6 top-24 z-30 w-[min(980px,calc(100vw-3rem))] overflow-hidden rounded-[20px] bg-cream-50 shadow-[0_28px_56px_-20px_rgba(17,24,29,0.30)] ${
                 isOutgoing ? "animate-[kdf-panel-exit_150ms_ease-in_both]" : "animate-[kdf-panel-enter_180ms_ease-out_both]"
               }`}
             >

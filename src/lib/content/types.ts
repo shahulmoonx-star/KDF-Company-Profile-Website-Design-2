@@ -45,6 +45,17 @@ export interface NavItem {
   id: string;
   label: string;
   href?: string;
+  /**
+   * Heading shown above this item's own direct (childless) links when the
+   * desktop mega-menu groups them together — "Company" for About KDF,
+   * "Get in Touch" for Contact Us, and so on.
+   *
+   * Optional because only a top-level item whose children include leaves
+   * needs one. Where it is absent the UI falls back to a generic string,
+   * so an editor who adds a section without setting it still gets a
+   * sensible heading rather than a blank one.
+   */
+  directLabel?: string;
   children?: NavItem[];
 }
 
