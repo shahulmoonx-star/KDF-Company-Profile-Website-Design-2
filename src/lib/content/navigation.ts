@@ -95,6 +95,10 @@ const mainNavigationSource: NavItemSource[] = [
             id: "solutions-dcf-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
           },
+          {
+            id: "solutions-dcf-video",
+            label: { en: "Video on product / service pages", ar: "فيديو في صفحات المنتجات والخدمات" },
+          },
         ],
       },
       {
@@ -122,6 +126,10 @@ const mainNavigationSource: NavItemSource[] = [
             id: "solutions-pc-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
           },
+          {
+            id: "solutions-pc-video",
+            label: { en: "Video on product / service pages", ar: "فيديو في صفحات المنتجات والخدمات" },
+          },
         ],
       },
       {
@@ -145,6 +153,10 @@ const mainNavigationSource: NavItemSource[] = [
             id: "solutions-cem-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
           },
+          {
+            id: "solutions-cem-video",
+            label: { en: "Video on product / service pages", ar: "فيديو في صفحات المنتجات والخدمات" },
+          },
         ],
       },
       {
@@ -163,6 +175,10 @@ const mainNavigationSource: NavItemSource[] = [
           {
             id: "solutions-log-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
+          },
+          {
+            id: "solutions-log-video",
+            label: { en: "Video on product / service pages", ar: "فيديو في صفحات المنتجات والخدمات" },
           },
         ],
       },
