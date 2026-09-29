@@ -145,7 +145,7 @@ function MenuPanel({
             than swapping in place. */}
         <ul
           key={active.id}
-          className="mt-4 grid list-none grid-cols-3 gap-x-11 gap-y-1.5"
+          className="mt-4 grid list-none grid-cols-3 gap-x-9 gap-y-1.5"
         >
           {active.items.map((leaf, index) => (
             <li key={leaf.id}>
@@ -158,7 +158,7 @@ function MenuPanel({
                   that move, none of which resize the text. */}
               <button
                 type="button"
-                className="group relative -mx-3 flex min-h-[42px] w-[calc(100%+1.5rem)] animate-[kdf-column-enter_220ms_ease-out_both] items-center overflow-hidden rounded-[10px] px-3 py-2 text-start text-[14.5px] font-medium leading-snug text-brand-500 transition-colors duration-150 hover:bg-signal-100 hover:text-signal-700 focus-visible:bg-signal-100 focus-visible:text-signal-700 focus-visible:outline-none"
+                className="group relative -mx-2 flex min-h-[42px] w-[calc(100%+1rem)] animate-[kdf-column-enter_220ms_ease-out_both] items-center overflow-hidden rounded-[10px] px-2 py-2 text-start text-[14.5px] font-medium leading-snug text-brand-500 transition-colors duration-150 hover:bg-signal-100 hover:text-signal-700 focus-visible:bg-signal-100 focus-visible:text-signal-700 focus-visible:outline-none"
                 style={{ animationDelay: `${Math.min(index * 25, 140)}ms` }}
                 onClick={onNavigate}
               >
@@ -166,11 +166,17 @@ function MenuPanel({
                   className="absolute start-0 top-1/2 h-0 w-[3px] -translate-y-1/2 rounded-full bg-signal-500 opacity-0 transition-[height,opacity] duration-150 ease-out group-hover:h-[calc(100%-12px)] group-hover:opacity-100 group-focus-visible:h-[calc(100%-12px)] group-focus-visible:opacity-100"
                   aria-hidden="true"
                 />
-                <span className="ps-0 transition-[padding] duration-150 ease-out group-hover:ps-2.5 group-focus-visible:ps-2.5">
+                {/* The indent is reserved at rest (ps-2.5 + a -10px pull)
+                    and released on hover, rather than added on hover. The
+                    label therefore occupies the same width in both states,
+                    so a long one cannot wrap only while hovered. */}
+                <span className="min-w-0 -ms-2.5 ps-2.5 transition-[margin] duration-150 ease-out group-hover:ms-0 group-focus-visible:ms-0">
                   {leaf.label}
                 </span>
-                {/* Appears on hover at the row's trailing edge, as in the
-                    approved design. Mirrored in RTL so it always points
+                {/* Always occupies its slot and only fades in, so it never
+                    takes width from the label at the moment of hover —
+                    that was making a long label wrap and the row grow
+                    under the cursor. Mirrored in RTL so it always points
                     the way the text runs. */}
                 <span
                   className="ms-auto shrink-0 ps-2 text-[13px] text-signal-500 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 rtl:rotate-180"
