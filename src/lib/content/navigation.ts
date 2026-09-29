@@ -27,9 +27,9 @@ interface NavItemSource {
  *
  * Every top-level item's tree stays at most two levels deep (group ->
  * leaf). That is not a style choice, it is a hard constraint: the desktop
- * mega-menu (src/components/nav/MegaMenu.tsx, via menu-utils.buildColumns)
- * only ever renders a column heading and its direct leaf items — a
- * grandchild of a column item is invisible there, even though the mobile
+ * mega-menu (src/components/nav/MegaMenu.tsx, via menu-utils.buildSections)
+ * only ever renders a section heading and its direct leaf items — a
+ * grandchild of a section item is invisible there, even though the mobile
  * drawer would still recurse into it. Solutions & Products already sits at
  * that limit (each product line is itself a headed column), which is why
  * "Success Stories" and "Video on product / service pages" — both listed
