@@ -17,11 +17,13 @@ interface NavItemSource {
 }
 
 /**
- * Mock main navigation, matching docs/navigation-structure.md exactly.
- * Arabic labels are a first-pass professional translation pending KDF's
- * review before launch — see docs/i18n.md. Industry terms (e.g. "Cementing"
- * -> "الإسمنت") follow standard Arabic technical terminology used across
- * technical literature rather than a literal dictionary translation.
+ * Mock main navigation, matching the KDF Website Sitemap review (29 Sep
+ * 2026) exactly — 8 top-level sections, "Home" itself is the logo link
+ * (see Navbar.tsx) rather than a menu entry. Arabic labels are a first-pass
+ * professional translation pending KDF's review before launch — see
+ * docs/i18n.md. Industry terms (e.g. "Cementing" -> "الإسمنت") follow
+ * standard Arabic technical terminology used across technical literature
+ * rather than a literal dictionary translation.
  *
  * Every top-level item's tree stays at most two levels deep (group ->
  * leaf). That is not a style choice, it is a hard constraint: the desktop
@@ -30,8 +32,12 @@ interface NavItemSource {
  * grandchild of a column item is invisible there, even though the mobile
  * drawer would still recurse into it. Solutions & Products already sits at
  * that limit (each product line is itself a headed column), which is why
- * it keeps its original flat item lists rather than gaining a "Resources"
- * sub-group the way About KDF gained "Who We Are".
+ * "Success Stories" and "Video on product / service pages" — both listed
+ * per-category in the sitemap review — collapse into that same category's
+ * flat leaf list rather than gaining their own sub-group.
+ *
+ * "Work With Us" is its own top-level item here, matching the sitemap
+ * review's structure, rather than nested under Media & Engagement.
  *
  * This is temporary content. Once the .NET API is available, replace the
  * body of getMainNavigation() below with a real fetch — nothing else in the
@@ -46,50 +52,21 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "about-who-we-are",
         label: { en: "Who We Are", ar: "من نحن" },
-        children: [
-          {
-            id: "about-company-overview",
-            label: { en: "Company Overview", ar: "نبذة عن الشركة" },
-          },
-          { id: "about-history", label: { en: "History since 1966", ar: "تاريخنا منذ 1966" } },
-          {
-            id: "about-slb-partnership",
-            label: { en: "KDF–SLB Partnership", ar: "شراكة KDF مع SLB" },
-          },
-        ],
+      },
+      {
+        id: "about-company-overview",
+        label: { en: "Company Overview", ar: "نبذة عن الشركة" },
+      },
+      { id: "about-history", label: { en: "History since 1966", ar: "تاريخنا منذ 1966" } },
+      {
+        id: "about-slb-partnership",
+        label: { en: "KDF–SLB Partnership", ar: "شراكة KDF مع SLB" },
       },
       {
         id: "about-vision-mission-values",
         label: { en: "Vision, Mission & Values", ar: "الرؤية والرسالة والقيم" },
       },
       { id: "about-leadership", label: { en: "Our Leadership", ar: "قيادتنا" } },
-      {
-        id: "about-governance",
-        label: { en: "Governance", ar: "الحوكمة" },
-        children: [
-          {
-            id: "about-governance-board",
-            label: { en: "Board of Directors", ar: "مجلس الإدارة" },
-          },
-          {
-            id: "about-governance-chairman",
-            label: { en: "Chairman's Message", ar: "كلمة رئيس مجلس الإدارة" },
-          },
-          {
-            id: "about-governance-code-of-conduct",
-            label: {
-              en: "Code of Conduct / Business Integrity",
-              ar: "مدونة السلوك ونزاهة الأعمال",
-            },
-          },
-        ],
-      },
-      { id: "about-milestones", label: { en: "Milestones", ar: "أبرز المحطات" } },
-      {
-        id: "about-awards",
-        label: { en: "Awards & Certifications", ar: "الجوائز والشهادات" },
-      },
-      { id: "about-facilities", label: { en: "Our Facilities", ar: "منشآتنا" } },
     ],
   },
   {
@@ -114,10 +91,6 @@ const mainNavigationSource: NavItemSource[] = [
             label: { en: "Completion Fluid Solutions", ar: "حلول سوائل الإكمال" },
           },
           { id: "solutions-dcf-products", label: { en: "Products", ar: "المنتجات" } },
-          {
-            id: "solutions-dcf-data-sheets",
-            label: { en: "Product Data Sheets", ar: "نشرات بيانات المنتجات" },
-          },
           {
             id: "solutions-dcf-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
@@ -146,10 +119,6 @@ const mainNavigationSource: NavItemSource[] = [
             label: { en: "Assure Chemistry", ar: "كيمياء Assure" },
           },
           {
-            id: "solutions-pc-data-sheets",
-            label: { en: "Product Data Sheets", ar: "نشرات بيانات المنتجات" },
-          },
-          {
             id: "solutions-pc-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
           },
@@ -170,14 +139,29 @@ const mainNavigationSource: NavItemSource[] = [
           },
           {
             id: "solutions-cem-lab-support",
-            label: { en: "Laboratory and Technical Support", ar: "الدعم المخبري والفني" },
-          },
-          {
-            id: "solutions-cem-data-sheets",
-            label: { en: "Product Data Sheets", ar: "نشرات بيانات المنتجات" },
+            label: { en: "Laboratory & Technical Support", ar: "الدعم المخبري والفني" },
           },
           {
             id: "solutions-cem-success-stories",
+            label: { en: "Success Stories", ar: "قصص النجاح" },
+          },
+        ],
+      },
+      {
+        id: "solutions-logistics",
+        label: { en: "Logistics · Phase 2", ar: "الخدمات اللوجستية · المرحلة 2" },
+        children: [
+          { id: "solutions-log-overview", label: { en: "Overview", ar: "نظرة عامة" } },
+          {
+            id: "solutions-log-fleet-distribution",
+            label: { en: "Fleet & Distribution", ar: "الأسطول والتوزيع" },
+          },
+          {
+            id: "solutions-log-delivery-scheduling",
+            label: { en: "Delivery & Scheduling", ar: "التسليم والجدولة" },
+          },
+          {
+            id: "solutions-log-success-stories",
             label: { en: "Success Stories", ar: "قصص النجاح" },
           },
         ],
@@ -189,46 +173,27 @@ const mainNavigationSource: NavItemSource[] = [
     label: { en: "Infrastructure & Capabilities", ar: "البنية التحتية والإمكانات" },
     children: [
       {
-        id: "infrastructure-operations",
-        label: { en: "Operations", ar: "العمليات" },
-        children: [
-          {
-            id: "infrastructure-manufacturing",
-            label: { en: "Manufacturing Facilities", ar: "منشآت التصنيع" },
-          },
-          {
-            id: "infrastructure-warehousing-logistics",
-            label: { en: "Warehousing & Logistics", ar: "التخزين والخدمات اللوجستية" },
-          },
-        ],
+        id: "infrastructure-qhse",
+        label: {
+          en: "HSE, Quality Assurance & Quality Control (QHSE)",
+          ar: "الصحة والسلامة والبيئة وضمان الجودة ومراقبتها (QHSE)",
+        },
+      },
+      {
+        id: "infrastructure-labs-testing",
+        label: { en: "Laboratories & Testing", ar: "المختبرات والفحوصات" },
+      },
+      {
+        id: "infrastructure-manufacturing",
+        label: { en: "Manufacturing Facilities", ar: "منشآت التصنيع" },
+      },
+      {
+        id: "infrastructure-warehousing",
+        label: { en: "Warehousing", ar: "التخزين" },
       },
       {
         id: "infrastructure-rnd",
         label: { en: "Research & Development", ar: "البحث والتطوير" },
-      },
-      {
-        id: "infrastructure-quality-safety",
-        label: { en: "Quality & Safety", ar: "الجودة والسلامة" },
-        children: [
-          {
-            id: "infrastructure-labs-testing",
-            label: { en: "Laboratories & Testing", ar: "المختبرات والفحوصات" },
-          },
-          {
-            id: "infrastructure-qa-qc",
-            label: {
-              en: "Quality Assurance & Quality Control",
-              ar: "ضمان الجودة ومراقبة الجودة",
-            },
-          },
-          {
-            id: "infrastructure-ohse",
-            label: {
-              en: "Occupational Health, Safety & Environment",
-              ar: "الصحة والسلامة المهنية والبيئة",
-            },
-          },
-        ],
       },
     ],
   },
@@ -260,21 +225,15 @@ const mainNavigationSource: NavItemSource[] = [
         label: { en: "Local Content & Kuwaitisation", ar: "المحتوى المحلي والتكويت" },
       },
       {
-        id: "sustainability-reporting",
-        label: { en: "Reporting", ar: "التقارير" },
-        children: [
-          {
-            id: "sustainability-ceo-message",
-            label: {
-              en: "CEO Sustainability Message",
-              ar: "كلمة الرئيس التنفيذي حول الاستدامة",
-            },
-          },
-          {
-            id: "sustainability-reports",
-            label: { en: "Sustainability Reports", ar: "تقارير الاستدامة" },
-          },
-        ],
+        id: "sustainability-ceo-message",
+        label: {
+          en: "CEO Sustainability Message",
+          ar: "كلمة الرئيس التنفيذي حول الاستدامة",
+        },
+      },
+      {
+        id: "sustainability-reports",
+        label: { en: "Sustainability Reports", ar: "تقارير الاستدامة" },
       },
     ],
   },
@@ -287,20 +246,18 @@ const mainNavigationSource: NavItemSource[] = [
         label: { en: "Latest News", ar: "آخر الأخبار" },
         children: [
           {
-            id: "media-news-corporate-announcements",
-            label: { en: "Corporate announcements", ar: "إعلانات الشركة" },
+            id: "media-news-announcements-updates",
+            label: {
+              en: "Announcements & product updates",
+              ar: "إعلانات ومستجدات المنتجات",
+            },
           },
           {
-            id: "media-news-product-tech-updates",
-            label: { en: "Product and technology updates", ar: "مستجدات المنتجات والتقنيات" },
-          },
-          {
-            id: "media-news-awards-achievements",
-            label: { en: "Awards and achievements", ar: "الجوائز والإنجازات" },
-          },
-          {
-            id: "media-news-events-exhibitions",
-            label: { en: "Events and exhibitions", ar: "الفعاليات والمعارض" },
+            id: "media-news-awards-events",
+            label: {
+              en: "Awards, events & exhibitions",
+              ar: "الجوائز والفعاليات والمعارض",
+            },
           },
         ],
       },
@@ -308,15 +265,16 @@ const mainNavigationSource: NavItemSource[] = [
         id: "media-photo-gallery",
         label: { en: "Photo Gallery", ar: "معرض الصور" },
         children: [
-          { id: "media-gallery-facilities", label: { en: "Facilities", ar: "المنشآت" } },
-          { id: "media-gallery-operations", label: { en: "Operations", ar: "العمليات" } },
           {
-            id: "media-gallery-corporate-events",
-            label: { en: "Corporate events", ar: "فعاليات الشركة" },
+            id: "media-gallery-facilities-operations",
+            label: { en: "Facilities & operations", ar: "المنشآت والعمليات" },
           },
           {
-            id: "media-gallery-awards-exhibitions",
-            label: { en: "Awards and exhibitions", ar: "الجوائز والمعارض" },
+            id: "media-gallery-corporate-events",
+            label: {
+              en: "Corporate events & exhibitions",
+              ar: "فعاليات الشركة والمعارض",
+            },
           },
         ],
       },
@@ -325,34 +283,32 @@ const mainNavigationSource: NavItemSource[] = [
         label: { en: "Partners & Clients", ar: "الشركاء والعملاء" },
         children: [
           {
-            id: "media-partners-technology",
-            label: { en: "Technology partners", ar: "شركاء التقنية" },
+            id: "media-partners-technology-business",
+            label: { en: "Technology & business partners", ar: "شركاء التقنية والأعمال" },
           },
           {
-            id: "media-partners-business",
-            label: { en: "Business partners", ar: "شركاء الأعمال" },
-          },
-          {
-            id: "media-partners-key-clients",
-            label: { en: "Key clients", ar: "العملاء الرئيسيون" },
-          },
-          {
-            id: "media-partners-industries-served",
-            label: { en: "Industries served", ar: "القطاعات التي نخدمها" },
+            id: "media-partners-key-clients-industries",
+            label: {
+              en: "Key clients & industries served",
+              ar: "العملاء الرئيسيون والقطاعات التي نخدمها",
+            },
           },
         ],
       },
+    ],
+  },
+  {
+    id: "work-with-us",
+    label: { en: "Work With Us", ar: "اعمل معنا" },
+    children: [
       {
-        id: "work-with-us",
-        label: { en: "Work With Us", ar: "اعمل معنا" },
+        id: "work-supplier-registration",
+        label: { en: "Supplier Registration", ar: "تسجيل الموردين" },
+      },
+      {
+        id: "work-careers",
+        label: { en: "Careers", ar: "الوظائف" },
         children: [
-          {
-            id: "work-tendering-supplier-registration",
-            label: {
-              en: "Tendering / Supplier Registration",
-              ar: "المناقصات وتسجيل الموردين",
-            },
-          },
           {
             id: "work-careers-working-at-kdf",
             label: { en: "Working at KDF", ar: "العمل في KDF" },
@@ -360,6 +316,14 @@ const mainNavigationSource: NavItemSource[] = [
           {
             id: "work-careers-current-vacancies",
             label: { en: "Current Vacancies", ar: "الوظائف الشاغرة" },
+          },
+          {
+            id: "work-careers-paths-progression",
+            label: { en: "Career paths & progression", ar: "المسارات الوظيفية والتطور" },
+          },
+          {
+            id: "work-careers-employee-testimonials",
+            label: { en: "Employee testimonials", ar: "آراء الموظفين" },
           },
           {
             id: "work-careers-submit-cv",
@@ -387,32 +351,6 @@ const mainNavigationSource: NavItemSource[] = [
           en: "Locations & Contact Information",
           ar: "المواقع ومعلومات الاتصال",
         },
-        children: [
-          {
-            id: "contact-locations-head-office",
-            label: { en: "Head office", ar: "المكتب الرئيسي" },
-          },
-          {
-            id: "contact-locations-manufacturing",
-            label: { en: "Manufacturing facilities", ar: "منشآت التصنيع" },
-          },
-          {
-            id: "contact-locations-warehousing",
-            label: { en: "Warehousing locations", ar: "مواقع التخزين" },
-          },
-          {
-            id: "contact-locations-regional-offices",
-            label: { en: "Regional offices", ar: "المكاتب الإقليمية" },
-          },
-          {
-            id: "contact-locations-phone-email",
-            label: { en: "Telephone and email", ar: "الهاتف والبريد الإلكتروني" },
-          },
-          {
-            id: "contact-locations-map",
-            label: { en: "Location map", ar: "خريطة الموقع" },
-          },
-        ],
       },
     ],
   },
