@@ -16,6 +16,9 @@ interface NavItemSource {
   /** Heading for this item's own direct (childless) links where they are
    *  shown as a group of their own. See NavItem.directLabel in types.ts. */
   directLabel?: Record<Locale, string>;
+  /** One-line description shown under the heading in the mega-menu pane.
+   *  See NavItem.description in types.ts. */
+  description?: Record<Locale, string>;
   children?: NavItemSource[];
 }
 
@@ -52,6 +55,7 @@ const mainNavigationSource: NavItemSource[] = [
     id: "about",
     label: { en: "About KDF", ar: "عن الشركة" },
     directLabel: { en: "The Company", ar: "هوية الشركة" },
+    description: { en: "Six decades of drilling fluids built in Kuwait.", ar: "ستة عقود من سوائل الحفر صُنعت في الكويت." },
     children: [
       {
         id: "about-who-we-are",
@@ -80,6 +84,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "solutions-drilling-completion-fluids",
         label: { en: "Drilling & Completion Fluids", ar: "سوائل الحفر والإكمال" },
+        description: { en: "Water- and oil-based systems.", ar: "أنظمة مائية وزيتية الأساس." },
         children: [
           { id: "solutions-dcf-overview", label: { en: "Overview", ar: "نظرة عامة" } },
           {
@@ -108,6 +113,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "solutions-production-chemistry",
         label: { en: "Production Chemistry", ar: "كيمياء الإنتاج" },
+        description: { en: "Treat, Protect and Assure.", ar: "المعالجة والحماية والضمان." },
         children: [
           { id: "solutions-pc-overview", label: { en: "Overview", ar: "نظرة عامة" } },
           {
@@ -139,6 +145,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "solutions-cementing",
         label: { en: "Cementing Solutions", ar: "حلول الإسمنت" },
+        description: { en: "Slurry design and placement.", ar: "تصميم الملاط وضخه." },
         children: [
           { id: "solutions-cem-overview", label: { en: "Overview", ar: "نظرة عامة" } },
           {
@@ -166,6 +173,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "solutions-logistics",
         label: { en: "Logistics · Phase 2", ar: "الخدمات اللوجستية · المرحلة 2" },
+        description: { en: "Fleet, delivery and scheduling.", ar: "الأسطول والتسليم والجدولة." },
         children: [
           { id: "solutions-log-overview", label: { en: "Overview", ar: "نظرة عامة" } },
           {
@@ -192,6 +200,7 @@ const mainNavigationSource: NavItemSource[] = [
     id: "infrastructure",
     label: { en: "Infrastructure & Capabilities", ar: "البنية التحتية والإمكانات" },
     directLabel: { en: "Facilities & Standards", ar: "المنشآت والمعايير" },
+    description: { en: "Labs, plants and the QHSE system behind them.", ar: "المختبرات والمصانع ونظام QHSE الذي يدعمها." },
     children: [
       {
         id: "infrastructure-qhse",
@@ -222,6 +231,7 @@ const mainNavigationSource: NavItemSource[] = [
     id: "sustainability",
     label: { en: "Sustainability", ar: "الاستدامة" },
     directLabel: { en: "Strategy & Reporting", ar: "الاستراتيجية والتقارير المؤسسية" },
+    description: { en: "Strategy, local content and published reports.", ar: "الاستراتيجية والمحتوى المحلي والتقارير المنشورة." },
     children: [
       {
         id: "sustainability-strategy",
@@ -230,6 +240,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "sustainability-esg",
         label: { en: "ESG Approach", ar: "نهج الحوكمة البيئية والاجتماعية (ESG)" },
+        description: { en: "Environmental, social and governance.", ar: "البيئة والمجتمع والحوكمة." },
         children: [
           {
             id: "sustainability-esg-environmental",
@@ -266,6 +277,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "media-latest-news",
         label: { en: "Latest News", ar: "آخر الأخبار" },
+        description: { en: "Announcements and awards.", ar: "الإعلانات والجوائز." },
         children: [
           {
             id: "media-news-announcements-updates",
@@ -286,6 +298,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "media-photo-gallery",
         label: { en: "Photo Gallery", ar: "معرض الصور" },
+        description: { en: "Facilities and events.", ar: "المنشآت والفعاليات." },
         children: [
           {
             id: "media-gallery-facilities-operations",
@@ -303,6 +316,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "media-partners-clients",
         label: { en: "Partners & Clients", ar: "الشركاء والعملاء" },
+        description: { en: "Who we work with.", ar: "من نعمل معهم." },
         children: [
           {
             id: "media-partners-technology-business",
@@ -323,6 +337,7 @@ const mainNavigationSource: NavItemSource[] = [
     id: "work-with-us",
     label: { en: "Work With Us", ar: "اعمل معنا" },
     directLabel: { en: "Suppliers", ar: "شؤون الموردين" },
+    description: { en: "Register to supply KDF.", ar: "سجّل للتوريد إلى KDF." },
     children: [
       {
         id: "work-supplier-registration",
@@ -331,6 +346,7 @@ const mainNavigationSource: NavItemSource[] = [
       {
         id: "work-careers",
         label: { en: "Careers", ar: "الوظائف" },
+        description: { en: "Join the team at KDF.", ar: "انضم إلى فريق KDF." },
         children: [
           {
             id: "work-careers-working-at-kdf",
@@ -360,6 +376,7 @@ const mainNavigationSource: NavItemSource[] = [
     id: "contact",
     label: { en: "Contact Us", ar: "اتصل بنا" },
     directLabel: { en: "Get in Touch", ar: "قنوات التواصل" },
+    description: { en: "Reach the right desk first time.", ar: "صل إلى القسم المناسب من أول مرة." },
     children: [
       {
         id: "contact-general-enquiry",
@@ -386,6 +403,7 @@ function localize(items: NavItemSource[], locale: Locale): NavItem[] {
     label: item.label[locale],
     href: item.href,
     directLabel: item.directLabel?.[locale],
+    description: item.description?.[locale],
     children: item.children ? localize(item.children, locale) : undefined,
   }));
 }

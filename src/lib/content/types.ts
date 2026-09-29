@@ -56,6 +56,17 @@ export interface NavItem {
    * sensible heading rather than a blank one.
    */
   directLabel?: string;
+  /**
+   * One short line describing this item, shown under the heading in the
+   * desktop mega-menu's right pane. Present on a top-level item (where it
+   * describes its pooled direct links) and on a group item (where it
+   * describes that group).
+   *
+   * Optional: the pane simply omits the line where there is none, so an
+   * editor adding a section without one gets a heading and its links with
+   * no gap left behind.
+   */
+  description?: string;
   children?: NavItem[];
 }
 

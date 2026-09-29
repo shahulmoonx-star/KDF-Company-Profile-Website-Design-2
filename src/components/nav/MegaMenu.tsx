@@ -49,7 +49,9 @@ interface PanelLayer {
  *
  * A wholly flat menu has exactly one rail entry, so buildSections puts the
  * pooled flat entry first and it is selected on open — those menus show
- * their links immediately rather than asking for a pointless first choice.
+ * their links immediately rather than asking for a first choice. The rail
+ * still renders in that case, holding that single entry, so the panel's
+ * shape is identical across all seven menus.
  */
 function MenuPanel({
   item,
@@ -64,17 +66,16 @@ function MenuPanel({
   const [activeId, setActiveId] = useState(sections[0]?.id ?? null);
   const active = sections.find((section) => section.id === activeId) ?? sections[0];
 
-  // A menu with no sub-groups at all still needs its rail suppressed
-  // rather than rendered as one lonely entry pointing at itself.
-  const showRail = sections.length > 1;
-
   if (!active) return null;
 
+  // The rail shows on every menu, including a flat one where it holds a
+  // single entry. That is the approved design: the panel keeps one shape
+  // across all seven items, so nothing about it shifts as the pointer
+  // moves along the navbar.
   return (
-    <div className={`grid ${showRail ? "grid-cols-[minmax(0,260px)_minmax(0,1fr)]" : "grid-cols-1"}`}>
-      {showRail && (
-        <div
-          className="flex flex-col gap-0.5 border-e border-brand-200/70 bg-brand-50/60 p-3.5"
+    <div className="grid grid-cols-[minmax(0,268px)_minmax(0,1fr)]">
+      <div
+        className="flex flex-col gap-0.5 border-e border-brand-200/70 bg-brand-100/70 px-3 py-3.5"
           role="tablist"
           aria-orientation="vertical"
           aria-label={item.label}
@@ -127,25 +128,24 @@ function MenuPanel({
               </button>
             );
           })}
-        </div>
-      )}
+      </div>
 
-      <div className="min-w-0 px-8 pb-8 pt-7">
-        <p className="mb-1 flex items-center gap-2.5 text-base font-bold text-brand-800">
-          <span className="size-2 shrink-0 rounded-full bg-signal-500" aria-hidden="true" />
+      <div className="min-w-0 px-7 pb-7 pt-6">
+        <p className="text-base font-bold tracking-[-0.01em] text-brand-800">
           {active.heading ?? strings.quickLinksHeading}
         </p>
-        {/* Keyed on the active section so the stagger replays each time the
-            pane's contents change, rather than swapping in place. */}
-        {/* Two fixed tracks rather than auto-fill: the panel's width is
-            constant, so a section with few links should fill two columns
-            and stop, not spread one link per track across the pane.
-            Sections of 1-2 links collapse to a single track. */}
+        {active.description && (
+          <p className="mt-1 text-[12.5px] text-brand-400">{active.description}</p>
+        )}
+        {/* Three fixed tracks, the count the approved design renders at
+            this panel width. Fixed rather than auto-fill so a short
+            section leaves its spare tracks empty instead of stretching
+            its links across the pane. Keyed on the active section so the
+            stagger replays each time the pane's contents change rather
+            than swapping in place. */}
         <ul
           key={active.id}
-          className={`mt-4 grid list-none gap-x-6 ${
-            active.items.length > 2 ? "grid-cols-2" : "grid-cols-1"
-          }`}
+          className="mt-4 grid list-none grid-cols-3 gap-x-3"
         >
           {active.items.map((leaf, index) => (
             <li key={leaf.id}>
@@ -168,6 +168,15 @@ function MenuPanel({
                 />
                 <span className="ps-0 transition-[padding] duration-150 ease-out group-hover:ps-2.5 group-focus-visible:ps-2.5">
                   {leaf.label}
+                </span>
+                {/* Appears on hover at the row's trailing edge, as in the
+                    approved design. Mirrored in RTL so it always points
+                    the way the text runs. */}
+                <span
+                  className="ms-auto shrink-0 ps-2 text-[13px] text-signal-500 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 rtl:rotate-180"
+                  aria-hidden="true"
+                >
+                  →
                 </span>
               </button>
             </li>
@@ -328,7 +337,7 @@ export default function MegaMenu({ items, locale }: { items: NavItem[]; locale: 
               // sits at exactly that same 1.5rem header padding — so this
               // shares an edge with it at any viewport width. `top` is the
               // header's own height (h-24 = 6rem).
-              className={`fixed start-6 top-24 z-30 w-[min(980px,calc(100vw-3rem))] overflow-hidden rounded-[20px] bg-cream-50 shadow-[0_28px_56px_-20px_rgba(17,24,29,0.30)] ${
+              className={`fixed start-6 top-24 z-30 w-[min(1184px,calc(100vw-3rem))] overflow-hidden rounded-[20px] bg-cream-50 shadow-[0_28px_56px_-20px_rgba(17,24,29,0.30)] ${
                 isOutgoing ? "animate-[kdf-panel-exit_150ms_ease-in_both]" : "animate-[kdf-panel-enter_180ms_ease-out_both]"
               }`}
             >

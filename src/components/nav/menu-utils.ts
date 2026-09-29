@@ -23,6 +23,9 @@ export interface MenuSection {
    *  top-level item that needs one sets it, so this is a fallback for
    *  CMS-authored sections rather than the normal path. */
   heading: string | null;
+  /** One line under the heading in the pane. Null where the source item
+   *  sets none — the pane then omits the line entirely. */
+  description: string | null;
   items: NavItem[];
 }
 
@@ -34,6 +37,7 @@ export function buildSections(item: NavItem): MenuSection[] {
   const sections: MenuSection[] = groups.map((group) => ({
     id: group.id,
     heading: group.label,
+    description: group.description ?? null,
     items: group.children ?? [],
   }));
 
@@ -44,6 +48,7 @@ export function buildSections(item: NavItem): MenuSection[] {
     sections.unshift({
       id: `${item.id}-flat`,
       heading: item.directLabel ?? null,
+      description: item.description ?? null,
       items: flat,
     });
   }
