@@ -107,31 +107,6 @@ export default function Hero({ content }: { content: HomePage["hero"] }) {
               {activeSlide.title}
             </Reveal>
           </div>
-
-          <Reveal
-            delay={700}
-            className="mt-10 flex items-end border-t border-white/20 pt-6 pe-24 sm:pe-0"
-          >
-            <div className="flex flex-col gap-2.5">
-              <span className="font-mono text-[11px] uppercase tracking-[0.26em] text-white/85">
-                {activeSlide.caption}
-              </span>
-              <div className="flex items-center gap-2">
-                {slides.map((slide, i) => (
-                  <button
-                    key={slide.src}
-                    type="button"
-                    aria-current={i === index}
-                    aria-label={slide.caption}
-                    onClick={() => goTo(i)}
-                    className={`h-[3px] rounded-full transition-all duration-300 ${
-                      i === index ? "w-10 bg-signal-500" : "w-6 bg-white/30 hover:bg-white/50"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </Reveal>
         </div>
       </div>
 
