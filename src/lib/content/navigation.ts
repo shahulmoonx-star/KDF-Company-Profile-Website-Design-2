@@ -54,31 +54,48 @@ const mainNavigationSource: NavItemSource[] = [
   {
     id: "about",
     label: { en: "About KDF", ar: "عن الشركة" },
-    directLabel: { en: "The Company", ar: "هوية الشركة" },
-    description: { en: "Six decades of drilling fluids built in Kuwait.", ar: "ستة عقود من سوائل الحفر صُنعت في الكويت." },
     children: [
       {
-        id: "about-who-we-are",
-        label: { en: "Who We Are", ar: "من نحن" },
+        id: "about-the-company",
+        label: { en: "The Company", ar: "هوية الشركة" },
+        description: {
+          en: "Six decades of drilling fluids built in Kuwait.",
+          ar: "ستة عقود من سوائل الحفر صُنعت في الكويت.",
+        },
+        children: [
+          // "Company Overview" was merged into this page rather than sitting
+          // beside it: the two covered the same ground.
+          { id: "about-who-we-are", label: { en: "Who We Are", ar: "من نحن" } },
+          { id: "about-history", label: { en: "History since 1966", ar: "تاريخنا منذ 1966" } },
+          {
+            id: "about-vision-mission-values",
+            label: { en: "Vision, Mission & Values", ar: "الرؤية والرسالة والقيم" },
+          },
+          {
+            id: "about-slb-partnership",
+            label: { en: "KDF–SLB Partnership", ar: "شراكة KDF مع SLB" },
+          },
+        ],
       },
       {
-        id: "about-company-overview",
-        label: { en: "Company Overview", ar: "نبذة عن الشركة" },
+        id: "about-leadership-group",
+        label: { en: "Leadership", ar: "القيادة" },
+        description: {
+          en: "The people directing KDF.",
+          ar: "من يقودون KDF.",
+        },
+        children: [
+          {
+            id: "about-chairman-message",
+            label: { en: "Chairman's Message", ar: "كلمة رئيس مجلس الإدارة" },
+          },
+          {
+            id: "about-ceo-message",
+            label: { en: "CEO's Message", ar: "كلمة الرئيس التنفيذي" },
+          },
+          { id: "about-leadership", label: { en: "Our Leadership", ar: "قيادتنا" } },
+        ],
       },
-      { id: "about-history", label: { en: "History since 1966", ar: "تاريخنا منذ 1966" } },
-      {
-        id: "about-slb-partnership",
-        label: { en: "KDF–SLB Partnership", ar: "شراكة KDF مع SLB" },
-      },
-      {
-        id: "about-vision-mission-values",
-        label: { en: "Vision, Mission & Values", ar: "الرؤية والرسالة والقيم" },
-      },
-      {
-        id: "about-chairman-message",
-        label: { en: "Chairman's Message", ar: "كلمة رئيس مجلس الإدارة" },
-      },
-      { id: "about-leadership", label: { en: "Our Leadership", ar: "قيادتنا" } },
     ],
   },
   {
