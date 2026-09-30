@@ -193,7 +193,7 @@ const mainNavigationSource: NavItemSource[] = [
       },
       {
         id: "solutions-logistics",
-        label: { en: "Logistics · Phase 2", ar: "الخدمات اللوجستية · المرحلة 2" },
+        label: { en: "Logistics", ar: "الخدمات اللوجستية" },
         description: { en: "Fleet, delivery and scheduling.", ar: "الأسطول والتسليم والجدولة." },
         children: [
           { id: "solutions-log-overview", label: { en: "Overview", ar: "نظرة عامة" } },
@@ -252,8 +252,15 @@ const mainNavigationSource: NavItemSource[] = [
     id: "sustainability",
     label: { en: "Sustainability", ar: "الاستدامة" },
     directLabel: { en: "Strategy & Reporting", ar: "الاستراتيجية والتقارير المؤسسية" },
-    description: { en: "Strategy, local content and published reports.", ar: "الاستراتيجية والمحتوى المحلي والتقارير المنشورة." },
+    description: { en: "Strategy, leadership message and published reports.", ar: "الاستراتيجية وكلمة القيادة والتقارير المنشورة." },
     children: [
+      {
+        id: "sustainability-ceo-message",
+        label: {
+          en: "CEO Sustainability Message",
+          ar: "كلمة الرئيس التنفيذي حول الاستدامة",
+        },
+      },
       {
         id: "sustainability-strategy",
         label: { en: "Sustainability Strategy", ar: "استراتيجية الاستدامة" },
@@ -272,18 +279,14 @@ const mainNavigationSource: NavItemSource[] = [
             id: "sustainability-esg-governance",
             label: { en: "Governance", ar: "الحوكمة" },
           },
+          {
+            id: "sustainability-local-content",
+            label: {
+              en: "Local Content & Kuwaitisation (includes Localization and ICV)",
+              ar: "المحتوى المحلي والتكويت (يشمل التوطين والقيمة المضافة المحلية ICV)",
+            },
+          },
         ],
-      },
-      {
-        id: "sustainability-local-content",
-        label: { en: "Local Content & Kuwaitisation", ar: "المحتوى المحلي والتكويت" },
-      },
-      {
-        id: "sustainability-ceo-message",
-        label: {
-          en: "CEO Sustainability Message",
-          ar: "كلمة الرئيس التنفيذي حول الاستدامة",
-        },
       },
       {
         id: "sustainability-reports",
