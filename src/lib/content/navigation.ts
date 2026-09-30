@@ -74,6 +74,10 @@ const mainNavigationSource: NavItemSource[] = [
         id: "about-vision-mission-values",
         label: { en: "Vision, Mission & Values", ar: "الرؤية والرسالة والقيم" },
       },
+      {
+        id: "about-chairman-message",
+        label: { en: "Chairman's Message", ar: "كلمة رئيس مجلس الإدارة" },
+      },
       { id: "about-leadership", label: { en: "Our Leadership", ar: "قيادتنا" } },
     ],
   },
