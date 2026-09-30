@@ -200,20 +200,15 @@ const homePageByLocale: Record<Locale, HomePage> = {
       eyebrow: "How KDF operates",
       title: "Infrastructure & Capabilities",
       pillars: [
+        // Order and titles mirror the Infrastructure & Capabilities menu
+        // exactly, so the homepage section and the navbar name the same
+        // five disciplines in the same sequence. QHSE is one card here
+        // because it is one item there; it previously ran as two, split
+        // into quality assurance and occupational health/safety.
         {
-          id: "manufacturing", group: "Operations", image: "/images/operations-manufacturing-facilities.webp", imageAlt: "Workers in hard hats monitoring roller grinding mills on the plant floor",
-          title: "Manufacturing Facilities",
-          body: "Grinding, blending and formulating, all under one roof.",
-        },
-        {
-          id: "warehousing", group: "Operations", image: "/images/operations-warehousing-logistics.webp", imageAlt: "Warehouse worker checking stacked pallets of raw materials beside a forklift",
-          title: "Warehousing & Logistics",
-          body: "From the plant to the wellsite, never out of KDF's hands.",
-        },
-        {
-          id: "rnd", group: "Operations", image: "/images/operations-research-development.webp", imageAlt: "Chemist testing fluid samples at a laboratory bench",
-          title: "Research & Development",
-          body: "Chemistry built around Kuwait's own reservoirs.",
+          id: "qhse", group: "Standards", image: "/images/operations-quality-assurance-control.webp", imageAlt: "Quality control inspector examining a product sample against a checklist",
+          title: "HSE, Quality Assurance & Quality Control (QHSE)",
+          body: "Safety and quality checked at every stage, intake through dispatch.",
         },
         {
           id: "labs", group: "Standards", image: "/images/operations-laboratories-testing.webp", imageAlt: "Rheology equipment measuring fluid viscosity in the laboratory",
@@ -221,14 +216,19 @@ const homePageByLocale: Record<Locale, HomePage> = {
           body: "Every formulation tested before it leaves the facility.",
         },
         {
-          id: "qa-qc", group: "Standards", image: "/images/operations-quality-assurance-control.webp", imageAlt: "Quality control inspector examining a product sample against a checklist",
-          title: "Quality Assurance & Quality Control",
-          body: "Checked at every stage, intake through dispatch.",
+          id: "manufacturing", group: "Operations", image: "/images/operations-manufacturing-facilities.webp", imageAlt: "Workers in hard hats monitoring roller grinding mills on the plant floor",
+          title: "Manufacturing Facilities",
+          body: "Grinding, blending and formulating, all under one roof.",
         },
         {
-          id: "ohse", group: "Standards", image: "/images/operations-ohse.webp", imageAlt: "Safety officer walking through the plant during a site safety inspection",
-          title: "Occupational Health, Safety & Environment",
-          body: "Safety built into how every discipline runs.",
+          id: "warehousing", group: "Operations", image: "/images/operations-warehousing-logistics.webp", imageAlt: "Warehouse worker checking stacked pallets of raw materials beside a forklift",
+          title: "Warehousing",
+          body: "From the plant to the wellsite, never out of KDF's hands.",
+        },
+        {
+          id: "rnd", group: "Operations", image: "/images/operations-research-development.webp", imageAlt: "Chemist testing fluid samples at a laboratory bench",
+          title: "Research & Development",
+          body: "Chemistry built around Kuwait's own reservoirs.",
         },
       ],
     },
@@ -468,19 +468,9 @@ const homePageByLocale: Record<Locale, HomePage> = {
       title: "البنية التحتية والإمكانات",
       pillars: [
         {
-          id: "manufacturing", group: "العمليات", image: "/images/operations-manufacturing-facilities.webp", imageAlt: "عمال بخوذات صناعية يراقبون مطاحن الطحن الأسطوانية في أرض المصنع",
-          title: "منشآت التصنيع",
-          body: "طحن وخلط وتركيب، كل ذلك تحت سقف واحد.",
-        },
-        {
-          id: "warehousing", group: "العمليات", image: "/images/operations-warehousing-logistics.webp", imageAlt: "عامل مستودع يتفقّد منصات المواد الخام المكدّسة بجانب رافعة شوكية",
-          title: "التخزين والخدمات اللوجستية",
-          body: "من المصنع إلى موقع البئر، دون أن يغادر يد KDF.",
-        },
-        {
-          id: "rnd", group: "العمليات", image: "/images/operations-research-development.webp", imageAlt: "كيميائي يختبر عينات السوائل على منضدة المختبر",
-          title: "البحث والتطوير",
-          body: "كيمياء مصمَّمة خصيصًا لمكامن الكويت.",
+          id: "qhse", group: "المعايير", image: "/images/operations-quality-assurance-control.webp", imageAlt: "مفتش ضمان الجودة يفحص عيّنة منتج مقابل قائمة تدقيق",
+          title: "الصحة والسلامة والبيئة وضمان الجودة ومراقبتها (QHSE)",
+          body: "السلامة والجودة تحت المراقبة في كل مرحلة، من الاستلام حتى الشحن.",
         },
         {
           id: "labs", group: "المعايير", image: "/images/operations-laboratories-testing.webp", imageAlt: "جهاز قياس الريولوجيا يقيس لزوجة السائل في المختبر",
@@ -488,14 +478,19 @@ const homePageByLocale: Record<Locale, HomePage> = {
           body: "كل تركيبة تُختبر قبل مغادرة المنشأة.",
         },
         {
-          id: "qa-qc", group: "المعايير", image: "/images/operations-quality-assurance-control.webp", imageAlt: "مفتش ضمان الجودة يفحص عيّنة منتج مقابل قائمة تدقيق",
-          title: "ضمان الجودة ومراقبة الجودة",
-          body: "مراقبة في كل مرحلة، من الاستلام حتى الشحن.",
+          id: "manufacturing", group: "العمليات", image: "/images/operations-manufacturing-facilities.webp", imageAlt: "عمال بخوذات صناعية يراقبون مطاحن الطحن الأسطوانية في أرض المصنع",
+          title: "منشآت التصنيع",
+          body: "طحن وخلط وتركيب، كل ذلك تحت سقف واحد.",
         },
         {
-          id: "ohse", group: "المعايير", image: "/images/operations-ohse.webp", imageAlt: "ضابط سلامة يتفقّد المصنع أثناء جولة تفتيش سلامة",
-          title: "الصحة والسلامة المهنية والبيئة",
-          body: "السلامة مبنية في صميم كل تخصص.",
+          id: "warehousing", group: "العمليات", image: "/images/operations-warehousing-logistics.webp", imageAlt: "عامل مستودع يتفقّد منصات المواد الخام المكدّسة بجانب رافعة شوكية",
+          title: "التخزين",
+          body: "من المصنع إلى موقع البئر، دون أن يغادر يد KDF.",
+        },
+        {
+          id: "rnd", group: "العمليات", image: "/images/operations-research-development.webp", imageAlt: "كيميائي يختبر عينات السوائل على منضدة المختبر",
+          title: "البحث والتطوير",
+          body: "كيمياء مصمَمة خصيصًا لمكامن الكويت.",
         },
       ],
     },
